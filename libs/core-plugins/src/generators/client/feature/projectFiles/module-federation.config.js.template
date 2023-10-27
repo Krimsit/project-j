@@ -1,0 +1,14 @@
+// @ts-check
+
+const baseConfig = require('../../../configs/client/module-federation.config');
+
+/**
+ * @type {import("@nx/devkit").ModuleFederationConfig}
+ **/
+module.exports = {
+  ...baseConfig,
+  name: '<%= project %>-<%= name %>',
+  exposes: {
+    './Module': './src/remote-entry.ts',
+  },
+}

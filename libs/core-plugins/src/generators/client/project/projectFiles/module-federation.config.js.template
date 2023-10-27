@@ -1,0 +1,12 @@
+// @ts-check
+
+const baseConfig = require('../../../configs/client/module-federation.config');
+
+/**
+ * @type {import("@nx/devkit").ModuleFederationConfig}
+ **/
+module.exports = {
+  ...baseConfig,
+  name: '<%= name %>-shell',
+  remotes: [],
+}

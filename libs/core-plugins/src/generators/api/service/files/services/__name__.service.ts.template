@@ -1,0 +1,6 @@
+import { Injectable } from '@nestjs/common';
+
+@Injectable()
+export class <%= classesName %>Service {
+  public getData = (): { message: string } => ({ message: 'Hello Test API' })
+}

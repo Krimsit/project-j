@@ -1,0 +1,16 @@
+import { useRoutes } from 'react-router-dom'
+import { withProviders } from '@<%= project %>/configs'
+import { Page } from '@<%= project %>/feature/<%= name %>'
+
+export const App = () => {
+  const routes = useRoutes([
+    {
+      path: '',
+      element: <Page />
+    }
+  ])
+
+  return routes
+}
+
+export default withProviders(App)
