@@ -1,0 +1,115 @@
+{
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es6": true,
+    "node": true
+  },
+  "root": true,
+  "ignorePatterns": [
+    "**/*"
+  ],
+  "plugins": [
+    "@nx",
+    "react",
+    "react-hooks",
+    "@typescript-eslint",
+    "unused-imports",
+    "import",
+    "unicorn"
+  ],
+  "extends": [
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:storybook/recommended",
+    "prettier"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": "latest",
+    "project": "tsconfig.eslint.json",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "rules": {
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-uses-vars": "error",
+    "react/prop-types": 0,
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "react/jsx-fragments": [
+      "error",
+      "element"
+    ],
+    "storybook/no-uninstalled-addons": [
+      "error",
+      {
+        "ignore": [
+          "@nx/react/plugins/storybook"
+        ]
+      }
+    ],
+    "react/self-closing-comp": [
+      "error",
+      {
+        "component": true,
+        "html": true
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": [
+        "*.ts",
+        "*.tsx",
+        "*.js",
+        "*.jsx"
+      ],
+      "extends": [
+        "./lint/.eslintrc-core.json"
+      ],
+      "rules": {
+        "@nx/enforce-module-boundaries": [
+          "error",
+          {
+            "enforceBuildableLibDependency": true,
+            "allow": [],
+            "depConstraints": [
+              {
+                "sourceTag": "*",
+                "onlyDependOnLibsWithTags": [
+                  "*"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": [
+        "*.spec.ts",
+        "*.spec.tsx",
+        "*.spec.js",
+        "*.spec.jsx"
+      ],
+      "env": {
+        "jest": true
+      },
+      "rules": {}
+    },
+    {
+      "files": "*.json",
+      "parser": "jsonc-eslint-parser",
+      "rules": {}
+    }
+  ]
+}
