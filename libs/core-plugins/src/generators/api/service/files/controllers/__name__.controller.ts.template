@@ -1,0 +1,13 @@
+import { Controller, Get } from '@nestjs/common';
+
+import { <%= classesName %>Service } from '../services';
+
+@Controller()
+export class <%= classesName %>Controller {
+  constructor(private readonly <%= name %>Service: <%= classesName %>Service) {}
+
+  @Get()
+  getData() {
+    return this.<%= name %>Service.getData();
+  }
+}

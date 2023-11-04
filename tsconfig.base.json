@@ -36,7 +36,11 @@
     "strictNullChecks": true,
     "strictFunctionTypes": true,
     "strictPropertyInitialization": true,
-    "paths": {}
+    "paths": {
+      "@project-j/core-plugins": [
+        "libs/core-plugins/src/index.ts"
+      ]
+    }
   },
   "exclude": [
     "node_modules",

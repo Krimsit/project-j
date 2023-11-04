@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "ClientFeature",
+  "cli": "nx",
+  "title": "Generate client feature",
+  "description": "Create client feature files",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the client feature to generate",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "What name would you like to use as the feature?",
+      "pattern": "^[a-zA-Z].*$",
+      "x-priority": "important"
+    },
+    "project": {
+      "type": "string",
+      "description": "The name of the root project",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "What root project would you like to use as the feature?",
+      "pattern": "^[a-zA-Z].*$",
+      "x-priority": "important"
+    }
+  },
+  "required": ["name"]
+}

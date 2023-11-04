@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "ApiProject",
+  "cli": "nx",
+  "title": "Generate api module",
+  "description": "Create api module files",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the api project to generate",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "What name would you like to use as the api project?",
+      "pattern": "^[a-zA-Z].*$",
+      "x-priority": "important"
+    }
+  },
+  "required": ["name"]
+}

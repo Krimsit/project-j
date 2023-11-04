@@ -1,0 +1,12 @@
+const { composePlugins, withNx } = require('@nx/webpack')
+const { withReact } = require('@nx/react')
+const { withGlobal } = require('../../../configs/client/webpack.config');
+const { withModuleFederation } = require('@nx/react/module-federation')
+const moduleFederationConfig = require('./module-federation.config')
+
+module.exports = composePlugins(
+  withNx(),
+  withReact(),
+  withGlobal(),
+  withModuleFederation(moduleFederationConfig)
+)

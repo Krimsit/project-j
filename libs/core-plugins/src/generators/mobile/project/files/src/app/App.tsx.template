@@ -1,0 +1,11 @@
+import { View, Text } from 'react-native'
+
+import type { FC } from 'react'
+
+export const App: FC = () => (
+  <View>
+    <Text>Hello world!</Text>
+  </View>
+)
+
+export default App

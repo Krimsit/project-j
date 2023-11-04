@@ -1,0 +1,34 @@
+{
+  "generators": {
+    "@api/project": {
+      "factory": "./src/generators/api/project/generator",
+      "schema": "./src/generators/api/project/schema.json",
+      "description": "api/project generator"
+    },
+    "@api/service": {
+      "factory": "./src/generators/api/service/generator",
+      "schema": "./src/generators/api/service/schema.json",
+      "description": "api/service generator"
+    },
+    "@client/project": {
+      "factory": "./src/generators/client/project/generator",
+      "schema": "./src/generators/client/project/schema.json",
+      "description": "client/project generator"
+    },
+    "@client/feature": {
+      "factory": "./src/generators/client/feature/generator",
+      "schema": "./src/generators/client/feature/schema.json",
+      "description": "client/feature generator"
+    },
+    "@mobile/project": {
+      "factory": "./src/generators/mobile/project/generator",
+      "schema": "./src/generators/mobile/project/schema.json",
+      "description": "mobile/project generator"
+    },
+    "@mobile/feature": {
+      "factory": "./src/generators/mobile/feature/generator",
+      "schema": "./src/generators/mobile/feature/schema.json",
+      "description": "mobile/feature generator"
+    }
+  }
+}

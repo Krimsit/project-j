@@ -1,0 +1,11 @@
+import { useRoutes } from 'react-router-dom';
+import { withProviders } from '@client/configs';
+
+export const App = () => {
+  const routes = useRoutes([])
+
+  return routes
+};
+
+export default withProviders(App);
+

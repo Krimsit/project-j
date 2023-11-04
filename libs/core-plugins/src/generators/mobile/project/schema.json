@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "MobileProject",
+  "cli": "nx",
+  "title": "Generate mobile project",
+  "description": "Create mobile project files",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the mobile project to generate",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "What name would you like to use as the mobile project?",
+      "pattern": "^[a-zA-Z].*$",
+      "x-priority": "important"
+    }
+  },
+  "required": ["name"]
+}
