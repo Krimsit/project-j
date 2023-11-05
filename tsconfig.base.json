@@ -37,6 +37,9 @@
     "strictFunctionTypes": true,
     "strictPropertyInitialization": true,
     "paths": {
+      "@api/user": [
+        "libs/api/services/user/src/index.ts"
+      ],
       "@project-j/core-plugins": [
         "libs/core-plugins/src/index.ts"
       ]
