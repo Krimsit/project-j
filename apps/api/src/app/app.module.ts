@@ -1,16 +1,19 @@
 import { Module } from '@nestjs/common'
-import { RouterModule } from '@nestjs/core'
-import { UserModule } from '@api/user'
+import {
+  apiRoutes,
+  configModule,
+  graphQLModule,
+  mongooseModule,
+  services,
+} from '@api/configs'
 
 @Module({
   imports: [
-    UserModule,
-    RouterModule.register([
-      {
-        path: '/user',
-        module: UserModule,
-      },
-    ]),
+    ...services,
+    apiRoutes,
+    configModule,
+    graphQLModule,
+    mongooseModule,
   ],
 })
 export class AppModule {}

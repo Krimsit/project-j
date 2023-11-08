@@ -37,11 +37,20 @@
     "strictFunctionTypes": true,
     "strictPropertyInitialization": true,
     "paths": {
+      "@api/configs": [
+        "libs/api/configs/src/index.ts"
+      ],
+      "@api/errors": [
+        "libs/api/errors/src/index.ts"
+      ],
       "@api/user": [
         "libs/api/services/user/src/index.ts"
       ],
       "@project-j/core-plugins": [
         "libs/core-plugins/src/index.ts"
+      ],
+      "@shared/models": [
+        "libs/shared/models/src/index.ts"
       ]
     }
   },
