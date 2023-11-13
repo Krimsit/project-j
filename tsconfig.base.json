@@ -46,6 +46,9 @@
       "@api/user": [
         "libs/api/services/user/src/index.ts"
       ],
+      "@mobile/configs": [
+        "libs/mobile/configs/src/index.ts"
+      ],
       "@mobile/feature/user": [
         "libs/mobile/features/user/src/index.ts"
       ],
