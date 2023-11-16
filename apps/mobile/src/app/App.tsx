@@ -1,9 +1,8 @@
-import { Page } from '@mobile/feature/user'
+import { Layout } from '@mobile/shell'
 import { withProviders } from '@mobile/configs'
 
 import type { FC } from 'react'
 
-export const App: FC = () => <Page />
+export const App: FC = () => <Layout />
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-call
 export default withProviders(App)

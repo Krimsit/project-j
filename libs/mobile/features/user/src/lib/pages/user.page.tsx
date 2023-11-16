@@ -1,7 +1,7 @@
-import { PageFeature } from '../feature'
+import { UserFeature } from '../feature'
 
 import type { FC } from 'react'
 
-const Page: FC = () => <PageFeature />
+const Page: FC = () => <UserFeature />
 
 export default Page
