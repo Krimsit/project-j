@@ -1,4 +1,5 @@
-import { View, Text, Button } from 'react-native'
+import { Fragment } from 'react'
+import { Text, Button } from 'react-native-paper'
 import { useRootNavigation } from '@mobile/hooks'
 import { Routes } from '@mobile/models'
 
@@ -12,9 +13,9 @@ export const HomeFeature: FC = () => {
     })
 
   return (
-    <View>
+    <Fragment>
       <Text>Home</Text>
-      <Button title={'Open task'} onPress={handleOpenTask} />
-    </View>
+      <Button onPress={handleOpenTask}>Open task</Button>
+    </Fragment>
   )
 }

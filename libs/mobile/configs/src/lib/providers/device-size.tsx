@@ -14,6 +14,7 @@ export const withDeviceSize = (component: () => ReactNode) => () => {
         paddingBottom: bottom,
         paddingLeft: left,
         paddingRight: right,
+        flex: 1,
       }}
     >
       {component()}
