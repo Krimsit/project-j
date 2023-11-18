@@ -1,10 +1,11 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { HomePage } from '@mobile/feature/home'
-import { UserPage } from '@mobile/feature/user'
-import { ProjectsPage } from '@mobile/feature/projects'
-import { TaskPage } from '@mobile/feature/task'
+import { HomePage, homeTabParams } from '@mobile/feature/home'
+import { UserPage, userTabParams } from '@mobile/feature/user'
+import { ProjectsPage, projectsTabParams } from '@mobile/feature/projects'
+import { TaskPage, taskTabParams } from '@mobile/feature/task'
 import { Routes } from '@mobile/models'
+import { BottomBar } from '@mobile/ui'
 
 import type { FC } from 'react'
 import type { RootRoutesProps, ShellRoutesProps } from '@mobile/models'
@@ -12,14 +13,31 @@ import type { RootRoutesProps, ShellRoutesProps } from '@mobile/models'
 const Tab = createBottomTabNavigator<RootRoutesProps>()
 const Stack = createNativeStackNavigator<ShellRoutesProps>()
 const RootPage: FC = () => (
-  <Tab.Navigator>
-    <Tab.Screen name={Routes.Home} component={HomePage} />
+  <Tab.Navigator
+    tabBar={({ navigation, state, descriptors, insets }) => (
+      <BottomBar
+        navigation={navigation}
+        descriptors={descriptors}
+        insets={insets}
+        state={state}
+      />
+    )}
+  >
     <Tab.Screen
-      name={Routes.Projects}
-      component={ProjectsPage}
-      options={{ headerShown: false }}
+      name={homeTabParams.name}
+      component={HomePage}
+      options={homeTabParams.options}
     />
-    <Tab.Screen name={Routes.User} component={UserPage} />
+    <Tab.Screen
+      name={projectsTabParams.name}
+      component={ProjectsPage}
+      options={projectsTabParams.options}
+    />
+    <Tab.Screen
+      name={userTabParams.name}
+      component={UserPage}
+      options={userTabParams.options}
+    />
   </Tab.Navigator>
 )
 
@@ -31,11 +49,9 @@ export const Layout: FC = () => (
       component={RootPage}
     />
     <Stack.Screen
-      name={Routes.Task}
+      name={taskTabParams.name}
       component={TaskPage}
-      options={{
-        animation: 'slide_from_right',
-      }}
+      options={taskTabParams.options}
     />
   </Stack.Navigator>
 )

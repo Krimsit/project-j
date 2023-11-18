@@ -1,5 +1,5 @@
-import { useEffect } from 'react'
-import { View, Text, Button } from 'react-native'
+import { Fragment, useEffect } from 'react'
+import { Text, Button } from 'react-native-paper'
 import { useRoute } from '@react-navigation/native'
 import { useRootNavigation } from '@mobile/hooks'
 import { Routes } from '@mobile/models'
@@ -20,10 +20,10 @@ export const ProjectFeature: FC = () => {
   }, [navigation, router])
 
   return (
-    <View>
+    <Fragment>
       <Text>Project</Text>
       <Text>{router.params.projectId}</Text>
-      <Button title={'Open task'} onPress={handleOpenTask} />
-    </View>
+      <Button onPress={handleOpenTask}>Open task</Button>
+    </Fragment>
   )
 }

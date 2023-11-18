@@ -1,4 +1,5 @@
-import { View, Text, Button } from 'react-native'
+import { Fragment } from 'react'
+import { Text, Button } from 'react-native-paper'
 import { useNavigation } from '@mobile/hooks'
 import { Routes } from '@mobile/models'
 
@@ -13,9 +14,9 @@ export const ProjectsFeature: FC = () => {
     })
 
   return (
-    <View>
+    <Fragment>
       <Text>Projects</Text>
-      <Button title={'Open project'} onPress={handleOpenProject} />
-    </View>
+      <Button onPress={handleOpenProject}>Open project</Button>
+    </Fragment>
   )
 }
