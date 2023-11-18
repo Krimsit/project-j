@@ -1,6 +1,6 @@
-import { useEffect } from 'react'
+import { Fragment, useEffect } from 'react'
 import { useRoute, useNavigation } from '@react-navigation/native'
-import { View, Text, Button } from 'react-native'
+import { Text } from 'react-native-paper'
 
 import type { FC } from 'react'
 import type { NavigationProps } from '@mobile/models'
@@ -13,14 +13,13 @@ export const TaskFeature: FC = () => {
   useEffect(() => {
     navigation.setOptions({
       title: router.params.taskId,
-      headerLeft: () => <Button onPress={navigation.goBack} title="Back" />,
     })
   }, [navigation, router])
 
   return (
-    <View>
+    <Fragment>
       <Text>Task</Text>
       <Text>{router.params.taskId}</Text>
-    </View>
+    </Fragment>
   )
 }

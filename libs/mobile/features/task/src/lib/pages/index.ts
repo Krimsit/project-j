@@ -1,1 +1,1 @@
-export { default as TaskPage } from './task.page'
+export * from './task.page'

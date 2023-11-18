@@ -1,7 +1,20 @@
-import { TaskFeature } from '../feature'
+import { Routes } from '@mobile/models'
+
+import { TaskFeature, Header } from '../feature'
 
 import type { FC } from 'react'
+import type { NativeStackNavigationOptions } from '@react-navigation/native-stack'
+import type { RouteObjectParams, ShellRoutesProps } from '@mobile/models'
 
-const Page: FC = () => <TaskFeature />
+export const TaskPage: FC = () => <TaskFeature />
 
-export default Page
+export const taskTabParams: RouteObjectParams<
+  keyof ShellRoutesProps,
+  NativeStackNavigationOptions
+> = {
+  name: Routes.Task,
+  options: {
+    animation: 'slide_from_right',
+    header: ({ options }) => <Header title={String(options.title)} />,
+  },
+}
