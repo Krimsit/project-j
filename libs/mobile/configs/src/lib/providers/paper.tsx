@@ -1,3 +1,4 @@
+import { ThemeProvider } from 'styled-components'
 import {
   adaptNavigationTheme,
   PaperProvider,
@@ -71,7 +72,11 @@ const customTheme = {
 
 // eslint-disable-next-line react/display-name
 export const withPaper = (component: () => ReactNode) => () => (
-  <PaperProvider theme={customTheme}>
-    <NavigationContainer theme={customTheme}>{component()}</NavigationContainer>
-  </PaperProvider>
+  <ThemeProvider theme={customTheme}>
+    <PaperProvider theme={customTheme}>
+      <NavigationContainer theme={customTheme}>
+        {component()}
+      </NavigationContainer>
+    </PaperProvider>
+  </ThemeProvider>
 )

@@ -5,6 +5,6 @@
     "./libs/**/*"
   ],
   "files": [
-    "./sb2boTheme.d.ts"
+    "./styled.d.ts"
   ]
 }
