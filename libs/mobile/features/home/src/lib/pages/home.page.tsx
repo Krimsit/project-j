@@ -16,8 +16,8 @@ export const homeTabParams: RouteObjectParams<
 > = {
   name: Routes.Home,
   options: {
-    header: () => <AppBar title={'Главная'} />,
-    tabBarLabel: 'Главная',
+    header: () => <AppBar title={'Home'} />,
+    tabBarLabel: 'Home',
     tabBarIcon({ color, size }) {
       return <Icon source="home" size={size} color={color} />
     },

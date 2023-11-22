@@ -1,3 +1,4 @@
+import { useTheme } from 'styled-components'
 import { useNavigation } from '@react-navigation/native'
 import { Appbar as Header } from 'react-native-paper'
 
@@ -9,10 +10,11 @@ export const AppBar: FC<AppBarProps> = ({
   title,
   rightContent,
 }) => {
+  const theme = useTheme()
   const navigation = useNavigation()
 
   return (
-    <Header>
+    <Header theme={{ colors: { surface: theme.colors.background } }}>
       {withBackButton && <Header.BackAction onPress={navigation.goBack} />}
       <Header.Content title={title} />
       {rightContent}

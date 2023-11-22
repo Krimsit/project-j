@@ -2,10 +2,6 @@ import styled from 'styled-components'
 import { View } from 'react-native'
 import { Card as BaseCard } from 'react-native-paper'
 
-export const Card = styled(BaseCard)`
-  padding: 10px;
-`
-
 export const Title = styled(BaseCard.Title)`
   display: flex;
   align-items: center;
