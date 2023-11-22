@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose'
 import { Model } from 'mongoose'
-import { User } from '@shared/models'
 
-import type { UserDocument } from '@shared/models'
-import type { UserInput } from '../models'
+import { User } from '../models'
+
+import type { UserInput, UserDocument } from '../models'
 
 @Injectable()
 export class UserService {

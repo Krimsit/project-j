@@ -78,6 +78,9 @@
       ],
       "@shared/models": [
         "libs/shared/models/src/index.ts"
+      ],
+      "@shared/theme": [
+        "libs/shared/theme/src/index.ts"
       ]
     }
   },

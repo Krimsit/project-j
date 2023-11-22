@@ -1,14 +1,14 @@
 {
-  "name": "shared-models",
+  "name": "shared-theme",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/shared/models/src",
+  "sourceRoot": "libs/shared/theme/src",
   "projectType": "library",
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/shared/models/**/*.ts"]
+        "lintFilePatterns": ["libs/shared/theme/**/*.ts"]
       }
     }
   },
