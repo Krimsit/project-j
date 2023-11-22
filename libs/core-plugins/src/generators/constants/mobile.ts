@@ -1,4 +1,4 @@
-import { Linter } from '@nx/linter'
+import { Linter } from '@nx/eslint'
 
 import type { Schema as MobileAppSchema } from '@nx/expo/src/generators/application/schema'
 import type { Schema as MobileLibrarySchema } from '@nx/expo/src/generators/library/schema'

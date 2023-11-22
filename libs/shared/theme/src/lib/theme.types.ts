@@ -1,8 +1,7 @@
-import 'styled-components'
 import type { MD3Theme } from 'react-native-paper'
-import type { Theme as NavigationTheme } from '@react-navigation/native/lib/typescript/src/types'
+import type { Theme as NavigationTheme } from '@react-navigation/native'
 
-type Theme = MD3Theme &
+export type Theme = MD3Theme &
   NavigationTheme & {
     colors: {
       taskStatuses: {
@@ -17,7 +16,3 @@ type Theme = MD3Theme &
       }
     }
   }
-
-declare module 'styled-components' {
-  export interface DefaultTheme extends Theme {}
-}

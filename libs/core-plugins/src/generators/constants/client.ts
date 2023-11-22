@@ -1,4 +1,4 @@
-import { Linter } from '@nx/linter'
+import { Linter } from '@nx/eslint'
 
 import type { SupportedStyles } from '@nx/react'
 import type { Schema as ReactHostSchema } from '@nx/react/src/generators/host/schema'

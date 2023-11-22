@@ -1,4 +1,4 @@
-import { Linter } from '@nx/linter'
+import { Linter } from '@nx/eslint'
 
 import type { ApplicationGeneratorOptions as NestAppSchema } from '@nx/nest/src/generators/application/schema'
 import type { LibraryGeneratorOptions as NestLibSchema } from '@nx/nest/src/generators/library/schema'
