@@ -31,7 +31,7 @@ export const customTheme: Theme = {
     onError: 'rgb(255, 255, 255)',
     errorContainer: 'rgb(255, 218, 214)',
     onErrorContainer: 'rgb(65, 0, 2)',
-    background: 'rgb(255, 251, 255)',
+    background: '#f4f4f6',
     onBackground: 'rgb(31, 27, 22)',
     surface: 'rgb(255, 251, 255)',
     onSurface: 'rgb(31, 27, 22)',

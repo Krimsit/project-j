@@ -1,7 +1,10 @@
-import { Fragment } from 'react'
-import { Text, Button } from 'react-native-paper'
+import { ScrollView } from 'react-native'
 import { useRootNavigation } from '@mobile/hooks'
 import { Routes } from '@mobile/models'
+
+import { User, Tasks, Cards, Projects } from '../components'
+
+import { Container } from './home.styles'
 
 import type { FC } from 'react'
 
@@ -13,9 +16,13 @@ export const HomeFeature: FC = () => {
     })
 
   return (
-    <Fragment>
-      <Text>Home</Text>
-      <Button onPress={handleOpenTask}>Open task</Button>
-    </Fragment>
+    <ScrollView>
+      <Container>
+        <User />
+        <Cards />
+        <Tasks />
+        <Projects />
+      </Container>
+    </ScrollView>
   )
 }

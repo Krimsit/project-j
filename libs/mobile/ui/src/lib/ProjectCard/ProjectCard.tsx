@@ -1,3 +1,4 @@
+import { useTheme } from 'styled-components'
 import { useMemo } from 'react'
 import {
   Card as BaseCard,
@@ -9,7 +10,7 @@ import {
 import { useNavigation } from '@mobile/hooks'
 import { Routes } from '@mobile/models'
 
-import { Card, InfoChip, Info, Title, Content } from './ProjectCard.styles'
+import { InfoChip, Info, Title, Content } from './ProjectCard.styles'
 
 import type { FC } from 'react'
 import type { ProjectCardProps } from './ProjectCard.types'
@@ -24,6 +25,7 @@ export const ProjectCard: FC<ProjectCardProps> = ({
   name,
   ownerAvatar,
 }) => {
+  const theme = useTheme()
   const navigation = useNavigation()
   const progressBarValue = useMemo(
     () => completedTaskCount / allTaskCount,
@@ -36,7 +38,11 @@ export const ProjectCard: FC<ProjectCardProps> = ({
     })
 
   return (
-    <Card onPress={handleOpenProject}>
+    <BaseCard
+      onPress={handleOpenProject}
+      mode={'elevated'}
+      theme={{ colors: { elevation: { level1: theme.colors.onPrimary } } }}
+    >
       <BaseCard.Cover
         source={{
           uri: image,
@@ -63,18 +69,19 @@ export const ProjectCard: FC<ProjectCardProps> = ({
             </InfoChip>
           </Info>
         }
-        right={() => (
-          <Avatar.Image
-            size={36}
-            source={{
-              uri: ownerAvatar,
-            }}
-          />
-        )}
       />
       <Content>
         <ProgressBar animatedValue={progressBarValue} />
       </Content>
-    </Card>
+      <BaseCard.Actions>
+        <Text>Owner</Text>
+        <Avatar.Image
+          size={36}
+          source={{
+            uri: ownerAvatar,
+          }}
+        />
+      </BaseCard.Actions>
+    </BaseCard>
   )
 }
