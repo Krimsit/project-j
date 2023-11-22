@@ -20,7 +20,7 @@ export const ProjectsPage: FC = () => (
     <Stack.Screen
       name={Routes.AllProjects}
       component={ProjectsFeature}
-      options={{ header: () => <AppBar title={'Проекты'} /> }}
+      options={{ header: () => <AppBar title={'Projects'} /> }}
     />
     <Stack.Screen
       name={Routes.Project}
@@ -40,7 +40,7 @@ export const projectsTabParams: RouteObjectParams<
   name: Routes.Projects,
   options: {
     headerShown: false,
-    tabBarLabel: 'Проекты',
+    tabBarLabel: 'Projects',
     tabBarIcon({ color, size }) {
       return <Icon source="view-list" size={size} color={color} />
     },
