@@ -278,7 +278,7 @@
     ],
     "radix": "error",
     "new-cap": "off",
-    "no-underscore-dangle": "error",
+    "no-underscore-dangle": "off",
     "no-restricted-globals": [
       "error",
       {

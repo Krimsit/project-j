@@ -3,7 +3,8 @@ import { Icon } from 'react-native-paper'
 import { Routes } from '@mobile/models'
 import { AppBar } from '@mobile/ui'
 
-import { ProjectsFeature, ProjectFeature } from '../feature'
+import { ProjectsFeature, ProjectFeature, AddProjectFeature } from '../feature'
+import { AddProjectAppBar } from '../components'
 
 import type { FC } from 'react'
 import type { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs'
@@ -16,11 +17,19 @@ import type {
 const Stack = createNativeStackNavigator<ProjectRoutes>()
 
 export const ProjectsPage: FC = () => (
-  <Stack.Navigator>
+  <Stack.Navigator initialRouteName={Routes.AddProject}>
     <Stack.Screen
       name={Routes.AllProjects}
       component={ProjectsFeature}
       options={{ header: () => <AppBar title={'Projects'} /> }}
+    />
+    <Stack.Screen
+      name={Routes.AddProject}
+      component={AddProjectFeature}
+      options={{
+        animation: 'slide_from_right',
+        header: () => <AddProjectAppBar />,
+      }}
     />
     <Stack.Screen
       name={Routes.Project}
