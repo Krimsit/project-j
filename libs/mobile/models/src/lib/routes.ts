@@ -12,6 +12,7 @@ export enum Routes {
   Task = 'Task',
   AllProjects = 'AllProjects',
   Project = 'Project',
+  AddProject = 'AddProject',
 }
 
 export type ShellRoutesProps = {
@@ -32,6 +33,7 @@ export type ProjectRoutes = {
   Project: {
     projectId: string
   }
+  AddProject: undefined
 }
 
 export type RoutesNavigationProps = {

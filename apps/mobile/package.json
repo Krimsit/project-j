@@ -125,7 +125,10 @@
     "webpack-merge": "*",
     "@nx/eslint": "*",
     "mongoose": "*",
-    "expo-constants": "*"
+    "expo-constants": "*",
+    "react-native-image-picker": "*",
+    "expo-image-picker": "*",
+    "react-hook-form": "*"
   },
   "scripts": {
     "eas-build-pre-install": "cd ../../ && node tools/scripts/eas-build-pre-install.mjs . apps/mobile && cp package-lock.json apps/mobile",

@@ -1,9 +1,16 @@
+import { useNavigation } from '@mobile/hooks'
+import { Routes } from '@mobile/models'
+
 import { Button } from './AppProjectButton.styles'
 
 import type { FC } from 'react'
 
 export const AppProjectButton: FC = () => {
-  const handleOpenProjectForm = () => console.log('Open project form')
+  const navigation = useNavigation()
+  const handleOpenProjectForm = () =>
+    navigation.navigate(Routes.Projects, {
+      screen: Routes.AddProject,
+    })
 
   return (
     <Button
