@@ -1,3 +1,15 @@
+export type TaskCardProps = {
+  _id: string
+  projectName: string
+  name: string
+  status: number
+  dueDate: string
+  priority: TaskPriority
+  attachmentsCount: number
+  assignedTasksCount: number
+  assignerAvatar: string
+}
+
 export enum TaskPriority {
   Low = 'Low',
   Medium = 'Medium',

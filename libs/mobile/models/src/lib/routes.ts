@@ -3,6 +3,7 @@ import type {
   NavigationProp,
 } from '@react-navigation/native'
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import type { User } from '@shared/models'
 
 export enum Routes {
   Root = 'Root',
@@ -33,7 +34,14 @@ export type ProjectRoutes = {
   Project: {
     projectId: string
   }
-  AddProject: undefined
+  AddProject: {
+    defaultValues?: {
+      _id: string
+      name: string
+      image: string
+      selectedUsers: User[]
+    }
+  }
 }
 
 export type RoutesNavigationProps = {

@@ -9,13 +9,15 @@ export const AppBar: FC<AppBarProps> = ({
   withBackButton,
   title,
   rightContent,
+  onBack,
 }) => {
   const theme = useTheme()
   const navigation = useNavigation()
+  const handleBack = () => (onBack ? onBack() : navigation.goBack())
 
   return (
     <Header theme={{ colors: { surface: theme.colors.background } }}>
-      {withBackButton && <Header.BackAction onPress={navigation.goBack} />}
+      {withBackButton && <Header.BackAction onPress={handleBack} />}
       <Header.Content title={title} />
       {rightContent}
     </Header>
