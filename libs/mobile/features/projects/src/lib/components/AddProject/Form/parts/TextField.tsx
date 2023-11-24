@@ -27,12 +27,7 @@ export const TextField: FC<TextFieldProps> = ({ name, label }) => {
   return (
     <View>
       <HelperText type={'info'}>{label}</HelperText>
-      <TextInput
-        label={label}
-        mode={'outlined'}
-        onChange={handleChange}
-        value={value}
-      />
+      <TextInput mode={'outlined'} onChange={handleChange} value={value} />
       <HelperText type={'error'} visible={Boolean(error)}>
         {String(error?.message)}
       </HelperText>

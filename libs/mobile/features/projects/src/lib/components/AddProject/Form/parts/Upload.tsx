@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { View } from 'react-native'
 import { HelperText } from 'react-native-paper'
@@ -11,8 +11,10 @@ import type { FC } from 'react'
 export const Upload: FC = () => {
   const {
     setValue,
+    getValues,
     formState: { errors },
   } = useFormContext()
+  const value = getValues('image') ? String(getValues('image')) : ''
   const error = errors.image
   const [image, setImage] = useState<string>('')
 
@@ -30,6 +32,10 @@ export const Upload: FC = () => {
       }
     }
   }
+
+  useEffect(() => {
+    setImage(value)
+  }, [value])
 
   if (!image) {
     return (

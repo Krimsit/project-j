@@ -10,6 +10,9 @@ export const AppProjectButton: FC = () => {
   const handleOpenProjectForm = () =>
     navigation.navigate(Routes.Projects, {
       screen: Routes.AddProject,
+      params: {
+        defaultValues: undefined,
+      },
     })
 
   return (

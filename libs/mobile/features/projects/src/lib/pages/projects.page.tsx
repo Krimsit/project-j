@@ -4,7 +4,7 @@ import { Routes } from '@mobile/models'
 import { AppBar } from '@mobile/ui'
 
 import { ProjectsFeature, ProjectFeature, AddProjectFeature } from '../feature'
-import { AddProjectAppBar } from '../components'
+import { AddProjectAppBar, ProjectAppBar } from '../components'
 
 import type { FC } from 'react'
 import type { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs'
@@ -17,7 +17,7 @@ import type {
 const Stack = createNativeStackNavigator<ProjectRoutes>()
 
 export const ProjectsPage: FC = () => (
-  <Stack.Navigator initialRouteName={Routes.AddProject}>
+  <Stack.Navigator>
     <Stack.Screen
       name={Routes.AllProjects}
       component={ProjectsFeature}
@@ -28,7 +28,9 @@ export const ProjectsPage: FC = () => (
       component={AddProjectFeature}
       options={{
         animation: 'slide_from_right',
-        header: () => <AddProjectAppBar />,
+        header: ({ options: { title } }) => (
+          <AddProjectAppBar title={String(title)} />
+        ),
       }}
     />
     <Stack.Screen
@@ -36,7 +38,7 @@ export const ProjectsPage: FC = () => (
       component={ProjectFeature}
       options={{
         animation: 'none',
-        header: ({ options }) => <AppBar title={String(options.title)} />,
+        header: () => <ProjectAppBar />,
       }}
     />
   </Stack.Navigator>

@@ -7,7 +7,7 @@ import { useTaskPriorityIconColor, useTaskStatusIcon } from './TaskCard.utils'
 import { Footer, Info, InfoChip, StatusChip, Title } from './TaskCard.styles'
 
 import type { FC } from 'react'
-import type { TaskCardProps } from './TaskCard.types'
+import type { TaskCardProps } from '@shared/models'
 
 export const TaskCard: FC<TaskCardProps> = ({
   _id,
