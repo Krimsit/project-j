@@ -1,5 +1,7 @@
 import { useTheme } from 'styled-components'
 import { Avatar, Card } from 'react-native-paper'
+import { useRootNavigation } from '@mobile/hooks'
+import { Routes } from '@mobile/models'
 
 import { Peoples } from './parts'
 import { AddTaskButton } from './Info.styles'
@@ -33,9 +35,12 @@ const users: User[] = [
 
 export const Info: FC = () => {
   const theme = useTheme()
+  const navigation = useRootNavigation()
 
   const handleOpenTaskForm = () => {
-    console.log('Open task form')
+    navigation.navigate(Routes.TaskForm, {
+      project_id: '1',
+    })
   }
 
   return (

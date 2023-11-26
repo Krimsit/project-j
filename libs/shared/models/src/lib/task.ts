@@ -22,3 +22,8 @@ export enum TaskStatus {
   InProgress,
   Done,
 }
+
+export type PriorityItem = {
+  value: TaskPriority
+  label: string
+}

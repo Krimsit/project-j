@@ -3,7 +3,12 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { HomePage, homeTabParams } from '@mobile/feature/home'
 import { UserPage, userTabParams } from '@mobile/feature/user'
 import { ProjectsPage, projectsTabParams } from '@mobile/feature/projects'
-import { TaskPage, taskTabParams } from '@mobile/feature/task'
+import {
+  TaskPage,
+  taskTabParams,
+  TaskFormPage,
+  taskFormTabParams,
+} from '@mobile/feature/task'
 import { Routes } from '@mobile/models'
 import { BottomBar } from '@mobile/ui'
 
@@ -52,6 +57,11 @@ export const Layout: FC = () => (
       name={taskTabParams.name}
       component={TaskPage}
       options={taskTabParams.options}
+    />
+    <Stack.Screen
+      name={taskFormTabParams.name}
+      component={TaskFormPage}
+      options={taskFormTabParams.options}
     />
   </Stack.Navigator>
 )

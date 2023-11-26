@@ -39,7 +39,7 @@ export const useTaskStatusIcon = (status: TaskStatus) => {
   }, [status, theme])
 }
 
-export const useTaskPriorityIconColor = (priority: TaskPriority) => {
+export const useTaskPriorityIconColor = (priority?: TaskPriority) => {
   const theme = useTheme()
 
   return useMemo(() => {
