@@ -128,7 +128,8 @@
     "expo-constants": "*",
     "react-native-image-picker": "*",
     "expo-image-picker": "*",
-    "react-hook-form": "*"
+    "react-hook-form": "*",
+    "@react-native-community/datetimepicker": "*"
   },
   "scripts": {
     "eas-build-pre-install": "cd ../../ && node tools/scripts/eas-build-pre-install.mjs . apps/mobile && cp package-lock.json apps/mobile",
