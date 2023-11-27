@@ -3,7 +3,7 @@ import type {
   NavigationProp,
 } from '@react-navigation/native'
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import type { User } from '@shared/models'
+import type { User, TaskPriority } from '@shared/models'
 
 export enum Routes {
   Root = 'Root',
@@ -26,6 +26,11 @@ export type ShellRoutesProps = {
     project_id: string
     defaultValues?: {
       _id: string
+      task_name: string
+      due_date: string
+      priority: TaskPriority
+      assigner: string
+      description: string
     }
   }
 }

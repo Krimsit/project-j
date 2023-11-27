@@ -27,3 +27,8 @@ export type PriorityItem = {
   value: TaskPriority
   label: string
 }
+
+export type TaskStatusItem = {
+  value: TaskStatus
+  label: string
+}
