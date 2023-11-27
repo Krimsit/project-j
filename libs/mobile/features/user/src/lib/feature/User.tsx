@@ -2,7 +2,7 @@ import { useTheme } from 'styled-components'
 import { ScrollView } from 'react-native'
 import { Card } from 'react-native-paper'
 
-import { Header, Info, DeleteButton } from '../components'
+import { Header, Info, LogoutButton, DeleteButton } from '../components'
 
 import { Container, Content } from './User.styles'
 
@@ -22,6 +22,7 @@ export const UserFeature: FC = () => {
             <Content>
               <Header />
               <Info />
+              <LogoutButton />
               <DeleteButton />
             </Content>
           </Card.Content>
