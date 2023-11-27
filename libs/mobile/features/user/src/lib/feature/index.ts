@@ -1,1 +1,1 @@
-export * from './user.feature'
+export * from './User'
