@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { View } from 'react-native'
 import { Chip, Icon } from 'react-native-paper'
@@ -26,7 +26,8 @@ const priorities: PriorityItem[] = [
 ]
 
 export const PrioritySelect: FC = () => {
-  const { setValue } = useFormContext()
+  const { setValue, getValues } = useFormContext()
+  const value = getValues('priority') as TaskPriority
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [checkedPriority, setCheckedPriority] = useState<
     PriorityItem | undefined
@@ -34,11 +35,21 @@ export const PrioritySelect: FC = () => {
   const priorityColor = useTaskPriorityIconColor(checkedPriority?.value)
 
   const handleApply = (priority?: PriorityItem) => {
-    setCheckedPriority(priority)
-    setValue('priority', priority)
+    if (priority) {
+      setCheckedPriority(priority)
+      setValue('priority', priority.value)
+    }
   }
   const handleOpen = () => setIsOpen(true)
   const handleClose = () => setIsOpen(false)
+
+  useEffect(() => {
+    if (value) {
+      const foundedPriority = priorities.find((item) => item.value === value)
+
+      setCheckedPriority(foundedPriority)
+    }
+  }, [value])
 
   return (
     <View>

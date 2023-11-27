@@ -1,30 +1,21 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Appbar, Menu } from 'react-native-paper'
-import { useNavigation } from '@mobile/hooks'
+import { useRootNavigation } from '@mobile/hooks'
 import { AppBar as BaseAppBar } from '@mobile/ui'
-import { Routes } from '@mobile/models'
 
 import { Edit, Delete } from './parts'
 
 import type { FC } from 'react'
 
-export const ProjectAppBar: FC = () => {
-  const navigation = useNavigation()
+export const TaskAppBar: FC = () => {
+  const navigation = useRootNavigation()
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const handleOpen = () => setIsOpen(true)
   const handleClose = () => setIsOpen(false)
-  const handleCloseProject = () =>
-    navigation.navigate(Routes.Projects, {
-      screen: Routes.AllProjects,
-    })
-
-  useEffect(() => {
-    navigation.setOptions({ title: 'Project' })
-  }, [navigation])
 
   return (
     <BaseAppBar
-      title={'Project'}
+      title={''}
       rightContent={
         <Menu
           visible={isOpen}
@@ -37,11 +28,10 @@ export const ProjectAppBar: FC = () => {
             />
           }
         >
-          <Edit navigation={navigation} onClose={handleClose} />
+          <Edit onClose={handleClose} navigation={navigation} />
           <Delete onClose={handleClose} />
         </Menu>
       }
-      onBack={handleCloseProject}
       withBackButton
     />
   )

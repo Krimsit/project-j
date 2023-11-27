@@ -18,7 +18,12 @@ export const TaskForm: FC = () => {
     defaultValues: isEdit
       ? {
           project_id: router.params.project_id,
-          _id: router.params.defaultValues?._id,
+          _id: router.params.defaultValues._id,
+          task_name: router.params.defaultValues.task_name,
+          due_date: router.params.defaultValues.due_date,
+          priority: router.params.defaultValues.priority,
+          assigner: router.params.defaultValues.assigner,
+          description: router.params.defaultValues.description,
         }
       : {
           project_id: router.params.project_id,

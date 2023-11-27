@@ -3,8 +3,26 @@ import { useTheme } from 'styled-components'
 import { Icon } from 'react-native-paper'
 import { TaskPriority, TaskStatus } from '@shared/models'
 
-export const useTaskStatusIcon = (status: TaskStatus) => {
+export const useTaskStatusColor = (status: TaskStatus) => {
   const theme = useTheme()
+
+  return useMemo(() => {
+    switch (status) {
+      case TaskStatus.ToDo:
+      case TaskStatus.OnHold:
+        return theme.colors.taskStatuses.todo
+      case TaskStatus.InProgress:
+        return theme.colors.taskStatuses.inProgress
+      case TaskStatus.Done:
+        return theme.colors.taskStatuses.completed
+      default:
+        return null
+    }
+  }, [status, theme])
+}
+
+export const useTaskStatusIcon = (status: TaskStatus, size = 30) => {
+  const color = useTaskStatusColor(status)
 
   return useMemo(() => {
     switch (status) {
@@ -12,31 +30,21 @@ export const useTaskStatusIcon = (status: TaskStatus) => {
       case TaskStatus.OnHold:
         return (
           <Icon
-            size={30}
+            size={size}
             source={'checkbox-blank-circle-outline'}
-            color={theme.colors.taskStatuses.todo}
+            color={color}
           />
         )
       case TaskStatus.InProgress:
-        return (
-          <Icon
-            size={30}
-            source={'circle-edit-outline'}
-            color={theme.colors.taskStatuses.inProgress}
-          />
-        )
+        return <Icon size={size} source={'circle-edit-outline'} color={color} />
       case TaskStatus.Done:
         return (
-          <Icon
-            size={30}
-            source={'checkbox-marked-circle'}
-            color={theme.colors.taskStatuses.completed}
-          />
+          <Icon size={size} source={'checkbox-marked-circle'} color={color} />
         )
       default:
         return null
     }
-  }, [status, theme])
+  }, [color, size, status])
 }
 
 export const useTaskPriorityIconColor = (priority?: TaskPriority) => {

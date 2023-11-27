@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { View } from 'react-native'
 import { Chip, Avatar } from 'react-native-paper'
@@ -48,16 +48,27 @@ const users: User[] = [
 ]
 
 export const UserSelect: FC = () => {
-  const { setValue } = useFormContext()
+  const { setValue, getValues } = useFormContext()
+  const value = getValues('assigner') as string
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [checkedUser, setCheckedUser] = useState<User | undefined>(undefined)
 
   const handleApply = (user?: User) => {
-    setCheckedUser(user)
-    setValue('assigner', user)
+    if (user) {
+      setCheckedUser(user)
+      setValue('assigner', user._id)
+    }
   }
   const handleOpen = () => setIsOpen(true)
   const handleClose = () => setIsOpen(false)
+
+  useEffect(() => {
+    if (value) {
+      const foundedUser = users.find((item) => item._id === value)
+
+      setCheckedUser(foundedUser)
+    }
+  }, [value])
 
   return (
     <View>
