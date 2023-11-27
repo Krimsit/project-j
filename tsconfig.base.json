@@ -5,23 +5,14 @@
     "baseUrl": ".",
     "target": "es2015",
     "module": "esnext",
-    "lib": [
-      "es6",
-      "dom",
-      "dom.iterable",
-      "es2017",
-      "es2020",
-      "ESNext"
-    ],
+    "lib": ["es6", "dom", "dom.iterable", "es2017", "es2020", "ESNext"],
     "moduleResolution": "node",
     "sourceMap": true,
     "declaration": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "typeRoots": [
-      "./node_modules/@types"
-    ],
+    "typeRoots": ["./node_modules/@types"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "noImplicitAny": true,
@@ -37,55 +28,26 @@
     "strictFunctionTypes": true,
     "strictPropertyInitialization": true,
     "paths": {
-      "@api/configs": [
-        "libs/api/configs/src/index.ts"
-      ],
-      "@api/errors": [
-        "libs/api/errors/src/index.ts"
-      ],
-      "@api/user": [
-        "libs/api/services/user/src/index.ts"
-      ],
-      "@mobile/configs": [
-        "libs/mobile/configs/src/index.ts"
-      ],
-      "@mobile/feature/home": [
-        "libs/mobile/features/home/src/index.ts"
-      ],
+      "@api/configs": ["libs/api/configs/src/index.ts"],
+      "@api/errors": ["libs/api/errors/src/index.ts"],
+      "@api/user": ["libs/api/services/user/src/index.ts"],
+      "@mobile/auth-provider": ["libs/mobile/auth-provider/src/index.ts"],
+      "@mobile/configs": ["libs/mobile/configs/src/index.ts"],
+      "@mobile/feature/auth": ["libs/mobile/features/auth/src/index.ts"],
+      "@mobile/feature/home": ["libs/mobile/features/home/src/index.ts"],
       "@mobile/feature/projects": [
         "libs/mobile/features/projects/src/index.ts"
       ],
-      "@mobile/feature/task": [
-        "libs/mobile/features/task/src/index.ts"
-      ],
-      "@mobile/feature/user": [
-        "libs/mobile/features/user/src/index.ts"
-      ],
-      "@mobile/hooks": [
-        "libs/mobile/hooks/src/index.ts"
-      ],
-      "@mobile/models": [
-        "libs/mobile/models/src/index.ts"
-      ],
-      "@mobile/shell": [
-        "libs/mobile/shell/src/index.ts"
-      ],
-      "@mobile/ui": [
-        "libs/mobile/ui/src/index.ts"
-      ],
-      "@project-j/core-plugins": [
-        "libs/core-plugins/src/index.ts"
-      ],
-      "@shared/models": [
-        "libs/shared/models/src/index.ts"
-      ],
-      "@shared/theme": [
-        "libs/shared/theme/src/index.ts"
-      ]
+      "@mobile/feature/task": ["libs/mobile/features/task/src/index.ts"],
+      "@mobile/feature/user": ["libs/mobile/features/user/src/index.ts"],
+      "@mobile/hooks": ["libs/mobile/hooks/src/index.ts"],
+      "@mobile/models": ["libs/mobile/models/src/index.ts"],
+      "@mobile/shell": ["libs/mobile/shell/src/index.ts"],
+      "@mobile/ui": ["libs/mobile/ui/src/index.ts"],
+      "@project-j/core-plugins": ["libs/core-plugins/src/index.ts"],
+      "@shared/models": ["libs/shared/models/src/index.ts"],
+      "@shared/theme": ["libs/shared/theme/src/index.ts"]
     }
   },
-  "exclude": [
-    "node_modules",
-    "tmp"
-  ]
+  "exclude": ["node_modules", "tmp"]
 }

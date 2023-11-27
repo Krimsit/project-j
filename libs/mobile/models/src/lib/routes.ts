@@ -15,9 +15,11 @@ export enum Routes {
   Project = 'Project',
   AddProject = 'AddProject',
   TaskForm = 'TaskForm',
+  Auth = 'Auth',
 }
 
 export type ShellRoutesProps = {
+  Auth: undefined
   Root: undefined
   Task: {
     taskId: string
