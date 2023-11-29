@@ -1,4 +1,4 @@
-import type { LoginForm, RegistrationForm } from '../types'
+import type { RegistrationForm, LoginForm } from '@shared/models'
 
 export const defaultLoginFormValues: LoginForm = {
   email: '',
@@ -6,6 +6,10 @@ export const defaultLoginFormValues: LoginForm = {
 }
 
 export const defaultRegistrationFormValues: RegistrationForm = {
+  avatar: {
+    base64: '',
+    filename: '',
+  },
   email: '',
   username: '',
   first_name: '',

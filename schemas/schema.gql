@@ -2,27 +2,48 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+input LoginForm {
+  email: String!
+  password: String!
+}
+
+type LoginResult {
+  token: String!
+  user: User!
+}
+
 type Mutation {
-  createUser(input: UserInput!): User!
-  deleteUser(id: ID!): User!
-  updateUser(id: ID!, input: UserInput!): User!
+  deleteUser: Boolean!
+  login(data: LoginForm!): LoginResult!
+  registration(data: RegistrationForm!): LoginResult!
 }
 
 type Query {
-  user(id: ID!): User!
-  users: [User!]!
+  currentUser: User!
+  refreshToken: String!
 }
 
-type User {
-  _id: String!
-  createdAt: String!
+input RegistrationForm {
+  avatar: UploadFile!
   email: String!
+  first_name: String!
+  last_name: String!
   password: String!
   username: String!
 }
 
-input UserInput {
+input UploadFile {
+  base64: String!
+  filename: String!
+}
+
+type User {
+  _id: String!
+  avatar: String!
+  createdAt: String!
   email: String!
+  first_name: String!
+  last_name: String!
   password: String!
   username: String!
 }

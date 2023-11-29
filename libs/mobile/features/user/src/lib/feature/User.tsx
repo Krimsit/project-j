@@ -1,6 +1,7 @@
 import { useTheme } from 'styled-components'
 import { ScrollView } from 'react-native'
-import { Card } from 'react-native-paper'
+import { ActivityIndicator, Card } from 'react-native-paper'
+import { useUserQuery } from '@mobile/hooks'
 
 import { Header, Info, LogoutButton, DeleteButton } from '../components'
 
@@ -10,6 +11,11 @@ import type { FC } from 'react'
 
 export const UserFeature: FC = () => {
   const theme = useTheme()
+  const { loading } = useUserQuery()
+
+  if (loading) {
+    return <ActivityIndicator animating />
+  }
 
   return (
     <ScrollView>

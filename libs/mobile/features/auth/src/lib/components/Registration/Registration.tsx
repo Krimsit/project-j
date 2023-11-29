@@ -1,92 +1,77 @@
-import { Fragment } from 'react'
-import { Controller, useForm } from 'react-hook-form'
-import { Button, TextInput } from 'react-native-paper'
-import { AuthActions, useAuthDispatch } from '@mobile/auth-provider'
+import { useState } from 'react'
+import { useForm, FormProvider } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Banner, Button } from 'react-native-paper'
+import { registrationValidationSchema } from '@shared/validations'
 
+import { useRegistrationMutation } from '../../hooks'
 import { defaultRegistrationFormValues } from '../../constants'
 
+import { Upload, TextField } from './parts'
+
 import type { FC } from 'react'
-import type { RegistrationForm } from '../../types'
+import type { RegistrationForm } from '@shared/models'
 
 export const Registration: FC = () => {
-  const dispatch = useAuthDispatch()
+  const [isVisibleError, setIsVisibleError] = useState<boolean>(false)
+  const [errorMessage, setErrorMessage] = useState<string>('')
+  const [submit, { loading }] = useRegistrationMutation({
+    setIsVisibleError,
+    setErrorMessage,
+  })
+  const methods = useForm<RegistrationForm>({
+    mode: 'onChange',
+    defaultValues: defaultRegistrationFormValues,
+    resolver: zodResolver(registrationValidationSchema),
+  })
   const {
-    control,
     handleSubmit: onSubmit,
     formState: { isValid },
-  } = useForm<RegistrationForm>({
-    defaultValues: defaultRegistrationFormValues,
-  })
-
-  const submit = (data: RegistrationForm) => {
-    console.log(data)
-    dispatch({ type: AuthActions.SignIn, token: 'user-token' })
-  }
-  const handleSubmit = onSubmit(submit)
+  } = methods
+  const handleSubmit = onSubmit((data) =>
+    submit({ variables: { value: data } }),
+  )
 
   return (
-    <Fragment>
-      <Controller
-        control={control}
+    <FormProvider {...methods}>
+      <Banner visible={isVisibleError}>{errorMessage}</Banner>
+      <Upload />
+      <TextField
         name={'email'}
-        render={({ field: { value, onChange, onBlur } }) => (
-          <TextInput
-            label={'Email'}
-            placeholder={'Enter email'}
-            mode={'outlined'}
-            value={value}
-            onChangeText={(value) => onChange(value)}
-            onBlur={onBlur}
-          />
-        )}
+        label={'Email'}
+        placeholder={'Enter email'}
+        inputMode={'email'}
       />
-      <Controller
-        control={control}
+      <TextField
         name={'username'}
-        render={({ field: { value, onChange, onBlur } }) => (
-          <TextInput
-            label={'Username'}
-            placeholder={'Enter username'}
-            mode={'outlined'}
-            value={value}
-            onChangeText={(value) => onChange(value)}
-            onBlur={onBlur}
-          />
-        )}
+        label={'Username'}
+        placeholder={'Enter username'}
       />
-      <Controller
-        control={control}
+      <TextField
         name={'first_name'}
-        render={({ field: { value, onChange, onBlur } }) => (
-          <TextInput
-            label={'First name'}
-            placeholder={'Enter first name'}
-            mode={'outlined'}
-            value={value}
-            onChangeText={(value) => onChange(value)}
-            onBlur={onBlur}
-          />
-        )}
+        label={'First name'}
+        placeholder={'Enter first name'}
       />
-      <Controller
-        control={control}
+      <TextField
         name={'last_name'}
-        render={({ field: { value, onChange, onBlur } }) => (
-          <TextInput
-            label={'Last name'}
-            placeholder={'Enter last name'}
-            mode={'outlined'}
-            value={value}
-            onChangeText={(value) => onChange(value)}
-            onBlur={onBlur}
-            secureTextEntry
-          />
-        )}
+        label={'Last name'}
+        placeholder={'Enter last name'}
       />
-      {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
-      <Button mode={'contained'} onPress={handleSubmit} disabled={!isValid}>
-        Login
+      <TextField
+        name={'password'}
+        label={'Password'}
+        placeholder={'Enter password'}
+        secureTextEntry
+      />
+      <Button
+        mode={'contained'}
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
+        onPress={handleSubmit}
+        disabled={!isValid || loading}
+        loading={loading}
+      >
+        Registration
       </Button>
-    </Fragment>
+    </FormProvider>
   )
 }

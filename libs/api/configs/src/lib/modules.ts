@@ -6,11 +6,7 @@ import { GraphQLModule as NestGraphQLModule } from '@nestjs/graphql/dist/graphql
 import { ApolloDriver } from '@nestjs/apollo'
 
 import type { ApolloDriverConfig } from '@nestjs/apollo'
-
-export type ConfigServiceProps = {
-  MONGO_URI: string
-  DEBUG: boolean
-}
+import type { ConfigServiceProps } from '@api/models'
 
 export const mongodbConfig = registerAs('mongodb', () => {
   const { MONGO_URI } = process.env

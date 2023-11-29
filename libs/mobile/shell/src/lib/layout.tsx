@@ -1,14 +1,14 @@
 import { useEffect, Fragment } from 'react'
 import { getItemAsync, setItemAsync } from 'expo-secure-store'
-import * as SplashScreen from 'expo-splash-screen'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { useUserQuery } from '@mobile/hooks'
 import {
   AuthActions,
   useAuthDispatch,
   useAuthState,
 } from '@mobile/auth-provider'
-import { AuthPage } from '@mobile/feature/auth'
+import { AuthPage, authTabParams } from '@mobile/feature/auth'
 import { HomePage, homeTabParams } from '@mobile/feature/home'
 import { UserPage, userTabParams } from '@mobile/feature/user'
 import { ProjectsPage, projectsTabParams } from '@mobile/feature/projects'
@@ -55,11 +55,10 @@ const RootPage: FC = () => (
   </Tab.Navigator>
 )
 
-void SplashScreen.preventAutoHideAsync()
-
 export const Layout: FC = () => {
   const dispatch = useAuthDispatch()
   const state = useAuthState()
+  const { loading } = useUserQuery()
 
   useEffect(() => {
     const bootstrapAsync = async () => {
@@ -73,14 +72,12 @@ export const Layout: FC = () => {
 
       dispatch({ type: AuthActions.RestoreToken, token: userToken })
       userToken && (await setItemAsync('userToken', userToken))
-
-      await SplashScreen.hideAsync()
     }
 
     void bootstrapAsync()
   }, [dispatch])
 
-  if (state.isLoading) {
+  if (state.isLoading || loading) {
     return
   }
 
@@ -106,9 +103,9 @@ export const Layout: FC = () => {
         </Fragment>
       ) : (
         <Stack.Screen
-          name={Routes.Auth}
+          name={authTabParams.name}
           component={AuthPage}
-          options={{ headerShown: false }}
+          options={authTabParams.options}
         />
       )}
     </Stack.Navigator>

@@ -30,6 +30,9 @@
     "paths": {
       "@api/configs": ["libs/api/configs/src/index.ts"],
       "@api/errors": ["libs/api/errors/src/index.ts"],
+      "@api/firebase": ["libs/api/firebase/src/index.ts"],
+      "@api/models": ["libs/api/models/src/index.ts"],
+      "@api/secure": ["libs/api/secure/src/index.ts"],
       "@api/user": ["libs/api/services/user/src/index.ts"],
       "@mobile/auth-provider": ["libs/mobile/auth-provider/src/index.ts"],
       "@mobile/configs": ["libs/mobile/configs/src/index.ts"],
@@ -46,7 +49,9 @@
       "@mobile/ui": ["libs/mobile/ui/src/index.ts"],
       "@project-j/core-plugins": ["libs/core-plugins/src/index.ts"],
       "@shared/models": ["libs/shared/models/src/index.ts"],
-      "@shared/theme": ["libs/shared/theme/src/index.ts"]
+      "@shared/queries": ["libs/shared/queries/src/index.ts"],
+      "@shared/theme": ["libs/shared/theme/src/index.ts"],
+      "@shared/validations": ["libs/shared/validations/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

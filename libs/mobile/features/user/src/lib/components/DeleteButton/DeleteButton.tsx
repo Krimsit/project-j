@@ -1,10 +1,14 @@
-import { useState, Fragment } from 'react'
-import { View } from 'react-native'
+import { Fragment, useState } from 'react'
 import { Button, Dialog, Portal, Text } from 'react-native-paper'
+import { AuthActions, useAuthDispatch } from '@mobile/auth-provider'
+
+import { useDeleteUserMutation } from '../../hooks'
 
 import type { FC } from 'react'
 
 export const DeleteButton: FC = () => {
+  const dispatch = useAuthDispatch()
+  const [deleteUser, { loading }] = useDeleteUserMutation()
   const [isOpenDelete, setIsOpenDelete] = useState<boolean>(false)
   const handleOpenDelete = () => setIsOpenDelete(true)
 
@@ -13,8 +17,10 @@ export const DeleteButton: FC = () => {
   }
 
   const handleDelete = () => {
-    console.log('Delete task')
-    handleCloseDelete()
+    void deleteUser().then(() => {
+      handleCloseDelete()
+      dispatch({ type: AuthActions.SignOut })
+    })
   }
 
   return (
@@ -30,10 +36,19 @@ export const DeleteButton: FC = () => {
             </Text>
           </Dialog.Content>
           <Dialog.Actions>
-            <Button mode={'outlined'} onPress={handleCloseDelete}>
+            <Button
+              mode={'outlined'}
+              onPress={handleCloseDelete}
+              disabled={loading}
+            >
               No
             </Button>
-            <Button mode={'contained'} onPress={handleDelete}>
+            <Button
+              mode={'contained'}
+              onPress={handleDelete}
+              disabled={loading}
+              loading={loading}
+            >
               Yes
             </Button>
           </Dialog.Actions>
