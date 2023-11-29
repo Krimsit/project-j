@@ -1,39 +1,46 @@
-import { Resolver, Query, Mutation, Args, ID } from '@nestjs/graphql'
+import { Args, Context, Mutation, Query, Resolver } from '@nestjs/graphql'
+import { UseGuards } from '@nestjs/common'
+import { CurrentUser, JwtGuard } from '@api/secure'
 
-import { UserInput, User } from '../models'
+import { LoginResult, User, RegistrationForm, LoginForm } from '../models'
 import { UserService } from '../services'
+
+import type { UserDocument } from '../models'
 
 @Resolver(() => User)
 export class UserResolver {
-  constructor(private readonly testService: UserService) {}
+  constructor(private readonly userService: UserService) {}
 
-  @Query(() => [User])
-  async users(): Promise<User[]> {
-    return this.testService.findAll()
+  @Mutation(() => LoginResult)
+  async registration(
+    @Args('data') data: RegistrationForm,
+  ): Promise<LoginResult> {
+    return this.userService.registration(data)
+  }
+
+  @Mutation(() => LoginResult)
+  async login(@Args('data') data: LoginForm): Promise<LoginResult> {
+    return await this.userService.login(data)
+  }
+
+  @Query(() => String)
+  async refreshToken(
+    @Context('req') request: { user: UserDocument },
+  ): Promise<string> {
+    const { user } = request
+
+    return this.userService.refreshToken(user)
   }
 
   @Query(() => User)
-  async user(@Args('id', { type: () => ID }) id: string): Promise<User | null> {
-    return this.testService.findOne(id)
+  @UseGuards(JwtGuard)
+  async currentUser(@CurrentUser() user: User): Promise<User | null> {
+    return user
   }
 
-  @Mutation(() => User)
-  async createUser(@Args('input') input: UserInput): Promise<User> {
-    return this.testService.create(input)
-  }
-
-  @Mutation(() => User)
-  async updateUser(
-    @Args('id', { type: () => ID }) id: string,
-    @Args('input') input: UserInput,
-  ): Promise<User | null> {
-    return this.testService.update(id, input)
-  }
-
-  @Mutation(() => User)
-  async deleteUser(
-    @Args('id', { type: () => ID }) id: string,
-  ): Promise<User | null> {
-    return this.testService.delete(id)
+  @Mutation(() => Boolean)
+  @UseGuards(JwtGuard)
+  async deleteUser(@CurrentUser() user: User): Promise<boolean> {
+    return this.userService.delete(user)
   }
 }

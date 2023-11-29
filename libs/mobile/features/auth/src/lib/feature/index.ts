@@ -1,1 +1,1 @@
-export * from './auth.feature'
+export * from './Auth'

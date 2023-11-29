@@ -6,5 +6,6 @@ export const Container = styled(View)`
   flex-direction: column;
   border-radius: ${({ theme }) => `${theme.roundness}px`};
   background-color: ${({ theme }) => theme.colors.background};
-  padding: 0 10px;
+  gap: 10px;
+  padding: 10px;
 `

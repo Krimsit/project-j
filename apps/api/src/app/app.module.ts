@@ -6,6 +6,7 @@ import {
   mongooseModule,
   services,
 } from '@api/configs'
+import { FirebaseModule } from '@api/firebase'
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import {
     configModule,
     graphQLModule,
     mongooseModule,
+    FirebaseModule,
   ],
 })
 export class AppModule {}

@@ -1,9 +1,10 @@
-import type { Schema as MongooseSchema } from 'mongoose'
-
 export type User = {
-  _id: MongooseSchema.Types.ObjectId | string
+  _id: string
+  avatar: string
   email: string
   username: string
+  first_name: string
+  last_name: string
   password: string
   createdAt: string
 }
