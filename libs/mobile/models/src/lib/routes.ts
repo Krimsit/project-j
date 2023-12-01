@@ -3,7 +3,7 @@ import type {
   NavigationProp,
 } from '@react-navigation/native'
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import type { User, TaskPriority } from '@shared/models'
+import type { User, TaskPriority, UploadFileProps } from '@shared/models'
 
 export enum Routes {
   Root = 'Root',
@@ -11,9 +11,8 @@ export enum Routes {
   Projects = 'Projects',
   User = 'User',
   Task = 'Task',
-  AllProjects = 'AllProjects',
   Project = 'Project',
-  AddProject = 'AddProject',
+  ProjectForm = 'ProjectForm',
   TaskForm = 'TaskForm',
   Auth = 'Auth',
 }
@@ -35,6 +34,17 @@ export type ShellRoutesProps = {
       description: string
     }
   }
+  ProjectForm: {
+    defaultValues?: {
+      _id: string
+      name: string
+      image: UploadFileProps
+      users: User[]
+    }
+  }
+  Project: {
+    projectId: string
+  }
 }
 
 export type RootRoutesProps = {
@@ -43,24 +53,9 @@ export type RootRoutesProps = {
   User: undefined
 }
 
-export type ProjectRoutes = {
-  AllProjects: undefined
-  Project: {
-    projectId: string
-  }
-  AddProject: {
-    defaultValues?: {
-      _id: string
-      name: string
-      image: string
-      selectedUsers: User[]
-    }
-  }
-}
-
 export type RoutesNavigationProps = {
   Home: NavigatorScreenParams<RootRoutesProps>
-  Projects: NavigatorScreenParams<ProjectRoutes>
+  Projects: NavigatorScreenParams<RootRoutesProps>
   User: NavigatorScreenParams<RootRoutesProps>
 }
 

@@ -32,6 +32,7 @@
       "@api/errors": ["libs/api/errors/src/index.ts"],
       "@api/firebase": ["libs/api/firebase/src/index.ts"],
       "@api/models": ["libs/api/models/src/index.ts"],
+      "@api/projects": ["libs/api/services/projects/src/index.ts"],
       "@api/secure": ["libs/api/secure/src/index.ts"],
       "@api/user": ["libs/api/services/user/src/index.ts"],
       "@mobile/auth-provider": ["libs/mobile/auth-provider/src/index.ts"],

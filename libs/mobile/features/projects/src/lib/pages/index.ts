@@ -1,1 +1,5 @@
-export * from './projects.page'
+export * from './Projects'
+
+export * from './ProjectForm'
+
+export * from './Project'

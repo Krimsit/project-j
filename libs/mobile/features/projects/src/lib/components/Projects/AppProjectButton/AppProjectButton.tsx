@@ -1,4 +1,4 @@
-import { useNavigation } from '@mobile/hooks'
+import { useRootNavigation } from '@mobile/hooks'
 import { Routes } from '@mobile/models'
 
 import { Button } from './AppProjectButton.styles'
@@ -6,13 +6,10 @@ import { Button } from './AppProjectButton.styles'
 import type { FC } from 'react'
 
 export const AppProjectButton: FC = () => {
-  const navigation = useNavigation()
+  const navigation = useRootNavigation()
   const handleOpenProjectForm = () =>
-    navigation.navigate(Routes.Projects, {
-      screen: Routes.AddProject,
-      params: {
-        defaultValues: undefined,
-      },
+    navigation.navigate(Routes.ProjectForm, {
+      defaultValues: undefined,
     })
 
   return (

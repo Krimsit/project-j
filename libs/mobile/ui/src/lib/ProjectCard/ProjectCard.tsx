@@ -7,7 +7,7 @@ import {
   Icon,
   ProgressBar,
 } from 'react-native-paper'
-import { useNavigation } from '@mobile/hooks'
+import { useRootNavigation } from '@mobile/hooks'
 import { Routes } from '@mobile/models'
 
 import { InfoChip, Info, Title, Content } from './ProjectCard.styles'
@@ -19,22 +19,19 @@ export const ProjectCard: FC<ProjectCardProps> = ({
   _id,
   completedTaskCount,
   allTaskCount,
-  attachmentsCount,
   image,
-  date,
   name,
-  ownerAvatar,
+  owner,
 }) => {
   const theme = useTheme()
-  const navigation = useNavigation()
+  const navigation = useRootNavigation()
   const progressBarValue = useMemo(
     () => completedTaskCount / allTaskCount,
     [allTaskCount, completedTaskCount],
   )
   const handleOpenProject = () =>
-    navigation.navigate(Routes.Projects, {
-      screen: Routes.Project,
-      params: { projectId: _id },
+    navigation.navigate(Routes.Project, {
+      projectId: _id,
     })
 
   return (
@@ -54,14 +51,6 @@ export const ProjectCard: FC<ProjectCardProps> = ({
         subtitle={
           <Info>
             <InfoChip>
-              <Icon size={16} source={'calendar-blank'} />
-              <Text>{date}</Text>
-            </InfoChip>
-            <InfoChip>
-              <Icon size={16} source={'attachment'} />
-              <Text>{attachmentsCount}</Text>
-            </InfoChip>
-            <InfoChip>
               <Icon size={16} source={'checkbox-marked-circle'} />
               <Text>
                 {completedTaskCount} / {allTaskCount}
@@ -74,11 +63,13 @@ export const ProjectCard: FC<ProjectCardProps> = ({
         <ProgressBar animatedValue={progressBarValue} />
       </Content>
       <BaseCard.Actions>
-        <Text>Owner</Text>
+        <Text>
+          {owner.last_name} {owner.first_name}
+        </Text>
         <Avatar.Image
           size={36}
           source={{
-            uri: ownerAvatar,
+            uri: owner.avatar,
           }}
         />
       </BaseCard.Actions>

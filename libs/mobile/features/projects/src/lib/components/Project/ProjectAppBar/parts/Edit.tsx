@@ -2,20 +2,21 @@ import { Menu } from 'react-native-paper'
 import { Routes } from '@mobile/models'
 
 import type { FC } from 'react'
-import type { EditProps } from './common.types'
+import type { EditItemProps } from './common.types'
 
-export const Edit: FC<EditProps> = ({ onClose, navigation }) => {
+export const Edit: FC<EditItemProps> = ({ onClose, navigation, data }) => {
+  const { _id, name, image, users } = data
+
   const handleOpenEdit = () => {
     onClose()
-    navigation.navigate(Routes.Projects, {
-      screen: Routes.AddProject,
-      params: {
-        defaultValues: {
-          _id: '1',
-          name: 'Project',
-          image:
-            'https://fastly.picsum.photos/id/661/700/700.jpg?hmac=5JIdMAlFpi9buG1brZ-L0gMljQkKHMiFDwiNZVIduUc',
-          selectedUsers: [],
+    navigation.navigate(Routes.ProjectForm, {
+      defaultValues: {
+        _id,
+        name,
+        users,
+        image: {
+          base64: image,
+          filename: '',
         },
       },
     })

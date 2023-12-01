@@ -1,15 +1,21 @@
 import { useQuery } from '@apollo/client'
-import { currentUserQuery } from '@shared/queries'
+import { currentUserQuery, getAllUsersQuery } from '@shared/queries'
 import { AuthActions, useAuthDispatch } from '@mobile/auth-provider'
 
-import type { CurrentUserQueryResult } from '@shared/queries'
+import type {
+  CurrentUserQueryResult,
+  GetAllUsersQueryResult,
+} from '@shared/queries'
 
 export const useUserQuery = () => {
-  const dispath = useAuthDispatch()
+  const dispatch = useAuthDispatch()
 
   return useQuery<CurrentUserQueryResult>(currentUserQuery, {
     onError() {
-      dispath({ type: AuthActions.SignOut })
+      dispatch({ type: AuthActions.SignOut })
     },
   })
 }
+
+export const useAllUsersQuery = () =>
+  useQuery<GetAllUsersQueryResult>(getAllUsersQuery)
