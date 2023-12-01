@@ -24,6 +24,7 @@ export const Select = <T,>({
   searchField,
   valueField,
   labelField,
+  loading,
 }: SelectProps<T>) => {
   const [searchValue, setSearchValue] = useState<string>('')
   const [checkedValue, setCheckedValue] = useState<T | undefined>(undefined)
@@ -101,10 +102,15 @@ export const Select = <T,>({
             })}
           </List>
           <Footer>
-            <Button mode={'outlined'} onPress={handleClose}>
+            <Button mode={'outlined'} onPress={handleClose} disabled={loading}>
               Close
             </Button>
-            <Button mode={'contained'} onPress={handleApply}>
+            <Button
+              mode={'contained'}
+              onPress={handleApply}
+              disabled={loading}
+              loading={loading}
+            >
               Apply
             </Button>
           </Footer>

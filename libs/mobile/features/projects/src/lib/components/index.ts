@@ -1,5 +1,5 @@
 export * from './Projects'
 
-export * from './AddProject'
+export * from './ProjectForm'
 
 export * from './Project'

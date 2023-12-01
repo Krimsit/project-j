@@ -1,4 +1,4 @@
-import type { UploadFileProps } from './commo'
+import type { UploadFileProps } from './common'
 
 export type RegistrationForm = {
   avatar: UploadFileProps

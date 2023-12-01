@@ -13,13 +13,40 @@ type LoginResult {
 }
 
 type Mutation {
+  createProject(data: ProjectForm!): Project!
+  deleteProject(projectId: String!): Boolean!
   deleteUser: Boolean!
   login(data: LoginForm!): LoginResult!
   registration(data: RegistrationForm!): LoginResult!
+  updateProject(data: ProjectForm!, projectId: String!): Project!
+  updateProjectUsers(data: UpdateProjectUsersForm!): Project!
+}
+
+type Project {
+  _id: String!
+  createdAt: String!
+  image: String!
+  name: String!
+  owner: User!
+  users: [User!]!
+}
+
+input ProjectForm {
+  image: ProjectUploadFile!
+  name: String!
+  users: [String!]!
+}
+
+input ProjectUploadFile {
+  base64: String!
+  filename: String!
 }
 
 type Query {
   currentUser: User!
+  getAllUsers: [User!]!
+  getProject(projectId: String!): Project!
+  getUserProjects: [Project!]!
   refreshToken: String!
 }
 
@@ -30,6 +57,11 @@ input RegistrationForm {
   last_name: String!
   password: String!
   username: String!
+}
+
+input UpdateProjectUsersForm {
+  project_id: String!
+  users: [String!]!
 }
 
 input UploadFile {

@@ -11,7 +11,14 @@ import {
 import { AuthPage, authTabParams } from '@mobile/feature/auth'
 import { HomePage, homeTabParams } from '@mobile/feature/home'
 import { UserPage, userTabParams } from '@mobile/feature/user'
-import { ProjectsPage, projectsTabParams } from '@mobile/feature/projects'
+import {
+  Projects,
+  projectsTabParams,
+  ProjectFormPage,
+  projectFormTabParams,
+  ProjectPage,
+  projectTabParams,
+} from '@mobile/feature/projects'
 import {
   TaskFormPage,
   taskFormTabParams,
@@ -28,6 +35,9 @@ const Tab = createBottomTabNavigator<RootRoutesProps>()
 const Stack = createNativeStackNavigator<ShellRoutesProps>()
 const RootPage: FC = () => (
   <Tab.Navigator
+    screenOptions={{
+      unmountOnBlur: true,
+    }}
     tabBar={({ navigation, state, descriptors, insets }) => (
       <BottomBar
         navigation={navigation}
@@ -44,7 +54,7 @@ const RootPage: FC = () => (
     />
     <Tab.Screen
       name={projectsTabParams.name}
-      component={ProjectsPage}
+      component={Projects}
       options={projectsTabParams.options}
     />
     <Tab.Screen
@@ -89,6 +99,16 @@ export const Layout: FC = () => {
             name={Routes.Root}
             options={{ headerShown: false }}
             component={RootPage}
+          />
+          <Stack.Screen
+            name={projectFormTabParams.name}
+            component={ProjectFormPage}
+            options={projectFormTabParams.options}
+          />
+          <Stack.Screen
+            name={projectTabParams.name}
+            component={ProjectPage}
+            options={projectTabParams.options}
           />
           <Stack.Screen
             name={taskTabParams.name}

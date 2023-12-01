@@ -3,45 +3,29 @@ import { Avatar, Card } from 'react-native-paper'
 import { useRootNavigation } from '@mobile/hooks'
 import { Routes } from '@mobile/models'
 
+import { useProjectQuery } from '../../../hook'
+
 import { Peoples } from './parts'
 import { AddTaskButton } from './Info.styles'
 
 import type { FC } from 'react'
-import type { User } from '@shared/models'
-
-const users: User[] = [
-  {
-    _id: '1',
-    username: 'User 1',
-    email: 'test@test.com',
-    createdAt: '',
-    password: '',
-  },
-  {
-    _id: '2',
-    username: 'User 2',
-    email: 'test@test.com',
-    createdAt: '',
-    password: '',
-  },
-  {
-    _id: '3',
-    username: 'User 3',
-    email: 'test@test.com',
-    createdAt: '',
-    password: '',
-  },
-]
 
 export const Info: FC = () => {
   const theme = useTheme()
   const navigation = useRootNavigation()
+  const { data } = useProjectQuery()
 
   const handleOpenTaskForm = () => {
     navigation.navigate(Routes.TaskForm, {
       project_id: '1',
     })
   }
+
+  if (!data) {
+    return null
+  }
+
+  const { image, owner, name } = data.getProject
 
   return (
     <Card
@@ -50,24 +34,24 @@ export const Info: FC = () => {
     >
       <Card.Cover
         source={{
-          uri: 'https://fastly.picsum.photos/id/661/700/700.jpg?hmac=5JIdMAlFpi9buG1brZ-L0gMljQkKHMiFDwiNZVIduUc',
+          uri: image,
         }}
       />
       <Card.Title
-        title={'Project'}
+        title={name}
         titleVariant={'titleLarge'}
         titleNumberOfLines={5}
         left={() => (
           <Avatar.Image
             source={{
-              uri: 'https://fastly.picsum.photos/id/507/700/700.jpg?hmac=Zn0zn8AItI9nqo8ZPoYW3AmOQ1o_nkZ_zkcHlNF-Un4',
+              uri: owner.avatar,
             }}
             size={32}
           />
         )}
       />
       <Card.Content>
-        <Peoples peoples={users} />
+        <Peoples />
       </Card.Content>
       <Card.Actions>
         <AddTaskButton

@@ -72,6 +72,24 @@ export type CurrentUserQueryResult = {
 export const currentUserQuery = gql`
   query currentUserQuery {
     currentUser {
+      _id
+      username
+      last_name
+      first_name
+      createdAt
+      avatar
+    }
+  }
+`
+
+export type GetAllUsersQueryResult = {
+  getAllUsers: User[]
+}
+
+export const getAllUsersQuery = gql`
+  query getAllUsersQuery {
+    getAllUsers {
+      _id
       username
       last_name
       first_name

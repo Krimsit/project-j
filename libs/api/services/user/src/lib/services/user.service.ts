@@ -100,6 +100,10 @@ export class UserService {
     return true
   }
 
+  async getAllUsers(): Promise<User[]> {
+    return await this.userModel.find().exec()
+  }
+
   async findOneByEmail(email: string): Promise<UserDocument | null> {
     const user = await this.userModel
       .findOne({ email: email.toLowerCase() })

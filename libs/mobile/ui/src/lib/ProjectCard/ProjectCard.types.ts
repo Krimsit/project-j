@@ -1,10 +1,6 @@
-export type ProjectCardProps = {
-  _id: string
-  image: string
-  name: string
-  date: string
-  ownerAvatar: string
+import type { Project } from '@shared/models'
+
+export type ProjectCardProps = Omit<Project, 'users'> & {
   completedTaskCount: number
   allTaskCount: number
-  attachmentsCount: number
 }

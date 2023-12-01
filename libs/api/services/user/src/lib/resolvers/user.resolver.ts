@@ -38,6 +38,11 @@ export class UserResolver {
     return user
   }
 
+  @Query(() => [User])
+  async getAllUsers(): Promise<User[]> {
+    return this.userService.getAllUsers()
+  }
+
   @Mutation(() => Boolean)
   @UseGuards(JwtGuard)
   async deleteUser(@CurrentUser() user: User): Promise<boolean> {

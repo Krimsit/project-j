@@ -2,7 +2,7 @@ import { ScrollView } from 'react-native'
 import { useRootNavigation } from '@mobile/hooks'
 import { Routes } from '@mobile/models'
 
-import { User, Tasks, Cards, Projects } from '../components'
+import { User, Tasks, Cards } from '../components'
 
 import { Container } from './home.styles'
 
@@ -21,7 +21,6 @@ export const HomeFeature: FC = () => {
         <User />
         <Cards />
         <Tasks />
-        <Projects />
       </Container>
     </ScrollView>
   )
