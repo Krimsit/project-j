@@ -2,28 +2,34 @@ import { useTheme } from 'styled-components'
 import { Avatar, Card as BaseCard, Icon, Text } from 'react-native-paper'
 import { useRootNavigation } from '@mobile/hooks'
 import { Routes } from '@mobile/models'
+import { tasksPriority } from '@shared/constants'
 
-import { useTaskPriorityIconColor, useTaskStatusIcon } from './TaskCard.utils'
+import {
+  useTaskPriorityIconColor,
+  useTaskStatusIcon,
+  parseDate,
+} from './TaskCard.utils'
 import { Footer, Info, InfoChip, StatusChip, Title } from './TaskCard.styles'
 
 import type { FC } from 'react'
-import type { TaskCardProps } from '@shared/models'
+import type { TaskCardProps } from './TaskCard.types'
 
 export const TaskCard: FC<TaskCardProps> = ({
   _id,
-  assignedTasksCount,
-  attachmentsCount,
-  assignerAvatar,
   name,
-  projectName,
-  status,
-  dueDate,
+  assigner,
+  attachments,
+  dueData,
   priority,
+  status,
+  project,
 }) => {
   const theme = useTheme()
   const navigation = useRootNavigation()
   const icon = useTaskStatusIcon(status)
   const priorityIconColor = useTaskPriorityIconColor(priority)
+  const priorityLabel = tasksPriority[priority].label
+  const formattedDueDate = parseDate(dueData)
   const handleOpenTask = () =>
     navigation.push(Routes.Task, {
       taskId: _id,
@@ -43,32 +49,26 @@ export const TaskCard: FC<TaskCardProps> = ({
       <Info>
         <InfoChip>
           <Icon size={16} source={'calendar-blank'} />
-          <Text>{dueDate}</Text>
+          <Text>{formattedDueDate}</Text>
         </InfoChip>
-        {Boolean(assignedTasksCount) && (
-          <InfoChip>
-            <Icon size={16} source={'clipboard-list'} />
-            <Text>{assignedTasksCount}</Text>
-          </InfoChip>
-        )}
-        {Boolean(attachmentsCount) && (
+        {attachments.length !== 0 && (
           <InfoChip>
             <Icon size={16} source={'attachment'} />
-            <Text>{attachmentsCount}</Text>
+            <Text>{attachments.length}</Text>
           </InfoChip>
         )}
         <InfoChip>
           <Icon size={16} source={'flash'} color={priorityIconColor} />
-          <Text>{priority}</Text>
+          <Text>{priorityLabel}</Text>
         </InfoChip>
       </Info>
       <BaseCard.Actions>
         <Footer>
-          <Text variant={'labelLarge'}>{projectName}</Text>
+          <Text variant={'labelLarge'}>{project.name}</Text>
           <Avatar.Image
             size={36}
             source={{
-              uri: assignerAvatar,
+              uri: assigner.avatar,
             }}
           />
         </Footer>

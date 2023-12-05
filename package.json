@@ -33,6 +33,7 @@
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.2",
     "compose-function": "^3.0.3",
+    "dayjs": "^1.11.10",
     "expo": "49.0.10",
     "expo-image-picker": "~14.3.2",
     "expo-secure-store": "~12.3.1",

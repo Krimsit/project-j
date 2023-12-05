@@ -1,13 +1,24 @@
 import { useTheme } from 'styled-components'
-import { View } from 'react-native'
-import { Text, Icon as BaseIcon, Card as BaseCard } from 'react-native-paper'
+import {
+  Text,
+  Icon as BaseIcon,
+  Card as BaseCard,
+  ActivityIndicator,
+} from 'react-native-paper'
 
 import { Container, IconContainer, Icon } from './Card.styles'
 
 import type { FC } from 'react'
 import type { CardProps } from './Card.types'
 
-export const Card: FC<CardProps> = ({ color, icon, onPress, count, title }) => {
+export const Card: FC<CardProps> = ({
+  color,
+  icon,
+  onPress,
+  count,
+  title,
+  loading,
+}) => {
   const theme = useTheme()
   const countText = count < 10 ? `0${count}` : count
 
@@ -34,7 +45,11 @@ export const Card: FC<CardProps> = ({ color, icon, onPress, count, title }) => {
         titleNumberOfLines={5}
       />
       <BaseCard.Actions>
-        <Text variant={'titleLarge'}>{countText}</Text>
+        {!loading ? (
+          <Text variant={'titleLarge'}>{countText}</Text>
+        ) : (
+          <ActivityIndicator animating />
+        )}
       </BaseCard.Actions>
     </Container>
   )

@@ -1,10 +1,12 @@
 import { Module } from '@nestjs/common'
 import { MongooseModule } from '@nestjs/mongoose'
 import { FirebaseModule } from '@api/firebase'
+import { TasksModule } from '@api/tasks'
+import { Project } from '@api/models'
 
 import { ProjectsService } from '../services'
 import { ProjectsResolver } from '../resolvers'
-import { ProjectSchema, Project } from '../models'
+import { ProjectSchema } from '../models'
 
 @Module({
   providers: [ProjectsService, ProjectsResolver],
@@ -16,6 +18,8 @@ import { ProjectSchema, Project } from '../models'
       },
     ]),
     FirebaseModule,
+    TasksModule,
   ],
+  exports: [ProjectsService],
 })
 export class ProjectsModule {}

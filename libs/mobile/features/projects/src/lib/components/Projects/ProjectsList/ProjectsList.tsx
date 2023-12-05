@@ -16,12 +16,7 @@ export const ProjectsList: FC = () => {
   return (
     <Container>
       {data.getUserProjects.map((project) => (
-        <ProjectCard
-          key={project._id}
-          {...project}
-          completedTaskCount={5}
-          allTaskCount={10}
-        />
+        <ProjectCard key={project._id} {...project} />
       ))}
     </Container>
   )

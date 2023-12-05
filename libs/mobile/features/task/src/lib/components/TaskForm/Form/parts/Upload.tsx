@@ -11,15 +11,16 @@ import {
 } from './common.styles'
 
 import type { FC } from 'react'
+import type { TaskForm, UploadFileProps } from '@shared/models'
 
 export const Upload: FC = () => {
   const {
     setValue,
     getValues,
     formState: { errors },
-  } = useFormContext()
-  const value = getValues('image') as string[] | undefined
-  const error = errors.image
+  } = useFormContext<TaskForm>()
+  const value = getValues('attachments')
+  const error = errors.attachments
   const [images, setImages] = useState<string[]>([])
 
   const handleChoosePhoto = () => {
@@ -29,20 +30,27 @@ export const Upload: FC = () => {
       base64: true,
     }).then((result) => {
       if (!result.canceled) {
-        if (result.assets?.[0].uri) {
-          const newImages = result.assets?.map((item) => item.uri)
-          const value = [...images, ...newImages]
+        if (result.assets) {
+          const attachments: UploadFileProps[] = result.assets.map((item) => ({
+            base64: item.base64 ?? '',
+            filename: item.fileName ?? '',
+          }))
+          const newImages: string[] = result.assets.map((item) => item.uri)
 
-          setValue('images', value)
-          setImages(value)
+          setImages([...images, ...newImages])
+
+          setValue('attachments', attachments, {
+            shouldValidate: true,
+          })
+          setImages(newImages)
         }
       }
     })
   }
 
   useEffect(() => {
-    setImages(value ?? [])
-  }, [value])
+    setValue('attachments', [])
+  }, [setValue])
 
   return (
     <RowContainer>

@@ -29,6 +29,8 @@ export const createProjectMutation = gql`
         createdAt
       }
       createdAt
+      allTasksCount
+      completedTasksCount
     }
   }
 `
@@ -64,6 +66,8 @@ export const getProjectQuery = gql`
         createdAt
       }
       createdAt
+      allTasksCount
+      completedTasksCount
     }
   }
 `
@@ -87,6 +91,8 @@ export const getUserProjectsQuery = gql`
         createdAt
       }
       createdAt
+      allTasksCount
+      completedTasksCount
     }
   }
 `
@@ -122,6 +128,8 @@ export const updateProjectUsersMutations = gql`
         createdAt
       }
       createdAt
+      allTasksCount
+      completedTasksCount
     }
   }
 `
@@ -164,6 +172,8 @@ export const updateProjectMutation = gql`
         createdAt
       }
       createdAt
+      allTasksCount
+      completedTasksCount
     }
   }
 `

@@ -1,20 +1,30 @@
-import { Card, Text } from 'react-native-paper'
+import { Text } from 'react-native-paper'
 import { useTaskStatusIcon } from '@mobile/ui'
 import { TaskStatus } from '@shared/models'
 
-import { Container, TextContainer, StatusChip } from './Title.styles'
+import { useTaskQuery } from '../../../hook'
+
+import { Container, StatusChip, TextContainer } from './Title.styles'
 
 import type { FC } from 'react'
 
 export const Title: FC = () => {
-  const icon = useTaskStatusIcon(TaskStatus.ToDo)
+  const { data } = useTaskQuery()
+  const icon = useTaskStatusIcon(data?.getTask.status ?? TaskStatus.ToDo)
+
+  if (!data) {
+    return null
+  }
+
+  const { name, project } = data.getTask
+  const { name: projectName } = project
 
   return (
     <Container>
       <StatusChip>{icon}</StatusChip>
       <TextContainer>
-        <Text variant={'titleSmall'}>Project</Text>
-        <Text variant={'titleLarge'}>Task</Text>
+        <Text variant={'titleSmall'}>{projectName}</Text>
+        <Text variant={'titleLarge'}>{name}</Text>
       </TextContainer>
     </Container>
   )

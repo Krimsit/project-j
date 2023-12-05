@@ -9,6 +9,7 @@ import {
 import { v4 } from 'uuid'
 
 import type { FirebaseStorage } from 'firebase/storage'
+import type { UploadFileProps } from '@shared/models'
 
 @Injectable()
 export class FirebaseService {
@@ -29,5 +30,20 @@ export class FirebaseService {
     })
 
     return await getDownloadURL(uploadTask.ref)
+  }
+
+  async uploadManyFiles(files: UploadFileProps[]): Promise<string[]> {
+    const links: string[] = []
+
+    await Promise.all(
+      files.map(async (file) => {
+        const fileName = file.filename ?? v4()
+        const fileLink = await this.uploadFile(file.base64, fileName)
+
+        links.push(fileLink)
+      }),
+    )
+
+    return links
   }
 }

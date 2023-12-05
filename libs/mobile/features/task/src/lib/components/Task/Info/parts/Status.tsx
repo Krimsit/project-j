@@ -1,38 +1,63 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { View } from 'react-native'
-import { Chip, Icon } from 'react-native-paper'
+import { Chip } from 'react-native-paper'
 import { Select, useTaskStatusColor, useTaskStatusIcon } from '@mobile/ui'
 import { TaskStatus } from '@shared/models'
+import { allTaskStatuses } from '@shared/constants'
+
+import {
+  useTaskNextStatusesQuery,
+  useTaskQuery,
+  useUpdateTaskStatusMutation,
+} from '../../../../hook'
 
 import { Row } from './Row'
 
 import type { FC } from 'react'
 import type { TaskStatusItem } from '@shared/models'
 
-const statuses: TaskStatusItem[] = [
-  {
-    value: TaskStatus.InProgress,
-    label: 'In Progress',
-  },
-]
-
 export const Status: FC = () => {
+  const { data } = useTaskQuery()
+  const [getNextStatuses, { data: statuses }] = useTaskNextStatusesQuery()
+  const [updateStatus, { loading: updateStatusLoading }] =
+    useUpdateTaskStatusMutation()
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [checkedStatus, setCheckedStatus] = useState<
     TaskStatusItem | undefined
-  >({
-    value: TaskStatus.ToDo,
-    label: 'ToDo',
-  })
-  const handleOpen = () => setIsOpen(true)
+  >(undefined)
   const handleClose = () => setIsOpen(false)
   const color = useTaskStatusColor(checkedStatus?.value ?? TaskStatus.ToDo)
   const icon = useTaskStatusIcon(checkedStatus?.value ?? TaskStatus.ToDo, 16)
 
+  const handleOpen = () => {
+    setIsOpen(true)
+    void getNextStatuses()
+  }
+
   const handleApply = (status?: TaskStatusItem) => {
     setCheckedStatus(status)
-    console.log(status)
+
+    if (status) {
+      void updateStatus({
+        variables: {
+          taskId: data?.getTask._id ?? '',
+          value: {
+            status: status?.value ?? TaskStatus.ToDo,
+          },
+        },
+      })
+    }
   }
+
+  useEffect(() => {
+    const status = allTaskStatuses.find(
+      (item) => item.value === data?.getTask.status,
+    )
+
+    if (status) {
+      setCheckedStatus(status)
+    }
+  }, [data?.getTask.status])
 
   return (
     <Row title={'Status'}>
@@ -49,10 +74,11 @@ export const Status: FC = () => {
           isOpen={isOpen}
           onApply={handleApply}
           onClose={handleClose}
-          values={statuses}
+          values={statuses?.getTaskNextStatuses || []}
           valueField={'value'}
           labelField={'label'}
           value={checkedStatus}
+          loading={updateStatusLoading}
         />
       </View>
     </Row>

@@ -1,8 +1,9 @@
 import { Args, Context, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { UseGuards } from '@nestjs/common'
 import { CurrentUser, JwtGuard } from '@api/secure'
+import { User } from '@api/models'
 
-import { LoginResult, User, RegistrationForm, LoginForm } from '../models'
+import { LoginResult, RegistrationForm, LoginForm } from '../models'
 import { UserService } from '../services'
 
 import type { UserDocument } from '../models'

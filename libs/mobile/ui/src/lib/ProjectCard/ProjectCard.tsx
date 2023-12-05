@@ -17,8 +17,8 @@ import type { ProjectCardProps } from './ProjectCard.types'
 
 export const ProjectCard: FC<ProjectCardProps> = ({
   _id,
-  completedTaskCount,
-  allTaskCount,
+  allTasksCount,
+  completedTasksCount,
   image,
   name,
   owner,
@@ -26,8 +26,8 @@ export const ProjectCard: FC<ProjectCardProps> = ({
   const theme = useTheme()
   const navigation = useRootNavigation()
   const progressBarValue = useMemo(
-    () => completedTaskCount / allTaskCount,
-    [allTaskCount, completedTaskCount],
+    () => completedTasksCount / allTasksCount,
+    [allTasksCount, completedTasksCount],
   )
   const handleOpenProject = () =>
     navigation.navigate(Routes.Project, {
@@ -53,7 +53,7 @@ export const ProjectCard: FC<ProjectCardProps> = ({
             <InfoChip>
               <Icon size={16} source={'checkbox-marked-circle'} />
               <Text>
-                {completedTaskCount} / {allTaskCount}
+                {completedTasksCount} / {allTasksCount}
               </Text>
             </InfoChip>
           </Info>

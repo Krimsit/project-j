@@ -8,22 +8,25 @@ import { Button } from './common.styles'
 
 import type { FC } from 'react'
 import type { DateTimePickerEvent } from '@react-native-community/datetimepicker'
+import type { TaskForm } from '@shared/models'
 
 export const DatePicker: FC = () => {
   const {
     getValues,
     setValue,
     formState: { errors },
-  } = useFormContext()
+  } = useFormContext<TaskForm>()
   const [open, setOpen] = useState<boolean>(false)
-  const value = getValues('due_date') as string
-  const error = errors.due_date
+  const value = getValues('dueData') as string
+  const error = errors.dueData
   const text = value ? String(value) : 'Select date'
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
 
   const handleConfirm = (_: DateTimePickerEvent, date?: Date) => {
-    setValue('due_date', date)
+    setValue('dueData', String(date), {
+      shouldValidate: true,
+    })
     handleClose()
   }
 

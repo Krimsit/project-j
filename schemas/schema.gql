@@ -13,13 +13,19 @@ type LoginResult {
 }
 
 type Mutation {
-  createProject(data: ProjectForm!): Project!
+  createProject(data: ProjectForm!): ProjectResponse!
+  createTask(data: TaskForm!): Task!
   deleteProject(projectId: String!): Boolean!
+  deleteTask(taskId: String!): Task!
   deleteUser: Boolean!
   login(data: LoginForm!): LoginResult!
   registration(data: RegistrationForm!): LoginResult!
-  updateProject(data: ProjectForm!, projectId: String!): Project!
-  updateProjectUsers(data: UpdateProjectUsersForm!): Project!
+  updateProject(data: ProjectForm!, projectId: String!): ProjectResponse!
+  updateProjectUsers(data: UpdateProjectUsersForm!): ProjectResponse!
+  updateTask(data: TaskForm!, taskId: String!): Task!
+  updateTaskAssigner(data: UpdateTaskAssignerForm!, taskId: String!): Task!
+  updateTaskAttachments(data: UpdateTaskAttachmentsForm!, taskId: String!): Task!
+  updateTaskStatus(data: UpdateTaskStatusForm!, taskId: String!): Task!
 }
 
 type Project {
@@ -37,6 +43,17 @@ input ProjectForm {
   users: [String!]!
 }
 
+type ProjectResponse {
+  _id: String!
+  allTasksCount: Float!
+  completedTasksCount: Float!
+  createdAt: String!
+  image: String!
+  name: String!
+  owner: User!
+  users: [User!]!
+}
+
 input ProjectUploadFile {
   base64: String!
   filename: String!
@@ -45,8 +62,12 @@ input ProjectUploadFile {
 type Query {
   currentUser: User!
   getAllUsers: [User!]!
-  getProject(projectId: String!): Project!
-  getUserProjects: [Project!]!
+  getProject(projectId: String!): ProjectResponse!
+  getProjectTasks(projectId: String!): [Task!]!
+  getTask(taskId: String!): Task!
+  getTaskNextStatuses(taskId: String!): [TaskStatusItem!]!
+  getUserProjects: [ProjectResponse!]!
+  getUserTasks: [Task!]!
   refreshToken: String!
 }
 
@@ -59,9 +80,52 @@ input RegistrationForm {
   username: String!
 }
 
+type Task {
+  _id: String!
+  assigner: User!
+  attachments: [String!]!
+  createdAt: String!
+  dueData: String!
+  name: String!
+  priority: Float!
+  project: Project!
+  status: Float!
+}
+
+input TaskForm {
+  assigner: String!
+  attachments: [TaskUploadFile!]!
+  dueData: String!
+  name: String!
+  priority: Float!
+  project_id: String!
+}
+
+type TaskStatusItem {
+  label: String!
+  value: Float!
+}
+
+input TaskUploadFile {
+  base64: String!
+  filename: String!
+}
+
 input UpdateProjectUsersForm {
   project_id: String!
   users: [String!]!
+}
+
+input UpdateTaskAssignerForm {
+  assigner: String!
+}
+
+input UpdateTaskAttachmentsForm {
+  attachments: [TaskUploadFile!]!
+}
+
+input UpdateTaskStatusForm {
+  status: Float!
 }
 
 input UploadFile {

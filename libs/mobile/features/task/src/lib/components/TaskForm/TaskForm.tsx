@@ -1,46 +1,64 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useRoute } from '@react-navigation/native'
 import { FormProvider, useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Banner } from 'react-native-paper'
 import { useRootNavigation } from '@mobile/hooks'
+import { taskValidationSchema } from '@shared/validations'
 
 import { Form } from './Form'
 import { SubmitButton } from './SubmitButton'
 import { Container } from './TaskForm.styles'
 
 import type { FC } from 'react'
+import type { TaskForm as TaskFormType } from '@shared/models'
 import type { TaskFormRouterProps } from './TaskForm.types'
 
 export const TaskForm: FC = () => {
   const router = useRoute<TaskFormRouterProps>()
   const navigation = useRootNavigation()
+  const [isVisibleError, setIsVisibleError] = useState<boolean>(false)
+  const [errorMessage, setErrorMessage] = useState<string>('')
   const isEdit = router.params.defaultValues
-  const methods = useForm({
-    defaultValues: isEdit
+  const methods = useForm<TaskFormType>({
+    mode: 'onChange',
+    defaultValues: router.params.defaultValues
       ? {
           project_id: router.params.project_id,
-          _id: router.params.defaultValues._id,
-          task_name: router.params.defaultValues.task_name,
-          due_date: router.params.defaultValues.due_date,
+          name: router.params.defaultValues.name,
+          dueData: router.params.defaultValues.dueDate,
           priority: router.params.defaultValues.priority,
           assigner: router.params.defaultValues.assigner,
-          description: router.params.defaultValues.description,
+          attachments: [],
         }
       : {
           project_id: router.params.project_id,
+          attachments: [],
         },
+    resolver: zodResolver(taskValidationSchema),
   })
+  const { setValue } = methods
 
   useEffect(() => {
     navigation.setOptions({
       title: isEdit ? 'Edit task' : 'New task',
     })
-  }, [navigation, router])
+  }, [isEdit, navigation, router])
+
+  useEffect(() => {
+    setValue('project_id', router.params.project_id)
+  }, [router.params.project_id, setValue])
 
   return (
     <FormProvider {...methods}>
       <Container>
+        <Banner visible={isVisibleError}>{errorMessage}</Banner>
         <Form isEdit={Boolean(isEdit)} />
-        <SubmitButton isEdit={Boolean(isEdit)} />
+        <SubmitButton
+          isEdit={Boolean(isEdit)}
+          setErrorMessage={setErrorMessage}
+          setIsVisibleError={setIsVisibleError}
+        />
       </Container>
     </FormProvider>
   )

@@ -1,67 +1,44 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { View } from 'react-native'
 import { Chip, Avatar } from 'react-native-paper'
+import { useAllUsersQuery } from '@mobile/hooks'
 import { Select } from '@mobile/ui'
+
+import { useTaskQuery, useUpdateTaskAssignerMutation } from '../../../../hook'
 
 import { Row } from './Row'
 
 import type { FC } from 'react'
 import type { User } from '@shared/models'
 
-const users: User[] = [
-  {
-    _id: '1',
-    username: 'User 1',
-    email: 'test@test.com',
-    createdAt: '',
-    password: '',
-  },
-  {
-    _id: '2',
-    username: 'User 2',
-    email: 'test@test.com',
-    createdAt: '',
-    password: '',
-  },
-  {
-    _id: '3',
-    username: 'User 3',
-    email: 'test@test.com',
-    createdAt: '',
-    password: '',
-  },
-  {
-    _id: '4',
-    username: 'User 4',
-    email: 'test@test.com',
-    createdAt: '',
-    password: '',
-  },
-  {
-    _id: '5',
-    username: 'User 5',
-    email: 'test@test.com',
-    createdAt: '',
-    password: '',
-  },
-]
-
 export const Assigner: FC = () => {
+  const { data } = useTaskQuery()
+  const { data: allUsers } = useAllUsersQuery()
+  const [updateAssigner, { loading: updateAssignerLoading }] =
+    useUpdateTaskAssignerMutation()
   const [isOpen, setIsOpen] = useState<boolean>(false)
-  const [checkedUser, setCheckedUser] = useState<User | undefined>({
-    _id: '1',
-    username: 'User 1',
-    email: 'test@test.com',
-    createdAt: '',
-    password: '',
-  })
+  const [checkedUser, setCheckedUser] = useState<User | undefined>(undefined)
   const handleOpen = () => setIsOpen(true)
   const handleClose = () => setIsOpen(false)
 
   const handleApply = (user?: User) => {
     setCheckedUser(user)
-    console.log(user)
+
+    if (user) {
+      void updateAssigner({
+        variables: {
+          taskId: data?.getTask._id ?? '',
+          value: {
+            assigner: user?._id,
+          },
+        },
+      })
+    }
   }
+
+  useEffect(() => {
+    setCheckedUser(data?.getTask.assigner ?? undefined)
+  }, [data?.getTask.assigner])
 
   return (
     <Row title={'Assigner'}>
@@ -84,11 +61,12 @@ export const Assigner: FC = () => {
           isOpen={isOpen}
           onApply={handleApply}
           onClose={handleClose}
-          values={users}
+          values={allUsers?.getAllUsers ?? []}
           valueField={'_id'}
           labelField={'username'}
           searchField={'username'}
           value={checkedUser}
+          loading={updateAssignerLoading}
         />
       </View>
     </Row>

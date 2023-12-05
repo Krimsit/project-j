@@ -1,28 +1,27 @@
 import { Chip, Icon } from 'react-native-paper'
 import { useTaskPriorityIconColor } from '@mobile/ui'
 import { TaskPriority } from '@shared/models'
+import { tasksPriority } from '@shared/constants'
+
+import { useTaskQuery } from '../../../../hook'
 
 import { Row } from './Row'
 
 import type { FC } from 'react'
-import type { PriorityItem } from '@shared/models'
-
-const priority: PriorityItem = {
-  value: TaskPriority.High,
-  label: TaskPriority.High,
-}
 
 export const Priority: FC = () => {
-  const priorityColor = useTaskPriorityIconColor(priority.value)
+  const { data } = useTaskQuery()
+  const priority = data?.getTask.priority ?? TaskPriority.Low
+  const priorityColor = useTaskPriorityIconColor(priority)
+  const { label } = tasksPriority[priority]
 
   return (
     <Row title={'Priority'}>
       <Chip
-        key={String(priority.value)}
         mode={'outlined'}
         icon={() => <Icon size={16} source={'flash'} color={priorityColor} />}
       >
-        {priority.label}
+        {label}
       </Chip>
     </Row>
   )
