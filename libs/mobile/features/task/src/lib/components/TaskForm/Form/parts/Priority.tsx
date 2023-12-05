@@ -3,52 +3,37 @@ import { useFormContext } from 'react-hook-form'
 import { View } from 'react-native'
 import { Chip, Icon } from 'react-native-paper'
 import { Select, useTaskPriorityIconColor } from '@mobile/ui'
-import { TaskPriority } from '@shared/models'
+import { tasksPriority } from '@shared/constants'
 
 import { Button } from './common.styles'
 
 import type { FC } from 'react'
-import type { PriorityItem } from '@shared/models'
-
-const priorities: PriorityItem[] = [
-  {
-    value: TaskPriority.Low,
-    label: TaskPriority.Low,
-  },
-  {
-    value: TaskPriority.Medium,
-    label: TaskPriority.Medium,
-  },
-  {
-    value: TaskPriority.High,
-    label: TaskPriority.High,
-  },
-]
+import type { TaskPriorityItem, TaskForm } from '@shared/models'
 
 export const PrioritySelect: FC = () => {
-  const { setValue, getValues } = useFormContext()
-  const value = getValues('priority') as TaskPriority
+  const { setValue, getValues } = useFormContext<TaskForm>()
+  const value = getValues('priority')
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [checkedPriority, setCheckedPriority] = useState<
-    PriorityItem | undefined
+    TaskPriorityItem | undefined
   >(undefined)
   const priorityColor = useTaskPriorityIconColor(checkedPriority?.value)
 
-  const handleApply = (priority?: PriorityItem) => {
+  const handleApply = (priority?: TaskPriorityItem) => {
     if (priority) {
       setCheckedPriority(priority)
-      setValue('priority', priority.value)
+      setValue('priority', priority.value, {
+        shouldValidate: true,
+      })
     }
   }
   const handleOpen = () => setIsOpen(true)
   const handleClose = () => setIsOpen(false)
 
   useEffect(() => {
-    if (value) {
-      const foundedPriority = priorities.find((item) => item.value === value)
+    const foundedPriority = tasksPriority.find((item) => item.value === value)
 
-      setCheckedPriority(foundedPriority)
-    }
+    setCheckedPriority(foundedPriority)
   }, [value])
 
   return (
@@ -69,11 +54,11 @@ export const PrioritySelect: FC = () => {
           Select priority
         </Button>
       )}
-      <Select<PriorityItem>
+      <Select<TaskPriorityItem>
         isOpen={isOpen}
         onApply={handleApply}
         onClose={handleClose}
-        values={priorities}
+        values={tasksPriority}
         valueField={'value'}
         labelField={'label'}
         value={checkedPriority}

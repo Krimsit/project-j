@@ -1,29 +1,32 @@
-export type TaskCardProps = {
+import type { User } from './user'
+import type { Project } from './project'
+
+export type Task = {
   _id: string
-  projectName: string
   name: string
-  status: number
-  dueDate: string
+  dueData: string
+  assigner: User
   priority: TaskPriority
-  attachmentsCount: number
-  assignedTasksCount: number
-  assignerAvatar: string
+  status: TaskStatus
+  attachments: string[]
+  project: Omit<Project, 'allTasksCount' | 'completedTasksCount'>
 }
 
 export enum TaskPriority {
-  Low = 'Low',
-  Medium = 'Medium',
-  High = 'High',
+  Low,
+  Medium,
+  High,
 }
 
 export enum TaskStatus {
   OnHold,
   ToDo,
   InProgress,
+  UnderReview,
   Done,
 }
 
-export type PriorityItem = {
+export type TaskPriorityItem = {
   value: TaskPriority
   label: string
 }

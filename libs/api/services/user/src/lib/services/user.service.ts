@@ -12,9 +12,9 @@ import {
   registrationValidationSchema,
   loginValidationSchema,
 } from '@shared/validations'
+import { User } from '@api/models'
 
 import { AuthService } from '../jwt'
-import { User } from '../models'
 
 import type {
   LoginResult,

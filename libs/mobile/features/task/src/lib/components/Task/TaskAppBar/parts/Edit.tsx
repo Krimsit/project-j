@@ -1,22 +1,20 @@
 import { Menu } from 'react-native-paper'
 import { Routes } from '@mobile/models'
-import { TaskPriority } from '@shared/models'
 
 import type { FC } from 'react'
-import type { EditProps } from './common.types'
+import type { MenuItemProps } from './common.types'
 
-export const Edit: FC<EditProps> = ({ onClose, navigation }) => {
+export const Edit: FC<MenuItemProps> = ({ onClose, navigation, data }) => {
   const handleOpenEdit = () => {
     onClose()
     navigation.navigate(Routes.TaskForm, {
-      project_id: '1',
+      project_id: data.project._id,
       defaultValues: {
-        _id: '1',
-        task_name: 'Task',
-        due_date: String(new Date()),
-        priority: TaskPriority.High,
-        assigner: '3',
-        description: 'Description',
+        _id: data._id,
+        name: data.name,
+        dueDate: String(new Date(data.dueData)),
+        priority: data.priority,
+        assigner: data.assigner._id,
       },
     })
   }

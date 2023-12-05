@@ -1,5 +1,3 @@
-import { Text } from 'react-native-paper'
-
 import { Status, Assigner, DueDate, Priority } from './parts'
 import { Container } from './Info.styles'
 
@@ -11,8 +9,5 @@ export const Info: FC = () => (
     <Assigner />
     <DueDate />
     <Priority />
-    <Text>
-      DescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescription
-    </Text>
   </Container>
 )

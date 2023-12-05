@@ -17,7 +17,7 @@ export const Info: FC = () => {
 
   const handleOpenTaskForm = () => {
     navigation.navigate(Routes.TaskForm, {
-      project_id: '1',
+      project_id: data?.getProject._id ?? '',
     })
   }
 

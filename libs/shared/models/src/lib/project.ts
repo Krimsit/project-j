@@ -7,4 +7,6 @@ export type Project = {
   users: User[]
   owner: User
   createdAt: string
+  allTasksCount: number
+  completedTasksCount: number
 }

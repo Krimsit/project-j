@@ -14,7 +14,7 @@ import type { FormProps } from './Form.types'
 export const Form: FC<FormProps> = ({ isEdit }) => (
   <Container>
     <TextField
-      name={'task_name'}
+      name={'name'}
       label={'Task name'}
       placeholder={'Enter task name'}
     />
@@ -28,11 +28,5 @@ export const Form: FC<FormProps> = ({ isEdit }) => (
       <PrioritySelect />
     </Row>
     {!isEdit && <Upload />}
-    <TextField
-      name={'description'}
-      label={'Description'}
-      placeholder={'Enter task description'}
-      isTextarea
-    />
   </Container>
 )

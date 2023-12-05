@@ -2,53 +2,17 @@ import { useEffect, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { View } from 'react-native'
 import { Chip, Avatar } from 'react-native-paper'
+import { useAllUsersQuery } from '@mobile/hooks'
 import { Select } from '@mobile/ui'
 
 import { Button } from './common.styles'
 
 import type { FC } from 'react'
-import type { User } from '@shared/models'
-
-const users: User[] = [
-  {
-    _id: '1',
-    username: 'User 1',
-    email: 'test@test.com',
-    createdAt: '',
-    password: '',
-  },
-  {
-    _id: '2',
-    username: 'User 2',
-    email: 'test@test.com',
-    createdAt: '',
-    password: '',
-  },
-  {
-    _id: '3',
-    username: 'User 3',
-    email: 'test@test.com',
-    createdAt: '',
-    password: '',
-  },
-  {
-    _id: '4',
-    username: 'User 4',
-    email: 'test@test.com',
-    createdAt: '',
-    password: '',
-  },
-  {
-    _id: '5',
-    username: 'User 5',
-    email: 'test@test.com',
-    createdAt: '',
-    password: '',
-  },
-]
+import type { User, TaskForm } from '@shared/models'
 
 export const UserSelect: FC = () => {
-  const { setValue, getValues } = useFormContext()
+  const { data: allUsers } = useAllUsersQuery()
+  const { setValue, getValues } = useFormContext<TaskForm>()
   const value = getValues('assigner') as string
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [checkedUser, setCheckedUser] = useState<User | undefined>(undefined)
@@ -56,7 +20,9 @@ export const UserSelect: FC = () => {
   const handleApply = (user?: User) => {
     if (user) {
       setCheckedUser(user)
-      setValue('assigner', user._id)
+      setValue('assigner', user._id, {
+        shouldValidate: true,
+      })
     }
   }
   const handleOpen = () => setIsOpen(true)
@@ -64,11 +30,15 @@ export const UserSelect: FC = () => {
 
   useEffect(() => {
     if (value) {
-      const foundedUser = users.find((item) => item._id === value)
+      const foundedUser = allUsers?.getAllUsers.find(
+        (item) => item._id === value,
+      )
 
-      setCheckedUser(foundedUser)
+      if (foundedUser) {
+        setCheckedUser(foundedUser)
+      }
     }
-  }, [value])
+  }, [allUsers?.getAllUsers, value])
 
   return (
     <View>
@@ -96,7 +66,7 @@ export const UserSelect: FC = () => {
         isOpen={isOpen}
         onApply={handleApply}
         onClose={handleClose}
-        values={users}
+        values={allUsers?.getAllUsers ?? []}
         valueField={'_id'}
         labelField={'username'}
         searchField={'username'}

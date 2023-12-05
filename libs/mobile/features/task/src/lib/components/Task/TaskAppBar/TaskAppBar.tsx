@@ -3,15 +3,22 @@ import { Appbar, Menu } from 'react-native-paper'
 import { useRootNavigation } from '@mobile/hooks'
 import { AppBar as BaseAppBar } from '@mobile/ui'
 
+import { useTaskQuery } from '../../../hook'
+
 import { Edit, Delete } from './parts'
 
 import type { FC } from 'react'
 
 export const TaskAppBar: FC = () => {
   const navigation = useRootNavigation()
+  const { data } = useTaskQuery()
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const handleOpen = () => setIsOpen(true)
   const handleClose = () => setIsOpen(false)
+
+  if (!data) {
+    return null
+  }
 
   return (
     <BaseAppBar
@@ -28,8 +35,16 @@ export const TaskAppBar: FC = () => {
             />
           }
         >
-          <Edit onClose={handleClose} navigation={navigation} />
-          <Delete onClose={handleClose} />
+          <Edit
+            onClose={handleClose}
+            navigation={navigation}
+            data={data.getTask}
+          />
+          <Delete
+            onClose={handleClose}
+            navigation={navigation}
+            data={data.getTask}
+          />
         </Menu>
       }
       withBackButton

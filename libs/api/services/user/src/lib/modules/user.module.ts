@@ -3,10 +3,11 @@ import { MongooseModule } from '@nestjs/mongoose'
 import { PassportModule } from '@nestjs/passport'
 import { JwtModule } from '@nestjs/jwt'
 import { FirebaseModule } from '@api/firebase'
+import { User } from '@api/models'
 
 import { UserService } from '../services'
 import { UserResolver } from '../resolvers'
-import { UserSchema, User } from '../models'
+import { UserSchema } from '../models'
 import { AuthService, JwtStrategy } from '../jwt'
 
 @Module({
@@ -27,5 +28,6 @@ import { AuthService, JwtStrategy } from '../jwt'
     }),
     FirebaseModule,
   ],
+  exports: [UserService],
 })
 export class UserModule {}

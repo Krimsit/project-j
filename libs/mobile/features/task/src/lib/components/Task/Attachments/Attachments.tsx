@@ -1,15 +1,18 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { IconButton, Text } from 'react-native-paper'
 import { launchImageLibraryAsync, MediaTypeOptions } from 'expo-image-picker'
+
+import { useTaskQuery, useUpdateTaskAttachmentsMutation } from '../../../hook'
 
 import { Container, Title, Images, Image } from './Attachments.styles'
 
 import type { FC } from 'react'
+import type { UploadFileProps } from '@shared/models'
 
 export const Attachments: FC = () => {
-  const [images, setImages] = useState<string[]>([
-    'https://fastly.picsum.photos/id/1021/700/700.jpg?hmac=ldJsatR-G17PNAnHdy7oFdi8EVQoiR3aa-Hd301-7OI',
-  ])
+  const { data } = useTaskQuery()
+  const [updateAttachments] = useUpdateTaskAttachmentsMutation()
+  const [images, setImages] = useState<string[]>([])
 
   const handleChoosePhoto = () => {
     void launchImageLibraryAsync({
@@ -18,15 +21,33 @@ export const Attachments: FC = () => {
       base64: true,
     }).then((result) => {
       if (!result.canceled) {
-        if (result.assets?.[0].uri) {
-          const newImages = result.assets?.map((item) => item.uri)
-          const value = [...images, ...newImages]
+        if (result.assets) {
+          const attachments: UploadFileProps[] = result.assets.map((item) => ({
+            base64: item.base64 ?? '',
+            filename: item.fileName ?? '',
+          }))
+          const newImages: string[] = result.assets.map((item) => item.uri)
 
-          setImages(value)
+          setImages([...images, ...newImages])
+
+          void updateAttachments({
+            variables: {
+              taskId: data?.getTask._id ?? '',
+              value: {
+                attachments,
+              },
+            },
+          })
         }
       }
     })
   }
+
+  useEffect(() => {
+    if (data?.getTask.attachments) {
+      setImages(data.getTask.attachments)
+    }
+  }, [data?.getTask.attachments])
 
   return (
     <Container>

@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import type { CalendarDate } from 'react-native-paper-dates/lib/typescript/Date/Calendar'
+import type { TaskForm } from '@shared/models'
 
 export type RowProps = {
   title: string
@@ -7,17 +7,10 @@ export type RowProps = {
 }
 
 export type TextFieldProps = {
-  name: string
-  isTextarea?: boolean
+  name: keyof Omit<
+    TaskForm,
+    'assigner' | 'attachments' | 'dueData' | 'priority' | 'project_id'
+  >
   placeholder?: string
   label: string
 }
-
-export type DatePickerChange =
-  | {
-      date: CalendarDate
-    }
-  | {
-      startDate: CalendarDate
-      endDate: CalendarDate
-    }

@@ -27,11 +27,10 @@ export type ShellRoutesProps = {
     project_id: string
     defaultValues?: {
       _id: string
-      task_name: string
-      due_date: string
+      name: string
+      dueDate: string
       priority: TaskPriority
       assigner: string
-      description: string
     }
   }
   ProjectForm: {

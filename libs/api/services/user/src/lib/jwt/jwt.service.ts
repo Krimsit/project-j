@@ -4,9 +4,9 @@ import { JwtService } from '@nestjs/jwt'
 
 import { UserService } from '../services'
 
-import type { LoginResult, User, UserDocument, LoginForm } from '../models'
+import type { User, ConfigServiceProps } from '@api/models'
+import type { LoginResult, UserDocument, LoginForm } from '../models'
 import type { JwtPayload } from './jwt.payload'
-import type { ConfigServiceProps } from '@api/models'
 
 @Injectable()
 export class AuthService {
