@@ -3,14 +3,14 @@ import { Routes } from '@mobile/models'
 import { AuthFeature } from '../feature'
 
 import type { FC } from 'react'
-import type { NativeStackNavigationOptions } from '@react-navigation/native-stack'
-import type { RouteObjectParams, ShellRoutesProps } from '@mobile/models'
+import type { DrawerNavigationOptions } from '@react-navigation/drawer'
+import type { RouteObjectParams, MainRoutesProps } from '@mobile/models'
 
 export const AuthPage: FC = () => <AuthFeature />
 
 export const authTabParams: RouteObjectParams<
-  keyof ShellRoutesProps,
-  NativeStackNavigationOptions
+  keyof MainRoutesProps,
+  DrawerNavigationOptions
 > = {
   name: Routes.Auth,
   options: {

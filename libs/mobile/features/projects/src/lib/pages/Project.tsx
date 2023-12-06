@@ -5,17 +5,17 @@ import { ProjectAppBar } from '../components'
 
 import type { FC } from 'react'
 import type { NativeStackNavigationOptions } from '@react-navigation/native-stack'
-import type { RouteObjectParams, ShellRoutesProps } from '@mobile/models'
+import type { RouteObjectParams, MainRoutesProps } from '@mobile/models'
+import type { DrawerNavigationOptions } from '@react-navigation/drawer'
 
 export const ProjectPage: FC = () => <ProjectFeature />
 
 export const projectTabParams: RouteObjectParams<
-  keyof ShellRoutesProps,
-  NativeStackNavigationOptions
+  keyof MainRoutesProps,
+  DrawerNavigationOptions
 > = {
   name: Routes.Project,
   options: {
-    animation: 'slide_from_right',
     header: () => <ProjectAppBar />,
   },
 }

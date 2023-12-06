@@ -1,7 +1,8 @@
 import { useNavigation as useNavigationBase } from '@react-navigation/native'
 
-import type { ShellNavigationProps, NavigationProps } from '@mobile/models'
-
-export const useRootNavigation = () => useNavigationBase<ShellNavigationProps>()
+import type { NavigationProps, DrawerNavigationProps } from '@mobile/models'
 
 export const useNavigation = () => useNavigationBase<NavigationProps>()
+
+export const useRootNavigation = () =>
+  useNavigationBase<DrawerNavigationProps>()
