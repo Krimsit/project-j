@@ -1,10 +1,18 @@
 import { useTheme } from 'styled-components'
 import { Card, Avatar } from 'react-native-paper'
+import { useUserQuery } from '@mobile/hooks'
 
 import type { FC } from 'react'
 
 export const User: FC = () => {
   const theme = useTheme()
+  const { data } = useUserQuery()
+
+  if (!data) {
+    return null
+  }
+
+  const { avatar, first_name, last_name, username } = data.currentUser
 
   return (
     <Card
@@ -15,15 +23,15 @@ export const User: FC = () => {
         left={() => (
           <Avatar.Image
             source={{
-              uri: 'https://fastly.picsum.photos/id/507/700/700.jpg?hmac=Zn0zn8AItI9nqo8ZPoYW3AmOQ1o_nkZ_zkcHlNF-Un4',
+              uri: avatar,
             }}
             size={50}
           />
         )}
-        title={'Welcome, User!'}
-        titleVariant={'titleLarge'}
+        title={`Welcome, ${last_name} ${first_name}!`}
+        titleVariant={'titleMedium'}
         titleNumberOfLines={3}
-        subtitle={'@user'}
+        subtitle={`@${username}`}
         subtitleNumberOfLines={2}
       />
     </Card>
