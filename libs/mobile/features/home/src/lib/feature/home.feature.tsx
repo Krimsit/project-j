@@ -1,7 +1,7 @@
+import { useFocusEffect } from '@react-navigation/native'
 import { ScrollView } from 'react-native'
-import { useRootNavigation } from '@mobile/hooks'
-import { Routes } from '@mobile/models'
 
+import { useUserProjectsQuery, useUserTasksQuery } from '../hook'
 import { User, Tasks, Cards } from '../components'
 
 import { Container } from './home.styles'
@@ -9,11 +9,13 @@ import { Container } from './home.styles'
 import type { FC } from 'react'
 
 export const HomeFeature: FC = () => {
-  const navigation = useRootNavigation()
-  const handleOpenTask = () =>
-    navigation.push(Routes.Task, {
-      taskId: 'taskId1',
-    })
+  const { refetch: refetchTasks } = useUserTasksQuery()
+  const { refetch: refetchProjects } = useUserProjectsQuery()
+
+  useFocusEffect(() => {
+    void refetchProjects()
+    void refetchTasks()
+  })
 
   return (
     <ScrollView>

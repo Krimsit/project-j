@@ -77,10 +77,10 @@ export const Layout: FC = () => {
       try {
         userToken = (await getItemAsync('userToken')) as string
       } catch (e) {
-        console.log('Restore user token')
+        dispatch({ type: AuthActions.SignOut })
       }
 
-      dispatch({ type: AuthActions.RestoreToken, token: userToken })
+      dispatch({ type: AuthActions.RestoreToken, token: '123' })
       userToken && (await setItemAsync('userToken', userToken))
     }
 

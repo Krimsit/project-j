@@ -1,4 +1,4 @@
-import { useQuery } from '@apollo/client'
+import { useApolloClient, useQuery } from '@apollo/client'
 import { currentUserQuery, getAllUsersQuery } from '@shared/queries'
 import { AuthActions, useAuthDispatch } from '@mobile/auth-provider'
 
@@ -8,12 +8,15 @@ import type {
 } from '@shared/queries'
 
 export const useUserQuery = () => {
+  const client = useApolloClient()
   const dispatch = useAuthDispatch()
 
   return useQuery<CurrentUserQueryResult>(currentUserQuery, {
     onError() {
+      void client.resetStore()
       dispatch({ type: AuthActions.SignOut })
     },
+    fetchPolicy: 'network-only',
   })
 }
 
