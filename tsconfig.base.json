@@ -34,6 +34,7 @@
       "@api/models": ["libs/api/models/src/index.ts"],
       "@api/projects": ["libs/api/services/projects/src/index.ts"],
       "@api/secure": ["libs/api/secure/src/index.ts"],
+      "@api/task-comments": ["libs/api/services/task-comments/src/index.ts"],
       "@api/tasks": ["libs/api/services/tasks/src/index.ts"],
       "@api/user": ["libs/api/services/user/src/index.ts"],
       "@mobile/auth-provider": ["libs/mobile/auth-provider/src/index.ts"],

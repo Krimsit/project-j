@@ -15,6 +15,7 @@ type LoginResult {
 type Mutation {
   createProject(data: ProjectForm!): ProjectResponse!
   createTask(data: TaskForm!): Task!
+  createTaskComment(data: TaskCommentForm!): TaskComment!
   deleteProject(projectId: String!): Boolean!
   deleteTask(taskId: String!): Task!
   deleteUser: Boolean!
@@ -65,6 +66,7 @@ type Query {
   getProject(projectId: String!): ProjectResponse!
   getProjectTasks(projectId: String!): [Task!]!
   getTask(taskId: String!): Task!
+  getTaskComments(taskId: String!): [TaskComment!]!
   getTaskNextStatuses(taskId: String!): [TaskStatusItem!]!
   getUserProjects: [ProjectResponse!]!
   getUserTasks: [Task!]!
@@ -90,6 +92,20 @@ type Task {
   priority: Float!
   project: Project!
   status: Float!
+}
+
+type TaskComment {
+  _id: String!
+  createdAt: String!
+  message: String!
+  task: Task!
+  user: User!
+}
+
+input TaskCommentForm {
+  message: String!
+  task_id: String!
+  user_id: String!
 }
 
 input TaskForm {
