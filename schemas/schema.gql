@@ -19,6 +19,7 @@ type Mutation {
   deleteProject(projectId: String!): Boolean!
   deleteTask(taskId: String!): Task!
   deleteUser: Boolean!
+  isValidSecretKey(apiKey: String!): Boolean!
   login(data: LoginForm!): LoginResult!
   registration(data: RegistrationForm!): LoginResult!
   updateProject(data: ProjectForm!, projectId: String!): ProjectResponse!

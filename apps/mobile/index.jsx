@@ -1,11 +1,14 @@
 import { registerRootComponent } from 'expo'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
+import { ApiProvider } from '@mobile/api-provider'
 
 import App from './src/app/App'
 
 const MobileApplication = () => (
   <SafeAreaProvider>
-    <App />
+    <ApiProvider>
+      <App />
+    </ApiProvider>
   </SafeAreaProvider>
 )
 

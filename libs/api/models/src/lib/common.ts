@@ -1,6 +1,7 @@
 export type ConfigServiceProps = {
   DEBUG: boolean
   API_PORT: number
+  API_SECRET_KEY: string
   MONGO_URI: string
   JWT_SECRET: string
   JWT_EXPIRES_IN: number

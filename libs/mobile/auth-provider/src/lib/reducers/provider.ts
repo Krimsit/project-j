@@ -1,4 +1,4 @@
-import { setItemAsync } from 'expo-secure-store'
+import { setItemAsync, deleteItemAsync } from 'expo-secure-store'
 
 import { AuthActions } from '../types'
 
@@ -21,6 +21,8 @@ export const authReducer = (state: AuthData, action: AuthAction) => {
         isSignOut: false,
       }
     case AuthActions.SignOut:
+      void deleteItemAsync('userToken')
+
       return {
         ...state,
         isSignOut: true,
