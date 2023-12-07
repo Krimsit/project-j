@@ -2,7 +2,7 @@ import { useFocusEffect } from '@react-navigation/native'
 import { ScrollView } from 'react-native'
 import { ActivityIndicator } from 'react-native-paper'
 
-import { useTaskQuery } from '../hook'
+import { useTaskQuery } from '../hooks'
 import { Task } from '../components'
 
 import { Container } from './TaskForm.styles'

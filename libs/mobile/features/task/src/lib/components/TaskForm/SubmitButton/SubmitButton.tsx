@@ -1,7 +1,7 @@
 import { useRoute } from '@react-navigation/native'
 import { useFormContext } from 'react-hook-form'
 
-import { useCreateTaskMutation, useUpdateTaskMutation } from '../../../hook'
+import { useCreateTaskMutation, useUpdateTaskMutation } from '../../../hooks'
 
 import { Container, Button } from './SubmitButton.styles'
 

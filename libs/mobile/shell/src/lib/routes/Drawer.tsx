@@ -1,12 +1,7 @@
-import { useState, useEffect } from 'react'
+import { useMemo } from 'react'
+import { ActivityIndicator } from 'react-native-paper'
 import { ApiSelect } from '@mobile/feature/api-select'
 import { Routes } from '@mobile/models'
-import { useApiState } from '@mobile/api-provider'
-import {
-  AuthActions,
-  useAuthDispatch,
-  useAuthState,
-} from '@mobile/auth-provider'
 import { AuthPage, authTabParams } from '@mobile/feature/auth'
 import {
   ProjectFormPage,
@@ -20,9 +15,8 @@ import {
   TaskPage,
   taskTabParams,
 } from '@mobile/feature/task'
-import { getItemAsync, setItemAsync } from 'expo-secure-store'
-import { ActivityIndicator } from 'react-native-paper'
 
+import { useGetCurrentGroup } from '../hooks'
 import { DrawerContent } from '../components'
 import { DrawerStack } from '../constants'
 
@@ -31,39 +25,8 @@ import { Root } from './Root'
 import type { FC } from 'react'
 
 export const Drawer: FC = () => {
-  const { apiUri, isLoading: isLoadingApi } = useApiState()
-  const { userToken, isLoading: isLoadingUser } = useAuthState()
-  const dispatchAuth = useAuthDispatch()
-  const [withApi, setWithApi] = useState<boolean>(false)
-  const isLogin = Boolean(userToken)
-  const isLoading = isLoadingApi || isLoadingUser
-
-  useEffect(() => {
-    const bootstrapAsync = async () => {
-      let userToken = ''
-
-      try {
-        userToken = (await getItemAsync('userToken')) as string
-      } catch (e) {
-        dispatchAuth({ type: AuthActions.SignOut })
-      }
-
-      dispatchAuth({ type: AuthActions.RestoreToken, token: userToken })
-      userToken && (await setItemAsync('userToken', userToken))
-    }
-
-    void bootstrapAsync()
-  }, [dispatchAuth])
-
-  useEffect(() => {
-    setWithApi(Boolean(apiUri))
-  }, [apiUri])
-
-  if (isLoading) {
-    return <ActivityIndicator animating />
-  }
-
-  const renderContent = () => {
+  const { withApi, isLogin, isLoading } = useGetCurrentGroup()
+  const content = useMemo(() => {
     if (!withApi) {
       return (
         <DrawerStack.Group>
@@ -113,6 +76,10 @@ export const Drawer: FC = () => {
         />
       </DrawerStack.Group>
     )
+  }, [withApi, isLogin])
+
+  if (isLoading) {
+    return <ActivityIndicator animating />
   }
 
   return (
@@ -120,7 +87,7 @@ export const Drawer: FC = () => {
       screenOptions={{ headerShown: false }}
       drawerContent={() => <DrawerContent />}
     >
-      {renderContent()}
+      {content}
     </DrawerStack.Navigator>
   )
 }

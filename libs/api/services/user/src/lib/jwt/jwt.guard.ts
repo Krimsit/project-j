@@ -4,7 +4,7 @@ import { GqlExecutionContext } from '@nestjs/graphql'
 import { AuthenticationError } from 'apollo-server-core'
 
 import type { ExecutionContext } from '@nestjs/common'
-import type { User } from '../models'
+import type { User } from '@api/models'
 
 @Injectable()
 export class JwtGuard extends AuthGuard('jwt') {

@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react'
-import { useTheme } from 'styled-components'
 import { ScrollView } from 'react-native'
 import { ActivityIndicator } from 'react-native-paper'
 import { TaskStatus } from '@shared/models'
 
-import { useProjectTasksQuery } from '../../../hook'
+import { useProjectTasksQuery } from '../../../hooks'
 
 import { Column } from './parts'
 import { Container } from './Board.styles'
@@ -13,7 +12,6 @@ import type { FC } from 'react'
 import type { Task } from '@shared/models'
 
 export const Board: FC = () => {
-  const theme = useTheme()
   const [toDo, setToDo] = useState<Task[]>([])
   const [onHold, setOnHold] = useState<Task[]>([])
   const [inProgress, setInProgress] = useState<Task[]>([])
@@ -67,31 +65,11 @@ export const Board: FC = () => {
   return (
     <ScrollView horizontal>
       <Container>
-        <Column
-          title={'To Do'}
-          cards={toDo}
-          color={theme.colors.taskStatuses.todo}
-        />
-        <Column
-          title={'In Progress'}
-          cards={inProgress}
-          color={theme.colors.taskStatuses.inProgress}
-        />
-        <Column
-          title={'Under Review'}
-          cards={underReview}
-          color={theme.colors.taskStatuses.completed}
-        />
-        <Column
-          title={'Done'}
-          cards={done}
-          color={theme.colors.taskStatuses.completed}
-        />
-        <Column
-          title={'On Hold'}
-          cards={onHold}
-          color={theme.colors.taskStatuses.todo}
-        />
+        <Column title={'To Do'} cards={toDo} />
+        <Column title={'In Progress'} cards={inProgress} />
+        <Column title={'Under Review'} cards={underReview} />
+        <Column title={'Done'} cards={done} />
+        <Column title={'On Hold'} cards={onHold} />
       </Container>
     </ScrollView>
   )

@@ -1,7 +1,7 @@
 import { useFocusEffect, useRoute } from '@react-navigation/native'
 import { ActivityIndicator } from 'react-native-paper'
 
-import { useProjectQuery, useProjectTasksQuery } from '../hook'
+import { useProjectQuery, useProjectTasksQuery } from '../hooks'
 import { Project } from '../components'
 
 import { Container } from './Project.styles'

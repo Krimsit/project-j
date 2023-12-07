@@ -1,9 +1,8 @@
-import { useEffect } from 'react'
-import { useIsFocused } from '@react-navigation/native'
+import { useFocusEffect } from '@react-navigation/native'
 import { ScrollView } from 'react-native'
 import { ActivityIndicator } from 'react-native-paper'
 
-import { useUserProjectsQuery } from '../hook'
+import { useUserProjectsQuery } from '../hooks'
 import { Projects } from '../components'
 
 import { Container } from './Projects.styles'
@@ -11,14 +10,11 @@ import { Container } from './Projects.styles'
 import type { FC } from 'react'
 
 export const ProjectsFeature: FC = () => {
-  const isFocused = useIsFocused()
   const { loading, refetch } = useUserProjectsQuery()
 
-  useEffect(() => {
-    if (isFocused) {
-      void refetch()
-    }
-  }, [isFocused])
+  useFocusEffect(() => {
+    void refetch()
+  })
 
   if (loading) {
     return <ActivityIndicator animating />

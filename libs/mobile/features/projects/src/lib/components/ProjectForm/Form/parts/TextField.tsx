@@ -3,8 +3,8 @@ import { Controller, useFormContext } from 'react-hook-form'
 import { TextInput, HelperText } from 'react-native-paper'
 
 import type { FC } from 'react'
-import type { TextFieldProps } from './common.types'
 import type { ProjectForm } from '@shared/models'
+import type { TextFieldProps } from './common.types'
 
 export const TextField: FC<TextFieldProps> = ({ name, label }) => {
   const {

@@ -3,24 +3,11 @@ import { Schema as MongooseSchema } from 'mongoose'
 import { TaskPriority, TaskStatus } from '@shared/models'
 
 import type {
-  TaskForm as TaskFormType,
   UploadFileProps,
-  UpdateTaskAssignerForm as UpdateTaskAssignerFormType,
   UpdateTaskStatusForm as UpdateTaskStatusFormType,
   UpdateTaskAttachmentsForm as UpdateTaskAttachmentsFormType,
 } from '@shared/models'
-
-type TaskFormClass = Omit<TaskFormType, 'assigner' | 'project_id'> & {
-  assigner: MongooseSchema.Types.ObjectId
-  project_id: MongooseSchema.Types.ObjectId
-}
-
-type UpdateTaskAssignerFormClass = Omit<
-  UpdateTaskAssignerFormType,
-  'assigner'
-> & {
-  assigner: MongooseSchema.Types.ObjectId
-}
+import type { TaskFormClass, UpdateTaskAssignerFormClass } from '../types'
 
 @InputType()
 class TaskUploadFile implements UploadFileProps {

@@ -26,8 +26,11 @@ export const alpha = (color: string, alpha: number) => {
 
 function rgbToHslAlpha(r: number, g: number, b: number, alpha: number) {
   // Make r, g, and b fractions of 1
+  // eslint-disable-next-line no-param-reassign
   r /= 255
+  // eslint-disable-next-line no-param-reassign
   g /= 255
+  // eslint-disable-next-line no-param-reassign
   b /= 255
 
   // Find greatest and smallest channel values

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { IconButton, Text } from 'react-native-paper'
 import { launchImageLibraryAsync, MediaTypeOptions } from 'expo-image-picker'
 
-import { useTaskQuery, useUpdateTaskAttachmentsMutation } from '../../../hook'
+import { useTaskQuery, useUpdateTaskAttachmentsMutation } from '../../../hooks'
 
 import { Container, Title, Images, Image } from './Attachments.styles'
 

@@ -4,7 +4,7 @@ import { Chip, Avatar } from 'react-native-paper'
 import { useAllUsersQuery } from '@mobile/hooks'
 import { Select } from '@mobile/ui'
 
-import { useTaskQuery, useUpdateTaskAssignerMutation } from '../../../../hook'
+import { useTaskQuery, useUpdateTaskAssignerMutation } from '../../../../hooks'
 
 import { Row } from './Row'
 

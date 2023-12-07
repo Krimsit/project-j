@@ -1,12 +1,10 @@
 import { SchemaFactory } from '@nestjs/mongoose'
 import { Field, ObjectType } from '@nestjs/graphql'
-import { TaskStatus } from '@shared/models'
 import { Task } from '@api/models'
+import { TaskStatus } from '@shared/models'
 
-import type { Document } from 'mongoose'
 import type { TaskStatusItem as TaskStatusItemType } from '@shared/models'
-
-export type TaskDocument = Document & Task
+import type { TaskDocument } from '../types'
 
 export const TaskSchema = SchemaFactory.createForClass<Task>(Task)
 

@@ -3,7 +3,7 @@ import { Avatar, Card } from 'react-native-paper'
 import { useRootNavigation } from '@mobile/hooks'
 import { Routes } from '@mobile/models'
 
-import { useProjectQuery } from '../../../hook'
+import { useProjectQuery } from '../../../hooks'
 
 import { Peoples } from './parts'
 import { AddTaskButton } from './Info.styles'

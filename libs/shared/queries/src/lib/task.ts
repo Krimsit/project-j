@@ -1,22 +1,5 @@
 import { gql } from '@apollo/client'
 
-import type {
-  Task,
-  TaskForm,
-  UpdateTaskAssignerForm,
-  UpdateTaskStatusForm,
-  UpdateTaskAttachmentsForm,
-  TaskStatusItem,
-} from '@shared/models'
-
-export type CreateTaskMutationResult = {
-  createTask: Task
-}
-
-export type CreateTaskMutationVariables = {
-  value: TaskForm
-}
-
 export const createTaskMutation = gql`
   mutation createTaskMutation($value: TaskForm!) {
     createTask(data: $value) {
@@ -42,15 +25,6 @@ export const createTaskMutation = gql`
   }
 `
 
-export type UpdateTaskMutationResult = {
-  updateTask: Task
-}
-
-export type UpdateTaskMutationVariables = {
-  value: TaskForm
-  taskId: string
-}
-
 export const updateTaskMutation = gql`
   mutation updateTaskMutation($value: TaskForm!, $taskId: String!) {
     updateTask(data: $value, taskId: $taskId) {
@@ -75,15 +49,6 @@ export const updateTaskMutation = gql`
     }
   }
 `
-
-export type UpdateTaskAssignerMutationResult = {
-  updateTaskAssigner: Task
-}
-
-export type UpdateTaskAssignerMutationVariables = {
-  value: UpdateTaskAssignerForm
-  taskId: string
-}
 
 export const updateTaskAssignerMutation = gql`
   mutation updateTaskAssignerMutation(
@@ -113,15 +78,6 @@ export const updateTaskAssignerMutation = gql`
   }
 `
 
-export type UpdateTaskStatusMutationResult = {
-  updateTaskStatus: Task
-}
-
-export type UpdateTaskStatusMutationVariables = {
-  value: UpdateTaskStatusForm
-  taskId: string
-}
-
 export const updateTaskStatusMutation = gql`
   mutation updateTaskStatusMutation(
     $value: UpdateTaskStatusForm!
@@ -149,15 +105,6 @@ export const updateTaskStatusMutation = gql`
     }
   }
 `
-
-export type UpdateTaskAttachmentsMutationResult = {
-  updateTaskAttachments: Task
-}
-
-export type UpdateTaskAttachmentsMutationVariables = {
-  value: UpdateTaskAttachmentsForm
-  taskId: string
-}
 
 export const updateTaskAttachmentsMutation = gql`
   mutation updateTaskAttachmentsMutation(
@@ -187,14 +134,6 @@ export const updateTaskAttachmentsMutation = gql`
   }
 `
 
-export type DeleteTaskMutationResult = {
-  deleteTask: Task
-}
-
-export type DeleteTaskMutationVariables = {
-  value: string
-}
-
 export const deleteTaskMutation = gql`
   mutation deleteTaskMutation($value: String!) {
     deleteTask(taskId: $value) {
@@ -202,10 +141,6 @@ export const deleteTaskMutation = gql`
     }
   }
 `
-
-export type GetUserTasksQueryResult = {
-  getUserTasks: Task[]
-}
 
 export const getUserTasksQuery = gql`
   query getUserTasksQuery {
@@ -232,14 +167,6 @@ export const getUserTasksQuery = gql`
   }
 `
 
-export type GetProjectTasksQueryResult = {
-  getProjectTasks: Task[]
-}
-
-export type GetProjectTasksQueryVariables = {
-  value: string
-}
-
 export const getProjectTasksQuery = gql`
   query getProjectTasksQuery($value: String!) {
     getProjectTasks(projectId: $value) {
@@ -265,14 +192,6 @@ export const getProjectTasksQuery = gql`
   }
 `
 
-export type GetTaskQueryResult = {
-  getTask: Task
-}
-
-export type GetTaskQueryVariables = {
-  value: string
-}
-
 export const getTaskQuery = gql`
   query getTaskQuery($value: String!) {
     getTask(taskId: $value) {
@@ -297,14 +216,6 @@ export const getTaskQuery = gql`
     }
   }
 `
-
-export type GetTaskNextStatusesQueryResult = {
-  getTaskNextStatuses: TaskStatusItem[]
-}
-
-export type GetTaskNextStatusesQueryVariables = {
-  value: string
-}
 
 export const getTaskNextStatusesQuery = gql`
   query getTaskNextStatuses($value: String!) {

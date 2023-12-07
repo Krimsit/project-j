@@ -58,7 +58,7 @@ export const ProjectForm: FC = () => {
       router.params.defaultValues?.users.map((user) => user._id) ?? []
 
     setValue('users', usersIds)
-  }, [router.params.defaultValues])
+  }, [router.params.defaultValues, setValue])
 
   return (
     <FormProvider {...methods}>

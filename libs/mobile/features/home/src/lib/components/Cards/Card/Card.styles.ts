@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Surface, TouchableRipple, Card } from 'react-native-paper'
+import { Surface, Card } from 'react-native-paper'
 
 import { alpha } from '../../../helpers'
 

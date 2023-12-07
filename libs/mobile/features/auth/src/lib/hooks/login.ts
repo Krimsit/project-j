@@ -1,12 +1,12 @@
 import { useMutation } from '@apollo/client'
-import { loginMutation } from '@shared/queries'
 import { AuthActions, useAuthDispatch } from '@mobile/auth-provider'
+import { loginMutation } from '@shared/queries'
 
 import type { ApolloError } from '@apollo/client'
 import type {
   LoginMutationResult,
   LoginMutationVariables,
-} from '@shared/queries'
+} from '@shared/models'
 import type { UseMutationProps } from '../types'
 
 export const useLoginMutation = ({

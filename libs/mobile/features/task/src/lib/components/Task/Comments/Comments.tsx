@@ -1,6 +1,6 @@
 import { ActivityIndicator, Text } from 'react-native-paper'
 
-import { useTaskComments } from '../../../hook'
+import { useTaskComments } from '../../../hooks'
 
 import { Input, Comment } from './parts'
 import { Container } from './Comments.styles'

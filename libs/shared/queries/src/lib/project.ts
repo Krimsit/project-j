@@ -1,19 +1,5 @@
 import { gql } from '@apollo/client'
 
-import type {
-  Project,
-  ProjectForm,
-  UpdateProjectUsersForm,
-} from '@shared/models'
-
-export type CreateProjectMutationResult = {
-  createProject: Project
-}
-
-export type CreateProjectMutationVariables = {
-  value: ProjectForm
-}
-
 export const createProjectMutation = gql`
   mutation createProjectMutation($value: ProjectForm!) {
     createProject(data: $value) {
@@ -34,14 +20,6 @@ export const createProjectMutation = gql`
     }
   }
 `
-
-export type GetProjectQueryResult = {
-  getProject: Project
-}
-
-export type GetProjectQueryVariables = {
-  value: string
-}
 
 export const getProjectQuery = gql`
   query getProject($value: String!) {
@@ -72,10 +50,6 @@ export const getProjectQuery = gql`
   }
 `
 
-export type GetUserProjectsQueryResult = {
-  getUserProjects: Project[]
-}
-
 export const getUserProjectsQuery = gql`
   query getUserProjectsQuery {
     getUserProjects {
@@ -97,17 +71,12 @@ export const getUserProjectsQuery = gql`
   }
 `
 
-export type UpdateProjectUserMutationResult = {
-  updateProjectUsers: Project
-}
-
-export type UpdateProjectUsersMutationVariables = {
-  value: UpdateProjectUsersForm
-}
-
 export const updateProjectUsersMutations = gql`
-  mutation updateProjectUsersMutations($value: UpdateProjectUsersForm!) {
-    updateProjectUsers(data: $value) {
+  mutation updateProjectUsersMutations(
+    $value: UpdateProjectUsersForm!
+    $projectId: String!
+  ) {
+    updateProjectUsers(data: $value, projectId: $projectId) {
       _id
       image
       name
@@ -134,28 +103,11 @@ export const updateProjectUsersMutations = gql`
   }
 `
 
-export type DeleteProjectMutationResult = {
-  deleteProject: boolean
-}
-
-export type DeleteProjectMutationVariables = {
-  value: string
-}
-
 export const deleteProjectMutation = gql`
   mutation deleteProjectMutation($value: String!) {
     deleteProject(projectId: $value)
   }
 `
-
-export type UpdateProjectMutationResult = {
-  updateProject: Project
-}
-
-export type UpdateProjectMutationVariables = {
-  value: ProjectForm
-  projectId: string
-}
 
 export const updateProjectMutation = gql`
   mutation updateProjectMutation($value: ProjectForm!, $projectId: String!) {

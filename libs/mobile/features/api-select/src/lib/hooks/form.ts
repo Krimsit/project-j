@@ -1,21 +1,24 @@
+import { useMemo } from 'react'
 import {
   ApolloClient,
   createHttpLink,
   InMemoryCache,
   useMutation,
 } from '@apollo/client'
-import { isValidSecretKeyMutation } from '@shared/queries'
-import { ApiActions, useApiDispatch } from '@mobile/api-provider'
-import { useMemo } from 'react'
 import { setContext } from '@apollo/client/link/context'
 import { getItemAsync } from 'expo-secure-store'
+import { ApiActions, useApiDispatch } from '@mobile/api-provider'
+import { useRootNavigation } from '@mobile/hooks'
+import { Routes } from '@mobile/models'
+import { isValidSecretKeyMutation } from '@shared/queries'
 
 import type {
   IsValidSecretKeyMutationResult,
   IsValidSecretKeyMutationVariables,
-} from '@shared/queries'
+} from '@shared/models'
 
 export const useIsValidSecretKeyMutation = (uri: string) => {
+  const navigation = useRootNavigation()
   const dispatch = useApiDispatch()
   const apolloClient = useMemo(() => {
     const httpLink = createHttpLink({
@@ -40,6 +43,7 @@ export const useIsValidSecretKeyMutation = (uri: string) => {
 
   const handleError = () => {
     dispatch({ type: ApiActions.Delete })
+    navigation.navigate(Routes.ApiSelect)
   }
 
   const handleSuccess = () => {

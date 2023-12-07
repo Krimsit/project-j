@@ -16,10 +16,8 @@ import type { TaskForm, UploadFileProps } from '@shared/models'
 export const Upload: FC = () => {
   const {
     setValue,
-    getValues,
     formState: { errors },
   } = useFormContext<TaskForm>()
-  const value = getValues('attachments')
   const error = errors.attachments
   const [images, setImages] = useState<string[]>([])
 

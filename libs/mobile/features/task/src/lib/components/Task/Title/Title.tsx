@@ -2,7 +2,7 @@ import { Text } from 'react-native-paper'
 import { useTaskStatusIcon } from '@mobile/ui'
 import { TaskStatus } from '@shared/models'
 
-import { useTaskQuery } from '../../../hook'
+import { useTaskQuery } from '../../../hooks'
 
 import { Container, StatusChip, TextContainer } from './Title.styles'
 

@@ -10,9 +10,9 @@ export type ApiData = {
 
 export type ApiAction =
   | {
-      type: ApiActions.Set
-      uri: string
+      type: ApiActions.Delete
     }
   | {
-      type: ApiActions.Delete
+      type: ApiActions.Set
+      uri: string
     }

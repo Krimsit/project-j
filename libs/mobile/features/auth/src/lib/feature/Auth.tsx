@@ -5,7 +5,7 @@ import { Button } from 'react-native-paper'
 
 import { Login, Registration } from '../components'
 
-import { Container, Card, Content } from './auth.styles'
+import { Container, Card, Content } from './Auth.styles'
 
 import type { FC } from 'react'
 

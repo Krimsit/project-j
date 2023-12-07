@@ -5,16 +5,16 @@ import { JwtService } from '@nestjs/jwt'
 import { UserService } from '../services'
 
 import type { User, ConfigServiceProps } from '@api/models'
-import type { LoginResult, UserDocument, LoginForm } from '../models'
-import type { JwtPayload } from './jwt.payload'
+import type { LoginResult, LoginForm } from '../models'
+import type { JwtPayload, UserDocument } from '../types'
 
 @Injectable()
 export class AuthService {
   constructor(
     @Inject(forwardRef(() => UserService))
-    private _usersService: UserService,
-    private _jwtService: JwtService,
-    private configService: ConfigService<ConfigServiceProps>,
+    private readonly usersService: UserService,
+    private readonly jwtService: JwtService,
+    private readonly configService: ConfigService<ConfigServiceProps>,
   ) {}
 
   async validateUserByPassword(
@@ -23,9 +23,7 @@ export class AuthService {
     let userToAttempt: UserDocument | null = null
 
     if (loginAttempt.email) {
-      userToAttempt = await this._usersService.findOneByEmail(
-        loginAttempt.email,
-      )
+      userToAttempt = await this.usersService.findOneByEmail(loginAttempt.email)
     }
 
     if (!userToAttempt) return null
@@ -54,7 +52,7 @@ export class AuthService {
   }
 
   async validateJwtPayload(payload: JwtPayload): Promise<UserDocument | null> {
-    const user = await this._usersService.findOneByEmail(payload.email)
+    const user = await this.usersService.findOneByEmail(payload.email)
 
     if (user) {
       await user.save()
@@ -79,7 +77,7 @@ export class AuthService {
       _id: user._id,
       expiration,
     }
-    const jwt = this._jwtService.sign(data)
+    const jwt = this.jwtService.sign(data)
 
     return {
       data,

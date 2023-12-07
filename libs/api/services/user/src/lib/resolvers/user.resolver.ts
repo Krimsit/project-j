@@ -6,11 +6,20 @@ import { User } from '@api/models'
 import { LoginResult, RegistrationForm, LoginForm } from '../models'
 import { UserService } from '../services'
 
-import type { UserDocument } from '../models'
-
 @Resolver(() => User)
 export class UserResolver {
   constructor(private readonly userService: UserService) {}
+
+  @Query(() => User)
+  @UseGuards(JwtGuard)
+  async currentUser(@CurrentUser() user: User): Promise<User | null> {
+    return user
+  }
+
+  @Query(() => [User])
+  async getAllUsers(): Promise<User[]> {
+    return this.userService.getAllUsers()
+  }
 
   @Mutation(() => LoginResult)
   async registration(
@@ -22,26 +31,6 @@ export class UserResolver {
   @Mutation(() => LoginResult)
   async login(@Args('data') data: LoginForm): Promise<LoginResult> {
     return await this.userService.login(data)
-  }
-
-  @Query(() => String)
-  async refreshToken(
-    @Context('req') request: { user: UserDocument },
-  ): Promise<string> {
-    const { user } = request
-
-    return this.userService.refreshToken(user)
-  }
-
-  @Query(() => User)
-  @UseGuards(JwtGuard)
-  async currentUser(@CurrentUser() user: User): Promise<User | null> {
-    return user
-  }
-
-  @Query(() => [User])
-  async getAllUsers(): Promise<User[]> {
-    return this.userService.getAllUsers()
   }
 
   @Mutation(() => Boolean)

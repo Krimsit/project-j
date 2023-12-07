@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Avatar, IconButton } from 'react-native-paper'
 import { useAllUsersQuery } from '@mobile/hooks'
 import { MultiSelect } from '@mobile/ui'
@@ -6,7 +6,7 @@ import { MultiSelect } from '@mobile/ui'
 import {
   useProjectQuery,
   useUpdateProjectUsersMutation,
-} from '../../../../hook'
+} from '../../../../hooks'
 
 import { PeoplesContainer } from './common.styles'
 
@@ -21,13 +21,13 @@ export const Peoples: FC = () => {
   const handleOpen = () => setIsOpen(true)
   const handleClose = () => setIsOpen(false)
 
-  const handleApply = async (users: User[]) => {
+  const handleApply = (users: User[]) => {
     const ids = users.map((item) => item._id)
 
     void updateProjectUsers({
       variables: {
+        projectId: data?.getProject._id || '',
         value: {
-          project_id: data?.getProject._id || '',
           users: ids,
         },
       },

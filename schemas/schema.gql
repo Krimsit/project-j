@@ -23,7 +23,7 @@ type Mutation {
   login(data: LoginForm!): LoginResult!
   registration(data: RegistrationForm!): LoginResult!
   updateProject(data: ProjectForm!, projectId: String!): ProjectResponse!
-  updateProjectUsers(data: UpdateProjectUsersForm!): ProjectResponse!
+  updateProjectUsers(data: UpdateProjectUsersForm!, projectId: String!): ProjectResponse!
   updateTask(data: TaskForm!, taskId: String!): Task!
   updateTaskAssigner(data: UpdateTaskAssignerForm!, taskId: String!): Task!
   updateTaskAttachments(data: UpdateTaskAttachmentsForm!, taskId: String!): Task!
@@ -71,7 +71,6 @@ type Query {
   getTaskNextStatuses(taskId: String!): [TaskStatusItem!]!
   getUserProjects: [ProjectResponse!]!
   getUserTasks: [Task!]!
-  refreshToken: String!
 }
 
 input RegistrationForm {
@@ -129,7 +128,6 @@ input TaskUploadFile {
 }
 
 input UpdateProjectUsersForm {
-  project_id: String!
   users: [String!]!
 }
 

@@ -1,12 +1,7 @@
 import { Field, InputType } from '@nestjs/graphql'
 import { Schema as MongooseSchema } from 'mongoose'
 
-import type { TaskCommentForm as TaskCommentFormType } from '@shared/models'
-
-type TaskCommentFormClass = Omit<TaskCommentFormType, 'task_id' | 'user_id'> & {
-  task_id: MongooseSchema.Types.ObjectId
-  user_id: MongooseSchema.Types.ObjectId
-}
+import type { TaskCommentFormClass } from '../types'
 
 @InputType()
 export class TaskCommentForm implements TaskCommentFormClass {

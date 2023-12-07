@@ -1,7 +1,7 @@
 import { Chip } from 'react-native-paper'
 import { parseDate } from '@mobile/ui'
 
-import { useTaskQuery } from '../../../../hook'
+import { useTaskQuery } from '../../../../hooks'
 
 import { Row } from './Row'
 
