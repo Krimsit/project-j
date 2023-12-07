@@ -85,7 +85,7 @@ export const Drawer: FC = () => {
   return (
     <DrawerStack.Navigator
       screenOptions={{ headerShown: false }}
-      drawerContent={() => <DrawerContent />}
+      drawerContent={(props) => <DrawerContent {...props} />}
     >
       {content}
     </DrawerStack.Navigator>
