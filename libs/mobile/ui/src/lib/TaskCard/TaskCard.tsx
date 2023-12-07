@@ -31,7 +31,7 @@ export const TaskCard: FC<TaskCardProps> = ({
   const priorityLabel = tasksPriority[priority].label
   const formattedDueDate = parseDate(dueData)
   const handleOpenTask = () =>
-    navigation.push(Routes.Task, {
+    navigation.navigate(Routes.Task, {
       taskId: _id,
     })
 

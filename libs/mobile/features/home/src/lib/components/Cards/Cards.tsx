@@ -2,7 +2,7 @@ import { useTheme } from 'styled-components'
 import { useNavigation } from '@mobile/hooks'
 import { Routes } from '@mobile/models'
 
-import { useUserTasksQuery, useUserProjectsQuery } from '../../hook'
+import { useUserTasksQuery, useUserProjectsQuery } from '../../hooks'
 
 import { Card } from './Card'
 import { Container } from './Cards.styles'

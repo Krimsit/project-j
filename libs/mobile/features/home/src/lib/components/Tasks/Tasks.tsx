@@ -1,7 +1,7 @@
 import { Text, ActivityIndicator } from 'react-native-paper'
 import { TaskCard } from '@mobile/ui'
 
-import { useUserTasksQuery } from '../../hook'
+import { useUserTasksQuery } from '../../hooks'
 
 import { Container, List, Title } from './Tasks.styles'
 

@@ -1,1 +1,1 @@
-export * from './home.feature'
+export * from './Home'

@@ -4,7 +4,7 @@ import { useNavigation, useRootNavigation } from '@mobile/hooks'
 import { AppBar as BaseAppBar } from '@mobile/ui'
 import { Routes } from '@mobile/models'
 
-import { useProjectQuery } from '../../../hook'
+import { useProjectQuery } from '../../../hooks'
 
 import { Edit, Delete } from './parts'
 

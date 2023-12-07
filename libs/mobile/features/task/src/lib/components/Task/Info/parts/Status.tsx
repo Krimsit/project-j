@@ -9,7 +9,7 @@ import {
   useTaskNextStatusesQuery,
   useTaskQuery,
   useUpdateTaskStatusMutation,
-} from '../../../../hook'
+} from '../../../../hooks'
 
 import { Row } from './Row'
 

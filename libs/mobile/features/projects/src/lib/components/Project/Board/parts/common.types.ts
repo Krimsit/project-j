@@ -7,5 +7,4 @@ export type StyledColumnContainerProps = {
 export type ColumnProps = {
   title: string
   cards: Task[]
-  color: string
 }

@@ -5,7 +5,7 @@ import { AuthActions, useAuthDispatch } from '@mobile/auth-provider'
 import type {
   CurrentUserQueryResult,
   GetAllUsersQueryResult,
-} from '@shared/queries'
+} from '@shared/models'
 
 export const useUserQuery = () => {
   const client = useApolloClient()

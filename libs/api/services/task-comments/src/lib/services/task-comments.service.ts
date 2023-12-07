@@ -4,7 +4,8 @@ import { Model } from 'mongoose'
 import { taskCommentValidationSchema } from '@shared/validations'
 import { TaskComment, User } from '@api/models'
 
-import type { TaskCommentForm, TaskCommentDocument } from '../models'
+import type { TaskCommentForm } from '../models'
+import type { TaskCommentDocument } from '../types'
 
 @Injectable()
 export class TaskCommentsService {

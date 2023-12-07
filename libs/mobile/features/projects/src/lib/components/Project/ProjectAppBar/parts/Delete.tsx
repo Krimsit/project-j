@@ -1,7 +1,7 @@
 import { useState, Fragment } from 'react'
 import { Menu, Dialog, Text, Button, Portal } from 'react-native-paper'
 
-import { useDeleteProjectMutation } from '../../../../hook'
+import { useDeleteProjectMutation } from '../../../../hooks'
 
 import type { FC } from 'react'
 import type { MenuItemProps } from './common.types'

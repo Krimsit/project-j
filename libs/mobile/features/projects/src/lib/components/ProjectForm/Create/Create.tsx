@@ -4,7 +4,7 @@ import { useFormContext } from 'react-hook-form'
 import {
   useCreateProjectMutation,
   useUpdateProjectMutation,
-} from '../../../hook'
+} from '../../../hooks'
 
 import { Container, Button } from './Create.styles'
 

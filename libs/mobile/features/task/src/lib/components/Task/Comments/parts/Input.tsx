@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { IconButton } from 'react-native-paper'
 import { useUserQuery } from '@mobile/hooks'
 
-import { useCreateTaskComment, useTaskQuery } from '../../../../hook'
+import { useCreateTaskComment, useTaskQuery } from '../../../../hooks'
 
 import { InputContainer, TextInput } from './common.styles'
 

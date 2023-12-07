@@ -4,9 +4,8 @@ import * as bcrypt from 'bcryptjs'
 import { User } from '@api/models'
 
 import type { UserModel } from '@api/models'
-import type { Document, Schema as SchemaType } from 'mongoose'
-
-export type UserDocument = Document & User
+import type { Schema as SchemaType } from 'mongoose'
+import type { UserDocument } from '../types'
 
 export const UserSchema = SchemaFactory.createForClass<User>(
   User,

@@ -2,10 +2,8 @@ import { join } from 'path'
 
 import { ConfigModule, ConfigService, registerAs } from '@nestjs/config'
 import { MongooseModule } from '@nestjs/mongoose'
-import { GraphQLModule as NestGraphQLModule } from '@nestjs/graphql/dist/graphql.module'
+import { GraphQLModule as NestGraphQLModule } from '@nestjs/graphql'
 import { ApolloDriver } from '@nestjs/apollo'
-import { JwtModule } from '@nestjs/jwt'
-import { PassportModule } from '@nestjs/passport'
 
 import type { ApolloDriverConfig } from '@nestjs/apollo'
 import type { ConfigServiceProps } from '@api/models'

@@ -1,5 +1,5 @@
 import { DrawerContentScrollView } from '@react-navigation/drawer'
-import { Button, Text } from 'react-native-paper'
+import { Button } from 'react-native-paper'
 import { ApiActions, useApiDispatch } from '@mobile/api-provider'
 
 import type { FC } from 'react'

@@ -1,6 +1,6 @@
 import { ProjectCard } from '@mobile/ui'
 
-import { useUserProjectsQuery } from '../../../hook'
+import { useUserProjectsQuery } from '../../../hooks'
 
 import { Container } from './ProjectsList.styles'
 

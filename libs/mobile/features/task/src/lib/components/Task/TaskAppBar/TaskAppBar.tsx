@@ -3,7 +3,7 @@ import { Appbar, Menu } from 'react-native-paper'
 import { useRootNavigation } from '@mobile/hooks'
 import { AppBar as BaseAppBar } from '@mobile/ui'
 
-import { useTaskQuery } from '../../../hook'
+import { useTaskQuery } from '../../../hooks'
 
 import { Edit, Delete } from './parts'
 

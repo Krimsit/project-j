@@ -11,11 +11,11 @@ import { Project, User } from '@api/models'
 import { projectValidationSchema } from '@shared/validations'
 
 import type {
-  ProjectDocument,
   ProjectForm,
   ProjectResponse,
   UpdateProjectUsersForm,
 } from '../models'
+import type { ProjectDocument } from '../types'
 
 @Injectable()
 export class ProjectsService {
@@ -25,6 +25,23 @@ export class ProjectsService {
     private readonly firebaseService: FirebaseService,
     private readonly tasksService: TasksService,
   ) {}
+
+  async findById(projectId: string): Promise<ProjectDocument> {
+    const project = await this.projectModel
+      .findById(projectId)
+      .populate({
+        path: 'owner',
+        model: User.name,
+      })
+      .populate({ path: 'users', model: User.name })
+      .exec()
+
+    if (!project) {
+      throw new NotFoundException('Project not found')
+    }
+
+    return project
+  }
 
   async getUserProjects(user: User): Promise<ProjectResponse[]> {
     const projects = await this.projectModel
@@ -37,6 +54,12 @@ export class ProjectsService {
     return await Promise.all(
       projects.map((project) => this.parseProject(project)),
     )
+  }
+
+  async getById(projectId: string): Promise<ProjectResponse> {
+    const project = await this.findById(projectId)
+
+    return await this.parseProject(project)
   }
 
   async create(data: ProjectForm, user: User): Promise<ProjectResponse> {
@@ -102,10 +125,13 @@ export class ProjectsService {
     return await this.parseProject(project)
   }
 
-  async updateUsers(data: UpdateProjectUsersForm): Promise<ProjectResponse> {
+  async updateUsers(
+    data: UpdateProjectUsersForm,
+    projectId: string,
+  ): Promise<ProjectResponse> {
     const project = await this.projectModel
       .findByIdAndUpdate(
-        data.project_id,
+        projectId,
         { users: data.users },
         {
           new: true,
@@ -123,29 +149,6 @@ export class ProjectsService {
     }
 
     return await this.parseProject(project)
-  }
-
-  async getById(projectId: string): Promise<ProjectResponse> {
-    const project = await this.findById(projectId)
-
-    return await this.parseProject(project)
-  }
-
-  async findById(projectId: string): Promise<ProjectDocument> {
-    const project = await this.projectModel
-      .findById(projectId)
-      .populate({
-        path: 'owner',
-        model: User.name,
-      })
-      .populate({ path: 'users', model: User.name })
-      .exec()
-
-    if (!project) {
-      throw new NotFoundException('Project not found')
-    }
-
-    return project
   }
 
   async delete(projectId: string): Promise<boolean> {

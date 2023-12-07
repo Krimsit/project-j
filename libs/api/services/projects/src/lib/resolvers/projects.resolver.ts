@@ -10,6 +10,19 @@ import { ProjectsService } from '../services'
 export class ProjectsResolver {
   constructor(private readonly projectsService: ProjectsService) {}
 
+  @Query(() => [ProjectResponse])
+  @UseGuards(JwtGuard)
+  async getUserProjects(@CurrentUser() user: User): Promise<ProjectResponse[]> {
+    return await this.projectsService.getUserProjects(user)
+  }
+
+  @Query(() => ProjectResponse)
+  async getProject(
+    @Args('projectId') projectId: string,
+  ): Promise<ProjectResponse> {
+    return this.projectsService.getById(projectId)
+  }
+
   @Mutation(() => ProjectResponse)
   @UseGuards(JwtGuard)
   async createProject(
@@ -28,25 +41,13 @@ export class ProjectsResolver {
     return this.projectsService.update(data, projectId)
   }
 
-  @Query(() => [ProjectResponse])
-  @UseGuards(JwtGuard)
-  async getUserProjects(@CurrentUser() user: User): Promise<ProjectResponse[]> {
-    return await this.projectsService.getUserProjects(user)
-  }
-
   @Mutation(() => ProjectResponse)
   @UseGuards(JwtGuard)
   async updateProjectUsers(
     @Args('data') data: UpdateProjectUsersForm,
-  ): Promise<ProjectResponse> {
-    return this.projectsService.updateUsers(data)
-  }
-
-  @Query(() => ProjectResponse)
-  async getProject(
     @Args('projectId') projectId: string,
   ): Promise<ProjectResponse> {
-    return this.projectsService.getById(projectId)
+    return this.projectsService.updateUsers(data, projectId)
   }
 
   @Mutation(() => Boolean)

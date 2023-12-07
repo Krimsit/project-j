@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button, TextInput } from 'react-native-paper'
+import { Button, TextInput, Text } from 'react-native-paper'
 import { ApiActions, useApiDispatch } from '@mobile/api-provider'
 
 import { useIsValidSecretKeyMutation } from '../hooks'
@@ -22,13 +22,16 @@ export const Form: FC = () => {
 
   return (
     <Container>
+      <Text variant={'titleLarge'}>API data</Text>
       <TextInput
+        mode={'outlined'}
         label={'URI'}
         placeholder={'Enter URI'}
         onChangeText={setUri}
         value={uri}
       />
       <TextInput
+        mode={'outlined'}
         label={'Secret key'}
         placeholder={'Enter secret key'}
         onChangeText={setSecretKey}

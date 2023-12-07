@@ -13,7 +13,7 @@ import {
 import type { FC } from 'react'
 import type { ColumnProps } from './common.types'
 
-export const Column: FC<ColumnProps> = ({ cards, title, color }) => {
+export const Column: FC<ColumnProps> = ({ cards, title }) => {
   const [currentWidth, setCurrentWidth] = useState<number>(0)
 
   useEffect(() => {

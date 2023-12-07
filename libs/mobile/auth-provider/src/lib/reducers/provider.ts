@@ -7,6 +7,8 @@ import type { AuthAction, AuthData } from '../types'
 export const authReducer = (state: AuthData, action: AuthAction) => {
   switch (action.type) {
     case AuthActions.RestoreToken:
+      void setItemAsync('userToken', action.token)
+
       return {
         ...state,
         userToken: action.token,

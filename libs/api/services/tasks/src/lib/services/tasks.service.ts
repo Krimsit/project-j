@@ -17,13 +17,13 @@ import {
 } from '@shared/constants'
 
 import type {
-  TaskDocument,
   TaskForm,
   UpdateTaskAssignerForm,
   UpdateTaskStatusForm,
   UpdateTaskAttachmentsForm,
   TaskStatusItem,
 } from '../models'
+import type { TaskDocument } from '../types'
 
 @Injectable()
 export class TasksService {
@@ -32,6 +32,23 @@ export class TasksService {
     private readonly taskModel: Model<TaskDocument>,
     private readonly firebaseService: FirebaseService,
   ) {}
+
+  async findById(taskId: string): Promise<TaskDocument> {
+    const task = await this.taskModel
+      .findById(taskId)
+      .populate({
+        path: 'assigner',
+        model: User.name,
+      })
+      .populate({ path: 'project', model: Project.name })
+      .exec()
+
+    if (!task) {
+      throw new NotFoundException('Task not found')
+    }
+
+    return task
+  }
 
   async getUserTasks(user: User): Promise<Task[]> {
     return await this.taskModel
@@ -51,23 +68,6 @@ export class TasksService {
       .populate({ path: 'assigner', model: User.name })
       .populate({ path: 'project', model: Project.name })
       .exec()
-  }
-
-  async findById(taskId: string): Promise<TaskDocument> {
-    const task = await this.taskModel
-      .findById(taskId)
-      .populate({
-        path: 'assigner',
-        model: User.name,
-      })
-      .populate({ path: 'project', model: Project.name })
-      .exec()
-
-    if (!task) {
-      throw new NotFoundException('Task not found')
-    }
-
-    return task
   }
 
   async getTaskNextStatuses(taskId: string): Promise<TaskStatusItem[]> {

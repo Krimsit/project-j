@@ -3,7 +3,7 @@ import { useTaskPriorityIconColor } from '@mobile/ui'
 import { TaskPriority } from '@shared/models'
 import { tasksPriority } from '@shared/constants'
 
-import { useTaskQuery } from '../../../../hook'
+import { useTaskQuery } from '../../../../hooks'
 
 import { Row } from './Row'
 

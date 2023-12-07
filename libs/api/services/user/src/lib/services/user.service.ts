@@ -8,20 +8,16 @@ import {
 import { InjectModel } from '@nestjs/mongoose'
 import { Model } from 'mongoose'
 import { FirebaseService } from '@api/firebase'
+import { User } from '@api/models'
 import {
   registrationValidationSchema,
   loginValidationSchema,
 } from '@shared/validations'
-import { User } from '@api/models'
 
 import { AuthService } from '../jwt'
 
-import type {
-  LoginResult,
-  UserDocument,
-  RegistrationForm,
-  LoginForm,
-} from '../models'
+import type { LoginResult, RegistrationForm, LoginForm } from '../models'
+import type { UserDocument } from '../types'
 
 @Injectable()
 export class UserService {
@@ -31,6 +27,28 @@ export class UserService {
     private readonly authService: AuthService,
     private readonly firebaseService: FirebaseService,
   ) {}
+
+  async findOneByEmail(email: string): Promise<UserDocument | null> {
+    const user = await this.userModel
+      .findOne({ email: email.toLowerCase() })
+      .exec()
+
+    if (user) return user
+
+    return null
+  }
+
+  async findOneByUsername(username: string): Promise<UserDocument | null> {
+    const user = await this.userModel.findOne({ username }).exec()
+
+    if (user) return user
+
+    return null
+  }
+
+  async getAllUsers(): Promise<User[]> {
+    return await this.userModel.find().exec()
+  }
 
   async registration(data: RegistrationForm): Promise<LoginResult> {
     const validationResult = registrationValidationSchema.safeParse(data)
@@ -84,12 +102,6 @@ export class UserService {
     return result
   }
 
-  async refreshToken(user: UserDocument): Promise<string> {
-    const result = this.authService.createJwt(user)
-
-    return result.token
-  }
-
   async delete(user: User): Promise<boolean> {
     const result = await this.userModel.deleteOne(user)
 
@@ -98,27 +110,5 @@ export class UserService {
     }
 
     return true
-  }
-
-  async getAllUsers(): Promise<User[]> {
-    return await this.userModel.find().exec()
-  }
-
-  async findOneByEmail(email: string): Promise<UserDocument | null> {
-    const user = await this.userModel
-      .findOne({ email: email.toLowerCase() })
-      .exec()
-
-    if (user) return user
-
-    return null
-  }
-
-  async findOneByUsername(username: string): Promise<UserDocument | null> {
-    const user = await this.userModel.findOne({ username }).exec()
-
-    if (user) return user
-
-    return null
   }
 }

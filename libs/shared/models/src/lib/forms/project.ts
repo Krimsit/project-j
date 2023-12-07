@@ -7,6 +7,5 @@ export type ProjectForm = {
 }
 
 export type UpdateProjectUsersForm = {
-  project_id: string
   users: string[]
 }
