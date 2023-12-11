@@ -9,19 +9,33 @@ import type { ApolloDriverConfig } from '@nestjs/apollo'
 import type { ConfigServiceProps } from '@api/models'
 
 export const mongodbConfig = registerAs('mongodb', () => {
-  const { MONGO_URI } = process.env
+  const {
+    MONGODB_HOST,
+    MONGODB_PORT,
+    MONGODB_USERNAME,
+    MONGODB_PASSWORD,
+    MONGODB_DBNAME,
+  } = process.env
 
   return {
-    uri: `${MONGO_URI}`,
+    uri: `mongodb://${MONGODB_USERNAME}:${MONGODB_PASSWORD}@${MONGODB_HOST}:${MONGODB_PORT}/${MONGODB_DBNAME}?authSource=admin&directConnection=true`,
   }
 })
 
 export const mongooseModule = MongooseModule.forRootAsync({
   inject: [ConfigService],
   imports: [ConfigModule],
-  useFactory: (configService: ConfigService<ConfigServiceProps>) => ({
-    uri: configService.get('MONGO_URI'),
-  }),
+  useFactory: (configService: ConfigService<ConfigServiceProps>) => {
+    const host = configService.get<string>('MONGODB_HOST')
+    const port = configService.get<string>('MONGODB_PORT')
+    const user = configService.get<string>('MONGODB_USERNAME')
+    const pass = configService.get<string>('MONGODB_PASSWORD')
+    const dbName = configService.get<string>('MONGODB_DBNAME')
+
+    return {
+      uri: `mongodb://${user}:${pass}@${host}:${port}/${dbName}?authSource=admin&directConnection=true`,
+    }
+  },
 })
 
 export const graphQLModule = NestGraphQLModule.forRootAsync<ApolloDriverConfig>(
