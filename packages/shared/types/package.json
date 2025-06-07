@@ -4,6 +4,9 @@
   "private": true,
   "license": "MIT",
   "main": "./src/index.ts",
+  "dependencies": {
+    "zod": "^3.25.56"
+  },
   "devDependencies": {
     "@core/typescript-configs": "workspace:*"
   },

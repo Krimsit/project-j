@@ -1,13 +1,14 @@
 import { Module } from '@nestjs/common'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 import { MongooseModule } from '@nestjs/mongoose'
+import { envConfig } from '@core/configs'
+import { mongoDBLogger } from '@core/loggers'
+import { SecureModule } from '@secure'
+import { ModelsModule } from '@models'
+import { ServicesModule } from '@services'
+import { ControllersModule } from '@controllers'
 
-import { envConfig } from './core/config'
-import { mongoDBLogger } from './core/loggers'
-import { TestService } from './services'
-import { TestController } from './controllers'
-
-import type { EnvConfig } from './core/config'
+import type { EnvConfig } from '@core/configs'
 
 @Module({
   imports: [
@@ -40,8 +41,10 @@ import type { EnvConfig } from './core/config'
         }
       },
     }),
+    SecureModule,
+    ModelsModule,
+    ServicesModule,
+    ControllersModule,
   ],
-  providers: [TestService],
-  controllers: [TestController],
 })
 export class AppModule {}

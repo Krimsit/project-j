@@ -13,29 +13,29 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as AuthImport } from './routes/_auth'
 import { Route as IndexImport } from './routes/index'
-import { Route as DashboardDashboardLayoutImport } from './routes/dashboard/_dashboardLayout'
-import { Route as AuthAuthLayoutImport } from './routes/auth/_authLayout'
-import { Route as DashboardDashboardLayoutIndexImport } from './routes/dashboard/_dashboardLayout/index'
-import { Route as AuthAuthLayoutRegistrationImport } from './routes/auth/_authLayout/registration'
-import { Route as AuthAuthLayoutLoginImport } from './routes/auth/_authLayout/login'
+import { Route as AuthenticationAuthLayoutImport } from './routes/authentication/_authLayout'
+import { Route as AuthenticationAuthLayoutRegistrationImport } from './routes/authentication/_authLayout/registration'
+import { Route as AuthenticationAuthLayoutLoginImport } from './routes/authentication/_authLayout/login'
+import { Route as AuthDashboardDashboardLayoutImport } from './routes/_auth/dashboard/_dashboardLayout'
+import { Route as AuthDashboardDashboardLayoutIndexImport } from './routes/_auth/dashboard/_dashboardLayout/index'
 
 // Create Virtual Routes
 
-const DashboardImport = createFileRoute('/dashboard')()
-const AuthImport = createFileRoute('/auth')()
+const AuthenticationImport = createFileRoute('/authentication')()
+const AuthDashboardImport = createFileRoute('/_auth/dashboard')()
 
 // Create/Update Routes
 
-const DashboardRoute = DashboardImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
+const AuthenticationRoute = AuthenticationImport.update({
+  id: '/authentication',
+  path: '/authentication',
   getParentRoute: () => rootRoute,
 } as any)
 
 const AuthRoute = AuthImport.update({
-  id: '/auth',
-  path: '/auth',
+  id: '/_auth',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -45,36 +45,43 @@ const IndexRoute = IndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const DashboardDashboardLayoutRoute = DashboardDashboardLayoutImport.update({
-  id: '/_dashboardLayout',
-  getParentRoute: () => DashboardRoute,
-} as any)
-
-const AuthAuthLayoutRoute = AuthAuthLayoutImport.update({
-  id: '/_authLayout',
+const AuthDashboardRoute = AuthDashboardImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
   getParentRoute: () => AuthRoute,
 } as any)
 
-const DashboardDashboardLayoutIndexRoute =
-  DashboardDashboardLayoutIndexImport.update({
-    id: '/',
-    path: '/',
-    getParentRoute: () => DashboardDashboardLayoutRoute,
-  } as any)
+const AuthenticationAuthLayoutRoute = AuthenticationAuthLayoutImport.update({
+  id: '/_authLayout',
+  getParentRoute: () => AuthenticationRoute,
+} as any)
 
-const AuthAuthLayoutRegistrationRoute = AuthAuthLayoutRegistrationImport.update(
-  {
+const AuthenticationAuthLayoutRegistrationRoute =
+  AuthenticationAuthLayoutRegistrationImport.update({
     id: '/registration',
     path: '/registration',
-    getParentRoute: () => AuthAuthLayoutRoute,
-  } as any,
-)
+    getParentRoute: () => AuthenticationAuthLayoutRoute,
+  } as any)
 
-const AuthAuthLayoutLoginRoute = AuthAuthLayoutLoginImport.update({
-  id: '/login',
-  path: '/login',
-  getParentRoute: () => AuthAuthLayoutRoute,
-} as any)
+const AuthenticationAuthLayoutLoginRoute =
+  AuthenticationAuthLayoutLoginImport.update({
+    id: '/login',
+    path: '/login',
+    getParentRoute: () => AuthenticationAuthLayoutRoute,
+  } as any)
+
+const AuthDashboardDashboardLayoutRoute =
+  AuthDashboardDashboardLayoutImport.update({
+    id: '/_dashboardLayout',
+    getParentRoute: () => AuthDashboardRoute,
+  } as any)
+
+const AuthDashboardDashboardLayoutIndexRoute =
+  AuthDashboardDashboardLayoutIndexImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthDashboardDashboardLayoutRoute,
+  } as any)
 
 // Populate the FileRoutesByPath interface
 
@@ -87,173 +94,208 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
-    '/auth': {
-      id: '/auth'
-      path: '/auth'
-      fullPath: '/auth'
+    '/_auth': {
+      id: '/_auth'
+      path: ''
+      fullPath: ''
       preLoaderRoute: typeof AuthImport
       parentRoute: typeof rootRoute
     }
-    '/auth/_authLayout': {
-      id: '/auth/_authLayout'
-      path: '/auth'
-      fullPath: '/auth'
-      preLoaderRoute: typeof AuthAuthLayoutImport
-      parentRoute: typeof AuthRoute
-    }
-    '/dashboard': {
-      id: '/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof DashboardImport
+    '/authentication': {
+      id: '/authentication'
+      path: '/authentication'
+      fullPath: '/authentication'
+      preLoaderRoute: typeof AuthenticationImport
       parentRoute: typeof rootRoute
     }
-    '/dashboard/_dashboardLayout': {
-      id: '/dashboard/_dashboardLayout'
+    '/authentication/_authLayout': {
+      id: '/authentication/_authLayout'
+      path: '/authentication'
+      fullPath: '/authentication'
+      preLoaderRoute: typeof AuthenticationAuthLayoutImport
+      parentRoute: typeof AuthenticationRoute
+    }
+    '/_auth/dashboard': {
+      id: '/_auth/dashboard'
       path: '/dashboard'
       fullPath: '/dashboard'
-      preLoaderRoute: typeof DashboardDashboardLayoutImport
-      parentRoute: typeof DashboardRoute
+      preLoaderRoute: typeof AuthDashboardImport
+      parentRoute: typeof AuthImport
     }
-    '/auth/_authLayout/login': {
-      id: '/auth/_authLayout/login'
+    '/_auth/dashboard/_dashboardLayout': {
+      id: '/_auth/dashboard/_dashboardLayout'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthDashboardDashboardLayoutImport
+      parentRoute: typeof AuthDashboardRoute
+    }
+    '/authentication/_authLayout/login': {
+      id: '/authentication/_authLayout/login'
       path: '/login'
-      fullPath: '/auth/login'
-      preLoaderRoute: typeof AuthAuthLayoutLoginImport
-      parentRoute: typeof AuthAuthLayoutImport
+      fullPath: '/authentication/login'
+      preLoaderRoute: typeof AuthenticationAuthLayoutLoginImport
+      parentRoute: typeof AuthenticationAuthLayoutImport
     }
-    '/auth/_authLayout/registration': {
-      id: '/auth/_authLayout/registration'
+    '/authentication/_authLayout/registration': {
+      id: '/authentication/_authLayout/registration'
       path: '/registration'
-      fullPath: '/auth/registration'
-      preLoaderRoute: typeof AuthAuthLayoutRegistrationImport
-      parentRoute: typeof AuthAuthLayoutImport
+      fullPath: '/authentication/registration'
+      preLoaderRoute: typeof AuthenticationAuthLayoutRegistrationImport
+      parentRoute: typeof AuthenticationAuthLayoutImport
     }
-    '/dashboard/_dashboardLayout/': {
-      id: '/dashboard/_dashboardLayout/'
+    '/_auth/dashboard/_dashboardLayout/': {
+      id: '/_auth/dashboard/_dashboardLayout/'
       path: '/'
       fullPath: '/dashboard/'
-      preLoaderRoute: typeof DashboardDashboardLayoutIndexImport
-      parentRoute: typeof DashboardDashboardLayoutImport
+      preLoaderRoute: typeof AuthDashboardDashboardLayoutIndexImport
+      parentRoute: typeof AuthDashboardDashboardLayoutImport
     }
   }
 }
 
 // Create and export the route tree
 
-interface AuthAuthLayoutRouteChildren {
-  AuthAuthLayoutLoginRoute: typeof AuthAuthLayoutLoginRoute
-  AuthAuthLayoutRegistrationRoute: typeof AuthAuthLayoutRegistrationRoute
+interface AuthDashboardDashboardLayoutRouteChildren {
+  AuthDashboardDashboardLayoutIndexRoute: typeof AuthDashboardDashboardLayoutIndexRoute
 }
 
-const AuthAuthLayoutRouteChildren: AuthAuthLayoutRouteChildren = {
-  AuthAuthLayoutLoginRoute: AuthAuthLayoutLoginRoute,
-  AuthAuthLayoutRegistrationRoute: AuthAuthLayoutRegistrationRoute,
+const AuthDashboardDashboardLayoutRouteChildren: AuthDashboardDashboardLayoutRouteChildren =
+  {
+    AuthDashboardDashboardLayoutIndexRoute:
+      AuthDashboardDashboardLayoutIndexRoute,
+  }
+
+const AuthDashboardDashboardLayoutRouteWithChildren =
+  AuthDashboardDashboardLayoutRoute._addFileChildren(
+    AuthDashboardDashboardLayoutRouteChildren,
+  )
+
+interface AuthDashboardRouteChildren {
+  AuthDashboardDashboardLayoutRoute: typeof AuthDashboardDashboardLayoutRouteWithChildren
 }
 
-const AuthAuthLayoutRouteWithChildren = AuthAuthLayoutRoute._addFileChildren(
-  AuthAuthLayoutRouteChildren,
+const AuthDashboardRouteChildren: AuthDashboardRouteChildren = {
+  AuthDashboardDashboardLayoutRoute:
+    AuthDashboardDashboardLayoutRouteWithChildren,
+}
+
+const AuthDashboardRouteWithChildren = AuthDashboardRoute._addFileChildren(
+  AuthDashboardRouteChildren,
 )
 
 interface AuthRouteChildren {
-  AuthAuthLayoutRoute: typeof AuthAuthLayoutRouteWithChildren
+  AuthDashboardRoute: typeof AuthDashboardRouteWithChildren
 }
 
 const AuthRouteChildren: AuthRouteChildren = {
-  AuthAuthLayoutRoute: AuthAuthLayoutRouteWithChildren,
+  AuthDashboardRoute: AuthDashboardRouteWithChildren,
 }
 
 const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
 
-interface DashboardDashboardLayoutRouteChildren {
-  DashboardDashboardLayoutIndexRoute: typeof DashboardDashboardLayoutIndexRoute
+interface AuthenticationAuthLayoutRouteChildren {
+  AuthenticationAuthLayoutLoginRoute: typeof AuthenticationAuthLayoutLoginRoute
+  AuthenticationAuthLayoutRegistrationRoute: typeof AuthenticationAuthLayoutRegistrationRoute
 }
 
-const DashboardDashboardLayoutRouteChildren: DashboardDashboardLayoutRouteChildren =
+const AuthenticationAuthLayoutRouteChildren: AuthenticationAuthLayoutRouteChildren =
   {
-    DashboardDashboardLayoutIndexRoute: DashboardDashboardLayoutIndexRoute,
+    AuthenticationAuthLayoutLoginRoute: AuthenticationAuthLayoutLoginRoute,
+    AuthenticationAuthLayoutRegistrationRoute:
+      AuthenticationAuthLayoutRegistrationRoute,
   }
 
-const DashboardDashboardLayoutRouteWithChildren =
-  DashboardDashboardLayoutRoute._addFileChildren(
-    DashboardDashboardLayoutRouteChildren,
+const AuthenticationAuthLayoutRouteWithChildren =
+  AuthenticationAuthLayoutRoute._addFileChildren(
+    AuthenticationAuthLayoutRouteChildren,
   )
 
-interface DashboardRouteChildren {
-  DashboardDashboardLayoutRoute: typeof DashboardDashboardLayoutRouteWithChildren
+interface AuthenticationRouteChildren {
+  AuthenticationAuthLayoutRoute: typeof AuthenticationAuthLayoutRouteWithChildren
 }
 
-const DashboardRouteChildren: DashboardRouteChildren = {
-  DashboardDashboardLayoutRoute: DashboardDashboardLayoutRouteWithChildren,
+const AuthenticationRouteChildren: AuthenticationRouteChildren = {
+  AuthenticationAuthLayoutRoute: AuthenticationAuthLayoutRouteWithChildren,
 }
 
-const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
-  DashboardRouteChildren,
+const AuthenticationRouteWithChildren = AuthenticationRoute._addFileChildren(
+  AuthenticationRouteChildren,
 )
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/auth': typeof AuthAuthLayoutRouteWithChildren
-  '/dashboard': typeof DashboardDashboardLayoutRouteWithChildren
-  '/auth/login': typeof AuthAuthLayoutLoginRoute
-  '/auth/registration': typeof AuthAuthLayoutRegistrationRoute
-  '/dashboard/': typeof DashboardDashboardLayoutIndexRoute
+  '': typeof AuthRouteWithChildren
+  '/authentication': typeof AuthenticationAuthLayoutRouteWithChildren
+  '/dashboard': typeof AuthDashboardDashboardLayoutRouteWithChildren
+  '/authentication/login': typeof AuthenticationAuthLayoutLoginRoute
+  '/authentication/registration': typeof AuthenticationAuthLayoutRegistrationRoute
+  '/dashboard/': typeof AuthDashboardDashboardLayoutIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/auth': typeof AuthAuthLayoutRouteWithChildren
-  '/dashboard': typeof DashboardDashboardLayoutIndexRoute
-  '/auth/login': typeof AuthAuthLayoutLoginRoute
-  '/auth/registration': typeof AuthAuthLayoutRegistrationRoute
+  '': typeof AuthRouteWithChildren
+  '/authentication': typeof AuthenticationAuthLayoutRouteWithChildren
+  '/dashboard': typeof AuthDashboardDashboardLayoutIndexRoute
+  '/authentication/login': typeof AuthenticationAuthLayoutLoginRoute
+  '/authentication/registration': typeof AuthenticationAuthLayoutRegistrationRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
-  '/auth': typeof AuthRouteWithChildren
-  '/auth/_authLayout': typeof AuthAuthLayoutRouteWithChildren
-  '/dashboard': typeof DashboardRouteWithChildren
-  '/dashboard/_dashboardLayout': typeof DashboardDashboardLayoutRouteWithChildren
-  '/auth/_authLayout/login': typeof AuthAuthLayoutLoginRoute
-  '/auth/_authLayout/registration': typeof AuthAuthLayoutRegistrationRoute
-  '/dashboard/_dashboardLayout/': typeof DashboardDashboardLayoutIndexRoute
+  '/_auth': typeof AuthRouteWithChildren
+  '/authentication': typeof AuthenticationRouteWithChildren
+  '/authentication/_authLayout': typeof AuthenticationAuthLayoutRouteWithChildren
+  '/_auth/dashboard': typeof AuthDashboardRouteWithChildren
+  '/_auth/dashboard/_dashboardLayout': typeof AuthDashboardDashboardLayoutRouteWithChildren
+  '/authentication/_authLayout/login': typeof AuthenticationAuthLayoutLoginRoute
+  '/authentication/_authLayout/registration': typeof AuthenticationAuthLayoutRegistrationRoute
+  '/_auth/dashboard/_dashboardLayout/': typeof AuthDashboardDashboardLayoutIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/auth'
+    | ''
+    | '/authentication'
     | '/dashboard'
-    | '/auth/login'
-    | '/auth/registration'
+    | '/authentication/login'
+    | '/authentication/registration'
     | '/dashboard/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/dashboard' | '/auth/login' | '/auth/registration'
+  to:
+    | '/'
+    | ''
+    | '/authentication'
+    | '/dashboard'
+    | '/authentication/login'
+    | '/authentication/registration'
   id:
     | '__root__'
     | '/'
-    | '/auth'
-    | '/auth/_authLayout'
-    | '/dashboard'
-    | '/dashboard/_dashboardLayout'
-    | '/auth/_authLayout/login'
-    | '/auth/_authLayout/registration'
-    | '/dashboard/_dashboardLayout/'
+    | '/_auth'
+    | '/authentication'
+    | '/authentication/_authLayout'
+    | '/_auth/dashboard'
+    | '/_auth/dashboard/_dashboardLayout'
+    | '/authentication/_authLayout/login'
+    | '/authentication/_authLayout/registration'
+    | '/_auth/dashboard/_dashboardLayout/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRoute: typeof AuthRouteWithChildren
-  DashboardRoute: typeof DashboardRouteWithChildren
+  AuthenticationRoute: typeof AuthenticationRouteWithChildren
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRoute: AuthRouteWithChildren,
-  DashboardRoute: DashboardRouteWithChildren,
+  AuthenticationRoute: AuthenticationRouteWithChildren,
 }
 
 export const routeTree = rootRoute
@@ -267,51 +309,58 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/auth",
-        "/dashboard"
+        "/_auth",
+        "/authentication"
       ]
     },
     "/": {
       "filePath": "index.tsx"
     },
-    "/auth": {
-      "filePath": "auth",
+    "/_auth": {
+      "filePath": "_auth.tsx",
       "children": [
-        "/auth/_authLayout"
+        "/_auth/dashboard"
       ]
     },
-    "/auth/_authLayout": {
-      "filePath": "auth/_authLayout.tsx",
-      "parent": "/auth",
+    "/authentication": {
+      "filePath": "authentication",
       "children": [
-        "/auth/_authLayout/login",
-        "/auth/_authLayout/registration"
+        "/authentication/_authLayout"
       ]
     },
-    "/dashboard": {
-      "filePath": "dashboard",
+    "/authentication/_authLayout": {
+      "filePath": "authentication/_authLayout.tsx",
+      "parent": "/authentication",
       "children": [
-        "/dashboard/_dashboardLayout"
+        "/authentication/_authLayout/login",
+        "/authentication/_authLayout/registration"
       ]
     },
-    "/dashboard/_dashboardLayout": {
-      "filePath": "dashboard/_dashboardLayout.tsx",
-      "parent": "/dashboard",
+    "/_auth/dashboard": {
+      "filePath": "_auth/dashboard",
+      "parent": "/_auth",
       "children": [
-        "/dashboard/_dashboardLayout/"
+        "/_auth/dashboard/_dashboardLayout"
       ]
     },
-    "/auth/_authLayout/login": {
-      "filePath": "auth/_authLayout/login.tsx",
-      "parent": "/auth/_authLayout"
+    "/_auth/dashboard/_dashboardLayout": {
+      "filePath": "_auth/dashboard/_dashboardLayout.tsx",
+      "parent": "/_auth/dashboard",
+      "children": [
+        "/_auth/dashboard/_dashboardLayout/"
+      ]
     },
-    "/auth/_authLayout/registration": {
-      "filePath": "auth/_authLayout/registration.tsx",
-      "parent": "/auth/_authLayout"
+    "/authentication/_authLayout/login": {
+      "filePath": "authentication/_authLayout/login.tsx",
+      "parent": "/authentication/_authLayout"
     },
-    "/dashboard/_dashboardLayout/": {
-      "filePath": "dashboard/_dashboardLayout/index.tsx",
-      "parent": "/dashboard/_dashboardLayout"
+    "/authentication/_authLayout/registration": {
+      "filePath": "authentication/_authLayout/registration.tsx",
+      "parent": "/authentication/_authLayout"
+    },
+    "/_auth/dashboard/_dashboardLayout/": {
+      "filePath": "_auth/dashboard/_dashboardLayout/index.tsx",
+      "parent": "/_auth/dashboard/_dashboardLayout"
     }
   }
 }

@@ -1,7 +1,16 @@
 {
   "extends": "@core/typescript-configs/vite.app.json",
   "compilerOptions": {
-    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo"
+    "rootDir": "./src",
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+    "types": ["./cssmodule.d.ts"],
+    "paths": {
+      "@components": ["./src/components/index.ts"],
+      "@config": ["./src/config/index.ts"],
+      "@context": ["./src/context/index.ts"],
+      "@dto/*": ["./src/dto/*"],
+      "@pages": ["./src/pages/index.ts"]
+    }
   },
   "include": ["src"]
 }

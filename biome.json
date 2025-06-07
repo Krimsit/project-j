@@ -83,6 +83,9 @@
       "bracketSpacing": true,
       "bracketSameLine": false,
       "attributePosition": "auto"
+    },
+    "parser": {
+      "unsafeParameterDecoratorsEnabled": true
     }
   }
 }
