@@ -1,7 +1,14 @@
 {
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
   "files": {
-    "ignore": [".idea", ".vscode", "**/.turbo", "**/dist", "**/coverage"]
+    "ignore": [
+      ".idea",
+      ".vscode",
+      "**/.turbo",
+      "**/dist",
+      "**/coverage",
+      "**/routeTree.gen.ts"
+    ]
   },
   "formatter": {
     "formatWithErrors": false,
