@@ -3,22 +3,42 @@
   "tasks": {
     "build": {
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
-      "outputs": ["dist/**", ".next/**", "!.next/cache/**", "public/dist/**"],
-      "dependsOn": ["^build"],
-      "env": ["NEXT_PUBLIC_API_HOST"]
-    },
-    "test": {
-      "outputs": ["coverage/**"],
-      "dependsOn": []
-    },
-    "lint": {
+      "outputs": ["dist/**", "public/dist/**"],
       "dependsOn": ["^build"]
+    },
+    "start": {
+      "cache": false,
+      "persistent": true
     },
     "dev": {
       "cache": false,
       "persistent": true
     },
+    "typecheck": {
+      "cache": true,
+      "dependsOn": ["^typecheck"],
+      "outputs": [
+        "node_modules/.tmp/tsconfig.tsbuildinfo",
+        "node_modules/.tmp/tsconfig.app.tsbuildinfo",
+        "node_modules/.tmp/tsconfig.node.tsbuildinfo"
+      ]
+    },
+    "clean:builds": {
+      "cache": false
+    },
+    "clean:dependencies": {
+      "cache": false
+    },
     "clean": {
+      "cache": false
+    },
+    "//#clean:root": {
+      "cache": false
+    },
+    "//#format-and-lint": {
+      "cache": true
+    },
+    "//#format-and-lint:fix": {
       "cache": false
     }
   }

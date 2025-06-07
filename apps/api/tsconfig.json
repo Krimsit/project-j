@@ -1,10 +1,16 @@
 {
-  "extends": "@repo/typescript-config/base.json",
+  "extends": "@core/typescript-configs/base.json",
+  "baseUrl": ".",
   "compilerOptions": {
-    "lib": ["ES2015"],
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "noEmit": false,
     "outDir": "./dist",
-    "rootDir": "./src"
+    "rootDir": "./src",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "removeComments": true
   },
-  "exclude": ["node_modules"],
-  "include": ["src"]
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"]
 }
