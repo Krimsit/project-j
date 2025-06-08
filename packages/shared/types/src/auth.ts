@@ -7,6 +7,7 @@ export const registrationRequestScheme = z.object({
   firstName: z.string().min(1),
   lastName: z.string().min(1),
   midName: z.string().optional(),
+  avatar: z.string().optional(),
 })
 
 export type RegistrationRequest = z.infer<typeof registrationRequestScheme>

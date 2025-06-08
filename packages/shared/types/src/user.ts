@@ -5,4 +5,5 @@ export type UserProfile = {
   firstName: string
   lastName: string
   midName?: string
+  avatar?: string
 }

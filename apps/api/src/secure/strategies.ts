@@ -4,13 +4,15 @@ import { PassportStrategy } from '@nestjs/passport'
 import { Strategy as BaseLocalStrategy } from 'passport-local'
 import { Strategy as BaseJWTStrategy, ExtractJwt } from 'passport-jwt'
 import { Strategy as CustomStrategy } from 'passport-custom'
+import axios from 'axios'
 import { GOOGLE_OAUTH } from '@core/configs'
-import { AuthService, UserService } from '@services'
+import { filesLogger } from '@core/loggers'
+import { AuthService, UserService, FilesService } from '@services'
 
 import type { Request } from 'express'
 import type { OAuth2Client } from 'google-auth-library'
 import type { EnvConfig } from '@core/configs'
-import type { UserDocument } from '@models'
+import type { FileDocument, UserDocument } from '@models'
 
 export type JWTPayload = {
   sub: string
@@ -66,6 +68,7 @@ export class GoogleStrategy extends PassportStrategy(CustomStrategy, 'google') {
   constructor(
     @Inject(GOOGLE_OAUTH) private readonly googleClient: OAuth2Client,
     @Inject(AuthService) private readonly authService: AuthService,
+    @Inject(FilesService) private readonly filesService: FilesService,
   ) {
     super()
   }
@@ -87,7 +90,25 @@ export class GoogleStrategy extends PassportStrategy(CustomStrategy, 'google') {
       throw new UnauthorizedException('Invalid token')
     }
 
-    const { sub, email, name, given_name, family_name } = payload
+    const { sub, email, name, given_name, family_name, picture } = payload
+    let avatarFile: FileDocument | undefined
+
+    if (picture)
+      try {
+        const response = await axios.get<ArrayBuffer>(picture, {
+          responseType: 'arraybuffer',
+        })
+        const buffer = Buffer.from(response.data)
+        avatarFile = await this.filesService.uploadFile({
+          originalname: 'avatar.jpg',
+          mimetype: response.headers['content-type'] || 'image/jpeg',
+          buffer,
+          size: buffer.length,
+          filename: 'avatar.jpg',
+        })
+      } catch (error) {
+        filesLogger.warn(`Failed to upload avatar: ${error}`)
+      }
 
     const user = await this.authService.validateGoogleUser({
       email,
@@ -95,6 +116,7 @@ export class GoogleStrategy extends PassportStrategy(CustomStrategy, 'google') {
       username: name ?? '',
       firstName: given_name ?? '',
       lastName: family_name ?? '',
+      avatar: avatarFile?.id,
     })
 
     return user
