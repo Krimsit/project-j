@@ -1,4 +1,4 @@
-import { Flex, ScrollArea, Paper, Container } from '@mantine/core'
+import { Flex, ScrollArea, Paper, Container, Divider } from '@mantine/core'
 
 import { UserMenu } from './UserMenu'
 import { ProjectMenu } from './ProjectMenu'
@@ -11,14 +11,15 @@ const DashboardLayout: FC<PropsWithChildren> = ({ children }) => {
     <Flex className={styles.root}>
       <ScrollArea type={'hover'} className={styles.menu}>
         <Paper p={'xl'} className={styles.menuContent}>
-          <Flex direction={'column'} gap={'xl'}>
+          <Flex direction={'column'} gap={'sm'}>
             <UserMenu />
+            <Divider my="md" />
             <ProjectMenu />
           </Flex>
         </Paper>
       </ScrollArea>
       <ScrollArea className={styles.container}>
-        <Container size={'xl'} p={'xl'} className={styles.containerContent}>
+        <Container p={0} className={styles.containerContent} fluid>
           {children}
         </Container>
       </ScrollArea>

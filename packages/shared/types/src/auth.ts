@@ -22,3 +22,11 @@ export type LoginRequest = z.infer<typeof loginRequestScheme>
 export type LoginResponse = {
   accessToken: string
 }
+
+export type RegistrationResponse = LoginResponse & {
+  defaultProjectId: string
+}
+
+export type LoginGoogleResponse = LoginResponse & {
+  defaultProjectId?: string
+}

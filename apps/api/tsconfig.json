@@ -19,7 +19,8 @@
       "@controllers": ["./src/controllers/index.ts"],
       "@decorators": ["./src/decorators/index.ts"],
       "@secure": ["./src/secure/index.ts"],
-      "@cron": ["./src/cron/index.ts"]
+      "@cron": ["./src/cron/index.ts"],
+      "@utils": ["./src/utils/index.ts"]
     }
   },
   "include": ["src/**/*.ts"],
