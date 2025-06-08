@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose'
-import { Model } from 'mongoose'
+import { Model, Types } from 'mongoose'
 import { User, UserAuthProvider } from '@models'
 
 import { FilesService } from './file.service'
@@ -63,13 +63,13 @@ export class UserService {
   }
 
   async deleteUnusedFiles() {
-    const usedFiles = await this.userModel.distinct('avatar', {
+    const allUserFiles = (await this.userModel.distinct('avatar', {
       avatar: { $ne: null },
-    })
-    const usedFileIds = usedFiles.map((file) => file._id)
+    })) as Types.ObjectId[]
+    const usedFiles = await this.filesService.findAllUnusedFiles(allUserFiles)
 
-    for (const unusedFileId of usedFileIds) {
-      await this.filesService.markFileForDeletion(unusedFileId)
+    for (const unusedFileId of usedFiles) {
+      await this.filesService.markFileForDeletion(unusedFileId.id)
     }
   }
 }

@@ -10,13 +10,13 @@ export class CronService {
     @Inject(UserService) private readonly userService: UserService,
   ) {}
 
-  @Cron(CronExpression.EVERY_30_MINUTES)
+  @Cron(CronExpression.EVERY_DAY_AT_1AM)
   async handleCleanUnusedFiles() {
     cronLogger.log('Running cleanUnusedFiles cron task...')
-    await this.filesService.cleanUnusedFiles(60)
+    await this.filesService.cleanUnusedFiles(2)
   }
 
-  @Cron(CronExpression.EVERY_10_MINUTES)
+  @Cron(CronExpression.EVERY_30_MINUTES)
   async handleCleanAllUnusedFiles() {
     cronLogger.log('Running cleanAllUnusedFiles cron task...')
     await this.userService.deleteUnusedFiles()

@@ -69,11 +69,19 @@ export class FilesService {
     return createdFile.save()
   }
 
+  async findAllUnusedFiles(
+    allUsedFileIds: Types.ObjectId[],
+  ): Promise<FileDocument[]> {
+    return this.fileModel.find({
+      _id: { $nin: allUsedFileIds },
+    })
+  }
+
   async markFileForDeletion(
     fileId: Types.ObjectId,
   ): Promise<FileDocument | null> {
-    return this.fileModel.findByIdAndUpdate(
-      fileId,
+    return this.fileModel.findOneAndUpdate(
+      { _id: fileId, markedForDeletionAt: null },
       { markedForDeletionAt: new Date() },
       { new: true },
     )
@@ -88,7 +96,6 @@ export class FilesService {
         }),
       )
       await file.deleteOne()
-      filesLogger.log(`File deleted from S3 and MongoDB: ${file._id}`)
     } catch (error) {
       filesLogger.error(`Failed to delete file ${file._id}: ${error}`)
     }
@@ -103,7 +110,5 @@ export class FilesService {
     for (const file of filesToDelete) {
       await this.deleteFile(file)
     }
-
-    filesLogger.log(`Cleaned ${filesToDelete.length} files`)
   }
 }

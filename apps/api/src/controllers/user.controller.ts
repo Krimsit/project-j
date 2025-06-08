@@ -11,8 +11,6 @@ export class UserController {
   @UseGuards(JwtAuthGuard)
   @Get(userEndpoints.profile)
   async getProfile(@UserDecorator() user: UserDocument): Promise<UserProfile> {
-    console.log(user.avatar)
-
     return {
       id: user.id,
       email: user.email,
