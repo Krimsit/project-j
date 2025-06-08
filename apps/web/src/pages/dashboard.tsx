@@ -1,14 +1,10 @@
-import { useProfile } from '@dto/user'
+import { Center } from '@mantine/core'
 
 import type { FC } from 'react'
 
 const DashboardPage: FC = () => {
-  const { data } = useProfile()
-
   return (
-    <div>
-      {data?.email}, {data?.username}
-    </div>
+    <Center h={'100%'}>У вас нет проектов. Создайте свой первый проект.</Center>
   )
 }
 
