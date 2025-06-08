@@ -1,13 +1,14 @@
 import { Injectable, Inject } from '@nestjs/common'
 import { Cron, CronExpression } from '@nestjs/schedule'
 import { cronLogger } from '@core/loggers'
-import { FilesService, UserService } from '@services'
+import { FilesService, UserService, ProjectService } from '@services'
 
 @Injectable()
 export class CronService {
   constructor(
     @Inject(FilesService) private readonly filesService: FilesService,
     @Inject(UserService) private readonly userService: UserService,
+    @Inject(ProjectService) private readonly projectService: ProjectService,
   ) {}
 
   @Cron(CronExpression.EVERY_DAY_AT_1AM)
@@ -20,5 +21,6 @@ export class CronService {
   async handleCleanAllUnusedFiles() {
     cronLogger.log('Running cleanAllUnusedFiles cron task...')
     await this.userService.deleteUnusedFiles()
+    await this.projectService.deleteUnusedFiles()
   }
 }

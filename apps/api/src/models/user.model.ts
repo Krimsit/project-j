@@ -2,6 +2,8 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
 import { Types } from 'mongoose'
 import { hash } from 'argon2'
 
+import { File } from './file.model'
+
 import type { CallbackError, Document } from 'mongoose'
 import type { FileDocument } from './file.model'
 

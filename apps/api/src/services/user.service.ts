@@ -4,8 +4,9 @@ import { Model, Types } from 'mongoose'
 import { User, UserAuthProvider } from '@models'
 
 import { FilesService } from './file.service'
+import { ProjectService } from './project.service'
 
-import type { UserDocument } from '@models'
+import type { UserDocument, ProjectDocument } from '@models'
 
 export type CreateLocalUserParams = Pick<
   User,
@@ -23,11 +24,17 @@ export type CreateGoogleUserParams = Pick<
     avatar?: string
   }
 
+export type CreateUserReturn = {
+  createdUser: UserDocument
+  defaultProject: ProjectDocument | null
+}
+
 @Injectable()
 export class UserService {
   constructor(
     @InjectModel(User.name) private userModel: Model<UserDocument>,
     @Inject(FilesService) private readonly filesService: FilesService,
+    @Inject(ProjectService) private readonly projectService: ProjectService,
   ) {}
 
   async findById(id: string): Promise<UserDocument | null> {
@@ -42,24 +49,47 @@ export class UserService {
     return this.userModel.findOne({ googleId }).populate(['avatar']).exec()
   }
 
-  async createLocalUser(params: CreateLocalUserParams): Promise<UserDocument> {
-    const createdUser = new this.userModel({
+  async createLocalUser(
+    params: CreateLocalUserParams,
+  ): Promise<CreateUserReturn | null> {
+    const newUser = new this.userModel({
       ...params,
       authProvider: UserAuthProvider.Local,
     })
+    const createdUser = await newUser.save()
 
-    return createdUser.save()
+    if (!createdUser) {
+      return null
+    }
+
+    const createUserParams = await this.afterCreateUser(createdUser)
+
+    return {
+      createdUser,
+      ...createUserParams,
+    }
   }
 
   async createGoogleUser(
     params: CreateGoogleUserParams,
-  ): Promise<UserDocument> {
-    const createdUser = new this.userModel({
+  ): Promise<CreateUserReturn | null> {
+    const newUser = new this.userModel({
       ...params,
       authProvider: UserAuthProvider.Google,
     })
 
-    return createdUser.save()
+    const createdUser = await newUser.save()
+
+    if (!createdUser) {
+      return null
+    }
+
+    const createUserParams = await this.afterCreateUser(createdUser)
+
+    return {
+      createdUser,
+      ...createUserParams,
+    }
   }
 
   async deleteUnusedFiles() {
@@ -70,6 +100,19 @@ export class UserService {
 
     for (const unusedFileId of usedFiles) {
       await this.filesService.markFileForDeletion(unusedFileId.id)
+    }
+  }
+
+  private async afterCreateUser(
+    user: UserDocument,
+  ): Promise<Pick<CreateUserReturn, 'defaultProject'>> {
+    const createdDefaultProjedt = await this.projectService.createProject({
+      name: 'Default Project',
+      owner: user.id,
+    })
+
+    return {
+      defaultProject: createdDefaultProjedt,
     }
   }
 }

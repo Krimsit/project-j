@@ -6,6 +6,9 @@ export {
   UserService,
   type CreateLocalUserParams,
   type CreateGoogleUserParams,
+  type CreateUserReturn,
 } from './user.service'
 
 export { AuthService } from './auth.service'
+
+export { ProjectService } from './project.service'

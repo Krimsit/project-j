@@ -20,6 +20,7 @@ import { Route as AuthenticationAuthLayoutRegistrationImport } from './routes/au
 import { Route as AuthenticationAuthLayoutLoginImport } from './routes/authentication/_authLayout/login'
 import { Route as AuthDashboardDashboardLayoutImport } from './routes/_auth/dashboard/_dashboardLayout'
 import { Route as AuthDashboardDashboardLayoutIndexImport } from './routes/_auth/dashboard/_dashboardLayout/index'
+import { Route as AuthDashboardDashboardLayoutProjectIdIndexImport } from './routes/_auth/dashboard/_dashboardLayout/$projectId/index'
 
 // Create Virtual Routes
 
@@ -80,6 +81,13 @@ const AuthDashboardDashboardLayoutIndexRoute =
   AuthDashboardDashboardLayoutIndexImport.update({
     id: '/',
     path: '/',
+    getParentRoute: () => AuthDashboardDashboardLayoutRoute,
+  } as any)
+
+const AuthDashboardDashboardLayoutProjectIdIndexRoute =
+  AuthDashboardDashboardLayoutProjectIdIndexImport.update({
+    id: '/$projectId/',
+    path: '/$projectId/',
     getParentRoute: () => AuthDashboardDashboardLayoutRoute,
   } as any)
 
@@ -150,6 +158,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthDashboardDashboardLayoutIndexImport
       parentRoute: typeof AuthDashboardDashboardLayoutImport
     }
+    '/_auth/dashboard/_dashboardLayout/$projectId/': {
+      id: '/_auth/dashboard/_dashboardLayout/$projectId/'
+      path: '/$projectId'
+      fullPath: '/dashboard/$projectId'
+      preLoaderRoute: typeof AuthDashboardDashboardLayoutProjectIdIndexImport
+      parentRoute: typeof AuthDashboardDashboardLayoutImport
+    }
   }
 }
 
@@ -157,12 +172,15 @@ declare module '@tanstack/react-router' {
 
 interface AuthDashboardDashboardLayoutRouteChildren {
   AuthDashboardDashboardLayoutIndexRoute: typeof AuthDashboardDashboardLayoutIndexRoute
+  AuthDashboardDashboardLayoutProjectIdIndexRoute: typeof AuthDashboardDashboardLayoutProjectIdIndexRoute
 }
 
 const AuthDashboardDashboardLayoutRouteChildren: AuthDashboardDashboardLayoutRouteChildren =
   {
     AuthDashboardDashboardLayoutIndexRoute:
       AuthDashboardDashboardLayoutIndexRoute,
+    AuthDashboardDashboardLayoutProjectIdIndexRoute:
+      AuthDashboardDashboardLayoutProjectIdIndexRoute,
   }
 
 const AuthDashboardDashboardLayoutRouteWithChildren =
@@ -230,6 +248,7 @@ export interface FileRoutesByFullPath {
   '/authentication/login': typeof AuthenticationAuthLayoutLoginRoute
   '/authentication/registration': typeof AuthenticationAuthLayoutRegistrationRoute
   '/dashboard/': typeof AuthDashboardDashboardLayoutIndexRoute
+  '/dashboard/$projectId': typeof AuthDashboardDashboardLayoutProjectIdIndexRoute
 }
 
 export interface FileRoutesByTo {
@@ -239,6 +258,7 @@ export interface FileRoutesByTo {
   '/dashboard': typeof AuthDashboardDashboardLayoutIndexRoute
   '/authentication/login': typeof AuthenticationAuthLayoutLoginRoute
   '/authentication/registration': typeof AuthenticationAuthLayoutRegistrationRoute
+  '/dashboard/$projectId': typeof AuthDashboardDashboardLayoutProjectIdIndexRoute
 }
 
 export interface FileRoutesById {
@@ -252,6 +272,7 @@ export interface FileRoutesById {
   '/authentication/_authLayout/login': typeof AuthenticationAuthLayoutLoginRoute
   '/authentication/_authLayout/registration': typeof AuthenticationAuthLayoutRegistrationRoute
   '/_auth/dashboard/_dashboardLayout/': typeof AuthDashboardDashboardLayoutIndexRoute
+  '/_auth/dashboard/_dashboardLayout/$projectId/': typeof AuthDashboardDashboardLayoutProjectIdIndexRoute
 }
 
 export interface FileRouteTypes {
@@ -264,6 +285,7 @@ export interface FileRouteTypes {
     | '/authentication/login'
     | '/authentication/registration'
     | '/dashboard/'
+    | '/dashboard/$projectId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -272,6 +294,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/authentication/login'
     | '/authentication/registration'
+    | '/dashboard/$projectId'
   id:
     | '__root__'
     | '/'
@@ -283,6 +306,7 @@ export interface FileRouteTypes {
     | '/authentication/_authLayout/login'
     | '/authentication/_authLayout/registration'
     | '/_auth/dashboard/_dashboardLayout/'
+    | '/_auth/dashboard/_dashboardLayout/$projectId/'
   fileRoutesById: FileRoutesById
 }
 
@@ -347,7 +371,8 @@ export const routeTree = rootRoute
       "filePath": "_auth/dashboard/_dashboardLayout.tsx",
       "parent": "/_auth/dashboard",
       "children": [
-        "/_auth/dashboard/_dashboardLayout/"
+        "/_auth/dashboard/_dashboardLayout/",
+        "/_auth/dashboard/_dashboardLayout/$projectId/"
       ]
     },
     "/authentication/_authLayout/login": {
@@ -360,6 +385,10 @@ export const routeTree = rootRoute
     },
     "/_auth/dashboard/_dashboardLayout/": {
       "filePath": "_auth/dashboard/_dashboardLayout/index.tsx",
+      "parent": "/_auth/dashboard/_dashboardLayout"
+    },
+    "/_auth/dashboard/_dashboardLayout/$projectId/": {
+      "filePath": "_auth/dashboard/_dashboardLayout/$projectId/index.tsx",
       "parent": "/_auth/dashboard/_dashboardLayout"
     }
   }

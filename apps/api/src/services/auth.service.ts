@@ -4,8 +4,9 @@ import { verify } from 'argon2'
 
 import { UserService } from './user.service'
 
-import type { LoginResponse } from '@shared/types'
-import type { UserDocument } from '@models'
+import type { LoginResponse, RegistrationResponse } from '@shared/types'
+import type { CreateUserReturn } from '@services'
+import type { UserDocument, ProjectDocument } from '@models'
 import type {
   CreateLocalUserParams,
   CreateGoogleUserParams,
@@ -35,18 +36,29 @@ export class AuthService {
 
   async validateGoogleUser(
     params: CreateGoogleUserParams,
-  ): Promise<UserDocument> {
+  ): Promise<CreateUserReturn | null> {
     let user = await this.userService.findByGoogleId(params.googleId)
+    let defaultProject: ProjectDocument | null = null
 
     if (!user) {
       user = await this.userService.findByEmail(params.email)
 
       if (!user) {
-        user = await this.userService.createGoogleUser(params)
+        const createdUser = await this.userService.createGoogleUser(params)
+
+        user = createdUser?.createdUser ?? null
+        defaultProject = createdUser?.defaultProject ?? null
       }
     }
 
-    return user
+    if (!user) {
+      return null
+    }
+
+    return {
+      createdUser: user,
+      defaultProject: defaultProject,
+    }
   }
 
   async login(user: UserDocument): Promise<LoginResponse> {
@@ -57,7 +69,9 @@ export class AuthService {
     }
   }
 
-  async register(params: CreateLocalUserParams): Promise<LoginResponse> {
+  async register(
+    params: CreateLocalUserParams,
+  ): Promise<RegistrationResponse | null> {
     const existingUser = await this.userService.findByEmail(params.email)
 
     if (existingUser)
@@ -65,6 +79,15 @@ export class AuthService {
 
     const user = await this.userService.createLocalUser(params)
 
-    return this.login(user)
+    if (!user) {
+      return null
+    }
+
+    const loginResponse = await this.login(user?.createdUser)
+
+    return {
+      ...loginResponse,
+      defaultProjectId: user.defaultProject?.id ?? '',
+    }
   }
 }
