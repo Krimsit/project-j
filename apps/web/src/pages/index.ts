@@ -1,1 +1,5 @@
-export { default as RootPage } from './root'
+export { default as LoginPage } from './login'
+
+export { default as RegistrationPage } from './registration'
+
+export { default as DashboardPage } from './dashboard'
