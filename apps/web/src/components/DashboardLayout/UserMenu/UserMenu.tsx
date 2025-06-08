@@ -1,6 +1,5 @@
-import { Menu, Button, Flex, Text } from '@mantine/core'
+import { Menu, Button, Flex, Text, Avatar } from '@mantine/core'
 import {
-  IconUser,
   IconArrowsMoveVertical,
   IconSettings,
   IconLogout,
@@ -18,7 +17,7 @@ const UserMenu: FC = () => {
     <Menu shadow={'md'} width={'target'}>
       <Menu.Target>
         <Button
-          leftSection={<IconUser />}
+          leftSection={<Avatar src={data?.avatar} size={'md'} />}
           rightSection={<IconArrowsMoveVertical />}
           variant={'default'}
           size={'xl'}
@@ -30,7 +29,7 @@ const UserMenu: FC = () => {
             <Text>
               {data?.lastName} {data?.firstName} {data?.midName}
             </Text>
-            <Text size={'sm'} c={'dimmed'}>
+            <Text size={'sm'} c={'dimmed'} ta={'left'}>
               @{data?.username}
             </Text>
           </Flex>

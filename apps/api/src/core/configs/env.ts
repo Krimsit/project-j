@@ -14,6 +14,11 @@ const envConfigSchema = z.object({
   API_GOOGLE_CLIENT_ID: z.string().min(1),
   API_JWT_SECRET: z.string().min(1),
   API_JWT_EXPIRED: z.string().min(1),
+  API_S3_URL: z.string().min(1),
+  API_S3_REGION: z.string().min(1),
+  API_S3_BUCKET_NAME: z.string().min(1),
+  API_S3_ACCESS_KEY_ID: z.string().min(1),
+  API_S3_SECRET_ACCESS_KEY: z.string().min(1),
   API_WEBAPP_URL: z.string().min(1),
 })
 

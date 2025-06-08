@@ -7,6 +7,7 @@ import { SecureModule } from '@secure'
 import { ModelsModule } from '@models'
 import { ServicesModule } from '@services'
 import { ControllersModule } from '@controllers'
+import { CronModule } from '@cron'
 
 import type { EnvConfig } from '@core/configs'
 
@@ -45,6 +46,7 @@ import type { EnvConfig } from '@core/configs'
     ModelsModule,
     ServicesModule,
     ControllersModule,
+    CronModule,
   ],
 })
 export class AppModule {}

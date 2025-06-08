@@ -1,7 +1,9 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
+import { Types } from 'mongoose'
 import { hash } from 'argon2'
 
 import type { CallbackError, Document } from 'mongoose'
+import type { FileDocument } from './file.model'
 
 export type UserDocument = User & Document
 
@@ -15,7 +17,7 @@ export class User {
   @Prop({ type: String, required: true, unique: true })
   email!: string
 
-  @Prop({ type: String, required: true })
+  @Prop({ type: String, required: false })
   password?: string
 
   @Prop({ type: String, required: true })
@@ -29,6 +31,9 @@ export class User {
 
   @Prop({ type: String, required: false })
   midName?: string
+
+  @Prop({ type: Types.ObjectId, ref: File.name, required: false })
+  avatar?: FileDocument
 
   @Prop({
     type: String,
