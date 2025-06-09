@@ -7,3 +7,5 @@ export { filesEndpoints } from './files'
 export { projectEndpoints } from './project'
 
 export { boardEndpoints } from './board'
+
+export { taskEndpoints } from './task'

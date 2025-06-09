@@ -5,6 +5,7 @@ import { User, UserSchema } from './user.model'
 import { File, FileSchema } from './file.model'
 import { Project, ProjectSchema } from './project.model'
 import { Board, BoardSchema } from './board.model'
+import { Task, TaskSchema } from './task.model'
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { Board, BoardSchema } from './board.model'
       { name: File.name, schema: FileSchema },
       { name: Project.name, schema: ProjectSchema },
       { name: Board.name, schema: BoardSchema },
+      { name: Task.name, schema: TaskSchema },
     ]),
   ],
   exports: [MongooseModule],

@@ -1,5 +1,16 @@
-import type { UserProfile, ProjectResponse, BoardResponse } from '@shared/types'
-import type { UserDocument, ProjectDocument, BoardDocument } from '@models'
+import type {
+  UserProfile,
+  ProjectResponse,
+  BoardResponse,
+  TaskResponse,
+  TaskCardResponse,
+} from '@shared/types'
+import type {
+  UserDocument,
+  ProjectDocument,
+  BoardDocument,
+  TaskDocument,
+} from '@models'
 
 export const parseUserResponse = (user: UserDocument): UserProfile => ({
   id: user.id,
@@ -27,4 +38,24 @@ export const parseBoardResponse = (board: BoardDocument): BoardResponse => ({
   name: board.name,
   description: board.description,
   owner: parseUserResponse(board.owner),
+})
+
+export const parseTaskResponse = (task: TaskDocument): TaskResponse => ({
+  id: task.id,
+  name: task.name,
+  description: task.description,
+  status: task.status,
+  dueDate: task.dueDate,
+  assigner: parseUserResponse(task.assigner),
+  files: [],
+})
+
+export const parseTaskCardResponse = (
+  task: TaskDocument,
+): TaskCardResponse => ({
+  id: task.id,
+  name: task.name,
+  status: task.status,
+  dueDate: task.dueDate,
+  assigner: parseUserResponse(task.assigner),
 })

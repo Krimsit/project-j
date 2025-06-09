@@ -26,7 +26,9 @@ const PageInfo: FC<PageInfoProps> = ({ name, actions, items }) => {
             gap={'lg'}
             align={item.isCenter ? 'center' : 'flex-start'}
           >
-            <Text fw={700}>{item.label}:</Text>
+            <Text fw={700} className={styles.descriptionLabel}>
+              {item.label}:
+            </Text>
             {item.value}
           </Flex>
         ))}

@@ -4,6 +4,7 @@ import { RouterProvider, createRouter } from '@tanstack/react-router'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { MantineProvider } from '@mantine/core'
 import '@mantine/core/styles.css'
+import '@mantine/dates/styles.css'
 import { AuthProvider, useAuthContext } from '@context'
 import { queryClient } from '@config'
 

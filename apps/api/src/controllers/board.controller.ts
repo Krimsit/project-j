@@ -35,30 +35,25 @@ export class BoardController {
 
   @UseGuards(JwtAuthGuard)
   @Get(boardEndpoints.get)
-  async getProject(@Query('id') id: string): Promise<BoardResponse> {
-    const project = await this.boardService.findById(id)
+  async getBoard(@Query('id') id: string): Promise<BoardResponse> {
+    const board = await this.boardService.findById(id)
 
-    if (!project) {
+    if (!board) {
       throw new NotFoundException('Board not found')
     }
 
-    return parseBoardResponse(project)
+    return parseBoardResponse(board)
   }
 
   @UseGuards(JwtAuthGuard)
   @Get(boardEndpoints.projectBoard)
   async getProjectBoards(
-    @UserDecorator() user: UserDocument,
     @Query('projectId') projectId: string,
   ): Promise<ProjectBoard[]> {
     const project = await this.projectService.findById(projectId)
 
     if (!project) {
       throw new NotFoundException('Project not found')
-    }
-
-    if (project.owner.id !== user.id) {
-      throw new ForbiddenException('Project not found')
     }
 
     const boards = await this.boardService.getProjectBoards(project.id)
