@@ -29,3 +29,15 @@ export type {
   UpdateBoardRequest,
   ProjectBoard,
 } from './board'
+
+export { createTaskSchema, TaskStatus } from './task'
+
+export type {
+  TaskResponse,
+  TaskCardResponse,
+  CreateTaskRequest,
+  UpdateTaskRequest,
+  UploadTaskFileRequest,
+  DeleteTaskFileRequest,
+  TaskNextStatusesResponse,
+} from './task'

@@ -8,6 +8,7 @@ import { UserService } from './user.service'
 import { AuthService } from './auth.service'
 import { ProjectService } from './project.service'
 import { BoardService } from './board.service'
+import { TaskService } from './task.service'
 
 @Module({
   imports: [ModelsModule, JwtModule, ConfigModule],
@@ -17,6 +18,7 @@ import { BoardService } from './board.service'
     AuthService,
     ProjectService,
     BoardService,
+    TaskService,
   ],
   exports: [
     FilesService,
@@ -24,6 +26,7 @@ import { BoardService } from './board.service'
     AuthService,
     ProjectService,
     BoardService,
+    TaskService,
   ],
 })
 export class ServicesModule {}

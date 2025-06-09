@@ -13,3 +13,9 @@ export { ProjectInfo } from './ProjectInfo'
 export { BoardInfo } from './BoardInfo'
 
 export { ProjectBoards } from './ProjectBoards'
+
+export { TasksTable, type TasksTableProps } from './TasksTable'
+
+export { CreateTaskModal, type CreateTaskModalProps } from './CreateTaskModal'
+
+export { TaskDrawer } from './TaskDrawer'

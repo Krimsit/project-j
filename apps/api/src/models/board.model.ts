@@ -20,8 +20,8 @@ export class Board {
   @Prop({ type: Types.ObjectId, ref: User.name, required: true })
   owner!: UserDocument
 
-  @Prop({ type: Types.ObjectId, ref: Project.name, required: false })
-  project?: ProjectDocument
+  @Prop({ type: Types.ObjectId, ref: Project.name, required: true })
+  project!: ProjectDocument
 }
 
 export const BoardSchema = SchemaFactory.createForClass(Board)
