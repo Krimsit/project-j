@@ -1,5 +1,5 @@
-import type { UserProfile, ProjectResponse } from '@shared/types'
-import type { UserDocument, ProjectDocument } from '@models'
+import type { UserProfile, ProjectResponse, BoardResponse } from '@shared/types'
+import type { UserDocument, ProjectDocument, BoardDocument } from '@models'
 
 export const parseUserResponse = (user: UserDocument): UserProfile => ({
   id: user.id,
@@ -20,4 +20,11 @@ export const parseProjectResponse = (
   gradient: project.gradient,
   cover: project.cover?.id,
   owner: parseUserResponse(project.owner),
+})
+
+export const parseBoardResponse = (board: BoardDocument): BoardResponse => ({
+  id: board.id,
+  name: board.name,
+  description: board.description,
+  owner: parseUserResponse(board.owner),
 })

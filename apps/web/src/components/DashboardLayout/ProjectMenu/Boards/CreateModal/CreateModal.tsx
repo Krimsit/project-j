@@ -1,11 +1,11 @@
 import { Modal, TextInput, Flex, Button, Textarea, Group } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { zodResolver } from 'mantine-form-zod-resolver'
-import { createProjectSchema } from '@shared/types'
-import { useCreateProject } from '@dto/project'
+import { createBoardSchema } from '@shared/types'
+import { useCreateBoard } from '@dto/board'
 
 import type { FC } from 'react'
-import type { CreateProjectRequest } from '@shared/types'
+import type { CreateBoardRequest } from '@shared/types'
 
 export type CreateModalProps = {
   isOpen: boolean
@@ -13,17 +13,17 @@ export type CreateModalProps = {
 }
 
 const CreateModal: FC<CreateModalProps> = ({ isOpen, onClose }) => {
-  const { mutateAsync, isPending } = useCreateProject()
-  const form = useForm<CreateProjectRequest>({
+  const { mutateAsync, isPending } = useCreateBoard()
+  const form = useForm<CreateBoardRequest>({
     mode: 'uncontrolled',
     initialValues: {
       name: '',
       description: '',
     },
-    validate: zodResolver(createProjectSchema),
+    validate: zodResolver(createBoardSchema),
   })
 
-  const handleSuccess = async (values: CreateProjectRequest) => {
+  const handleSuccess = async (values: CreateBoardRequest) => {
     await mutateAsync(values)
     onClose()
   }
@@ -35,14 +35,14 @@ const CreateModal: FC<CreateModalProps> = ({ isOpen, onClose }) => {
           <TextInput
             key={form.key('name')}
             label={'Название'}
-            placeholder={'Мой проект'}
+            placeholder={'Моя доска'}
             withAsterisk
             {...form.getInputProps('name')}
           />
           <Textarea
             key={form.key('description')}
             label={'Описание'}
-            placeholder={'Описание проекта'}
+            placeholder={'Описание доски'}
             {...form.getInputProps('description')}
           />
           <Group gap={'md'} justify={'flex-end'}>
@@ -50,7 +50,7 @@ const CreateModal: FC<CreateModalProps> = ({ isOpen, onClose }) => {
               Отмена
             </Button>
             <Button type={'submit'} loading={isPending}>
-              Создать
+              Добавить
             </Button>
           </Group>
         </Flex>

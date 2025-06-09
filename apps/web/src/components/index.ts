@@ -4,6 +4,12 @@ export { GoogleAuthButton } from './GoogleAuthButton'
 
 export { DashboardLayout } from './DashboardLayout'
 
-export { ProjectCover } from './ProjectCover'
+export { PageCover, type PageCoverProps } from './PageCover'
+
+export { PageInfo, type PageInfoProps } from './PageInfo'
 
 export { ProjectInfo } from './ProjectInfo'
+
+export { BoardInfo } from './BoardInfo'
+
+export { ProjectBoards } from './ProjectBoards'

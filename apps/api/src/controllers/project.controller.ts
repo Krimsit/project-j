@@ -21,6 +21,7 @@ import { parseProjectResponse } from '@utils'
 import type {
   ProjectResponse,
   CreateProjectRequest,
+  UpdateProjectRequest,
   MyProject,
 } from '@shared/types'
 import type { UserDocument } from '@models'
@@ -76,7 +77,7 @@ export class ProjectController {
   @UseGuards(JwtAuthGuard)
   @Patch(projectEndpoints.update)
   async updateProject(
-    @Body() params: CreateProjectRequest,
+    @Body() params: UpdateProjectRequest,
     @UserDecorator() user: UserDocument,
     @Query('id') id: string,
   ): Promise<ProjectResponse> {
@@ -118,12 +119,12 @@ export class ProjectController {
       throw new ForbiddenException('Project not found')
     }
 
-    const updatedProject = await this.projectService.deleteProject(project.id)
+    const deletedProject = await this.projectService.deleteProject(project.id)
 
-    if (!updatedProject) {
+    if (!deletedProject) {
       throw new InternalServerErrorException('An error occurred')
     }
 
-    return parseProjectResponse(project)
+    return parseProjectResponse(deletedProject)
   }
 }

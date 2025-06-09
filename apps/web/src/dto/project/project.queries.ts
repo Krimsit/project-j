@@ -47,20 +47,20 @@ export const useMyProjects = () => {
   })
 }
 
-const httpCreateProjects = (
+const httpCreateProject = (
   data: CreateProjectRequest,
 ): Promise<ProjectResponse> =>
   httpClient
     .post(projectEndpoints.create, data)
     .then((response) => response.data)
 
-export const useCreateProjects = () => {
+export const useCreateProject = () => {
   const navigate = useNavigate()
   const queryClient = useQueryClient()
 
   return useMutation<ProjectResponse, Error, CreateProjectRequest>({
     mutationKey: ['projects', 'create'],
-    mutationFn: httpCreateProjects,
+    mutationFn: httpCreateProject,
     onSuccess: async (data) => {
       await queryClient.invalidateQueries({
         queryKey: ['projects', 'my'],
@@ -75,7 +75,7 @@ export const useCreateProjects = () => {
   })
 }
 
-const httpUpdateProjects = (
+const httpUpdateProject = (
   projectId: string,
   data: UpdateProjectRequest,
 ): Promise<ProjectResponse> =>
@@ -87,22 +87,25 @@ const httpUpdateProjects = (
     })
     .then((response) => response.data)
 
-export const useUpdateProjects = () => {
+export const useUpdateProject = () => {
   const params = useParams({ strict: false })
   const queryClient = useQueryClient()
 
   return useMutation<ProjectResponse, Error, UpdateProjectRequest>({
     mutationKey: ['projects', params.projectId, 'update'],
-    mutationFn: (data) => httpUpdateProjects(params.projectId ?? '', data),
+    mutationFn: (data) => httpUpdateProject(params.projectId ?? '', data),
     onSuccess: async () => {
       await queryClient.invalidateQueries({
         queryKey: ['projects', params.projectId],
+      })
+      await queryClient.invalidateQueries({
+        queryKey: ['projects', 'my'],
       })
     },
   })
 }
 
-const httpDeleteProjects = (projectId: string): Promise<ProjectResponse> =>
+const httpDeleteProject = (projectId: string): Promise<ProjectResponse> =>
   httpClient
     .delete(projectEndpoints.delete, {
       params: {
@@ -111,14 +114,14 @@ const httpDeleteProjects = (projectId: string): Promise<ProjectResponse> =>
     })
     .then((response) => response.data)
 
-export const useDeleteProjects = () => {
+export const useDeleteProject = () => {
   const navigate = useNavigate()
   const params = useParams({ strict: false })
   const queryClient = useQueryClient()
 
   return useMutation<ProjectResponse, Error, never>({
-    mutationKey: ['projects', 'delete'],
-    mutationFn: () => httpDeleteProjects(params.projectId ?? ''),
+    mutationKey: ['projects', params.projectId, 'delete'],
+    mutationFn: () => httpDeleteProject(params.projectId ?? ''),
     onSuccess: async () => {
       await queryClient.invalidateQueries({
         queryKey: ['projects', 'my'],

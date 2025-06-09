@@ -1,7 +1,7 @@
 import { useState, useMemo, Fragment } from 'react'
 import { Flex, Text, Avatar, ActionIcon, Menu } from '@mantine/core'
 import { IconDotsVertical, IconReload, IconTrash } from '@tabler/icons-react'
-import { useProject } from '@dto/project'
+import { useBoard } from '@dto/board'
 import { PageInfo } from '@components'
 
 import { UpdateModal } from './UpdateModal'
@@ -10,10 +10,10 @@ import { DeleteModal } from './DeleteModal'
 import type { FC } from 'react'
 import type { PageInfoProps } from '@components'
 
-const ProjectInfo: FC = () => {
+const BoardInfo: FC = () => {
   const [isOpenUpdateModal, setIsOpenUpdateModal] = useState<boolean>(false)
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState<boolean>(false)
-  const { data } = useProject()
+  const { data } = useBoard()
   const items = useMemo(() => {
     const defaultItems: PageInfoProps['items'] = [
       {
@@ -91,4 +91,4 @@ const ProjectInfo: FC = () => {
   )
 }
 
-export default ProjectInfo
+export default BoardInfo

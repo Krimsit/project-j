@@ -2,7 +2,7 @@ import { Modal, TextInput, Flex, Button, Textarea, Group } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { zodResolver } from 'mantine-form-zod-resolver'
 import { createProjectSchema } from '@shared/types'
-import { useProject, useUpdateProjects } from '@dto/project'
+import { useProject, useUpdateProject } from '@dto/project'
 
 import type { FC } from 'react'
 import type { UpdateProjectRequest } from '@shared/types'
@@ -14,7 +14,7 @@ export type UpdateModalProps = {
 
 const UpdateModal: FC<UpdateModalProps> = ({ isOpen, onClose }) => {
   const { data } = useProject()
-  const { mutateAsync, isPending } = useUpdateProjects()
+  const { mutateAsync, isPending } = useUpdateProject()
   const form = useForm<UpdateProjectRequest>({
     mode: 'uncontrolled',
     initialValues: {
