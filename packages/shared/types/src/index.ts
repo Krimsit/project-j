@@ -20,3 +20,12 @@ export type {
   CreateProjectRequest,
   MyProject,
 } from './project'
+
+export { createBoardSchema } from './board'
+
+export type {
+  BoardResponse,
+  CreateBoardRequest,
+  UpdateBoardRequest,
+  ProjectBoard,
+} from './board'

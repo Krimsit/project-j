@@ -1,5 +1,5 @@
 import { Modal, Text, Flex, Button, Group } from '@mantine/core'
-import { useDeleteProject, useProject } from '@dto/project'
+import { useDeleteBoard, useBoard } from '@dto/board'
 
 import type { FC } from 'react'
 
@@ -9,14 +9,14 @@ export type DeleteModalModalProps = {
 }
 
 const DeleteModal: FC<DeleteModalModalProps> = ({ isOpen, onClose }) => {
-  const { data } = useProject()
-  const { mutate: deleteProject, isPending } = useDeleteProject()
+  const { data } = useBoard()
+  const { mutate: deleteBoard, isPending } = useDeleteBoard()
 
   return (
-    <Modal opened={isOpen} onClose={onClose} title={'Удалить проект?'}>
+    <Modal opened={isOpen} onClose={onClose} title={'Удалить доску?'}>
       <Flex direction={'column'} gap={'md'}>
         <Text ta={'left'}>
-          Вы действительно хотите удалить проект{' '}
+          Вы действительно хотите удалить доску
           <Text component={'span'} fw={700}>
             {data?.name}
           </Text>
@@ -25,7 +25,7 @@ const DeleteModal: FC<DeleteModalModalProps> = ({ isOpen, onClose }) => {
           <Button onClick={onClose} variant={'subtle'}>
             Отмена
           </Button>
-          <Button onClick={deleteProject} color={'red'} loading={isPending}>
+          <Button onClick={deleteBoard} color={'red'} loading={isPending}>
             Удалить
           </Button>
         </Group>

@@ -2,7 +2,7 @@ export {
   projectQuery,
   useProject,
   useMyProjects,
-  useCreateProjects,
-  useUpdateProjects,
-  useDeleteProjects,
+  useCreateProject,
+  useUpdateProject,
+  useDeleteProject,
 } from './project.queries.ts'

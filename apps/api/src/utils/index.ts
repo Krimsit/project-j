@@ -1,1 +1,5 @@
-export { parseUserResponse, parseProjectResponse } from './parser'
+export {
+  parseUserResponse,
+  parseProjectResponse,
+  parseBoardResponse,
+} from './parser'

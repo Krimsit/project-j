@@ -7,10 +7,23 @@ import { FilesService } from './file.service'
 import { UserService } from './user.service'
 import { AuthService } from './auth.service'
 import { ProjectService } from './project.service'
+import { BoardService } from './board.service'
 
 @Module({
   imports: [ModelsModule, JwtModule, ConfigModule],
-  providers: [FilesService, UserService, AuthService, ProjectService],
-  exports: [FilesService, UserService, AuthService, ProjectService],
+  providers: [
+    FilesService,
+    UserService,
+    AuthService,
+    ProjectService,
+    BoardService,
+  ],
+  exports: [
+    FilesService,
+    UserService,
+    AuthService,
+    ProjectService,
+    BoardService,
+  ],
 })
 export class ServicesModule {}
